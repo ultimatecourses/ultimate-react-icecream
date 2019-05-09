@@ -2,15 +2,17 @@ import React from "react";
 import "./assets/css/style.css";
 import logo from "./assets/img/logo.svg";
 import { css } from "emotion/macro";
+import Pizza from './pizza/Pizza';
 
 const headerStyle = css`
   width: 100vw;
   position: relative;
   text-align: center;
-  padding: 35px 0;
+  padding-top: 3em;
 
   img {
     width: 4em;
+    margin-bottom: 3em;
   }
 
   nav {
@@ -39,7 +41,21 @@ const mainStyle = css`
   margin-right: auto;
   background: #fff;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+`;
+
+const footerStyle = css`
+  max-width: 70em;
+  margin-left: auto;
+  margin-right: auto;
   border-radius: 0 0 4px 4px;
+  background: #0f9675;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+  span {
+    margin: 0;
+    font-weight: 600;
+  }
 `;
 
 const mainStyleOld = css`
@@ -94,17 +110,22 @@ const mainStyleOld = css`
 
 function App() {
   return (
-    <header className={headerStyle}>
-      <img src={logo} alt="Ultimate Pizza Logo" />
-      <nav>
-        <a href="/products" className="active">
-          Products
-        </a>
-      </nav>
+    <>
+      <header className={headerStyle}>
+        <img src={logo} alt="Ultimate Pizza Logo" />
+        <nav>
+          <a href="/products" className="active">
+            Products
+          </a>
+        </nav>
+      </header>
       <main className={mainStyle}>
-        <span>hello</span>
+        <Pizza/>
       </main>
-    </header>
+      <footer className={footerStyle}>
+        <span>© Ultimate Pizza Inc.</span>
+      </footer>
+    </>
   );
 }
 
