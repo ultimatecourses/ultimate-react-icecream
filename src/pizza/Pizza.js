@@ -14,6 +14,10 @@ import prawn from "../assets/img/toppings/prawn.svg";
 import sweetcorn from "../assets/img/toppings/sweetcorn.svg";
 import tomato from "../assets/img/toppings/tomato.svg";
 
+const pizzaImg = require('../assets/img/pizza.svg');
+
+const toppingsRequired = require.context("../assets/img/toppings", true, /\.(svg)$/);
+
 const toppings = {
   1: anchovy,
   2: bacon,
@@ -29,7 +33,11 @@ const toppings = {
   12: tomato
 };
 const Pizza = () => {
-  return <span>pizza</span>;
+  console.log(toppings);
+  console.log(toppingsRequired.keys());
+  console.log(pizzaImg);
+
+  return   <img src={require('../assets/img/pizza.svg')} alt="something" />;
 };
 
 export default Pizza;
