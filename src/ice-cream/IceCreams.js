@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Main from '../structure/Main';
 import { getIceCreams } from '../data/iceCreamData';
 import { css } from 'emotion/macro';
 
@@ -24,7 +25,7 @@ const containerStyle = css`
   }
 `;
 
-const IceCream = () => {
+const IceCreams = () => {
   const [iceCreams, setIceCreams] = useState([]);
 
   useEffect(() => {
@@ -34,15 +35,17 @@ const IceCream = () => {
   }, []);
 
   return (
-    <ul className={containerStyle}>
-      {iceCreams.map(({ id, name, image }) => (
-        <li key={id}>
-          <h2>{name}</h2>
-          <img src={image} alt="" />
-        </li>
-      ))}
-    </ul>
+    <Main headingText="Choose your poison">
+      <ul className={containerStyle}>
+        {iceCreams.map(({ id, name, image }) => (
+          <li key={id}>
+            <h2>{name}</h2>
+            <img src={image} alt="" />
+          </li>
+        ))}
+      </ul>
+    </Main>
   );
 };
 
-export default IceCream;
+export default IceCreams;

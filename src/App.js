@@ -1,130 +1,106 @@
-import React, { useState, useEffect } from 'react';
-import './assets/css/style.css';
-import logo from './assets/img/logo.svg';
-import { css } from 'emotion/macro';
-import IceCream from './ice-cream/IceCream';
-import { getMenu } from './data/iceCreamData';
+import React from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import cornerstoneWoff from './assets/fonts/cornerstone.woff';
+import cornerstoneWoff2 from './assets/fonts/cornerstone.woff2';
+import { Global, css } from '@emotion/core';
+import Header from './structure/Header';
+import Footer from './structure/Footer';
+import Menu from './ice-cream/Menu';
+import IceCreams from './ice-cream/IceCreams';
 
-const headerStyle = css`
-  position: relative;
-  text-align: center;
-  padding-top: 3em;
-
-  h1 {
-    color: #ffffff;
-    font-size: 7em;
+const globalStyle = css`
+  *,
+  *:before,
+  *:after {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
   }
-
-  nav {
-    max-width: 70em;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 4px 4px 0 0;
-    background: #0054d1;
+  html,
+  body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    background: #23292d;
+    -webkit-font-smoothing: antialiased;
+    font: 300 16px/1.4 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica,
+      Arial, sans-serif;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    a {
-      color: #fff;
-      padding: 15px 35px;
-      font-family: 'cornerstone';
-      &.active {
-        background: #0a1bab;
-      }
+  }
+  #root {
+    width: 100%;
+  }
+  a {
+    &:hover {
+      text-decoration: none;
     }
   }
-`;
 
-const mainStyle = css`
-  max-width: 70em;
-  margin-left: auto;
-  margin-right: auto;
-  background: #f2fff8;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-
-  h2 {
-    padding: 2em;
-    text-align: center;
-    font-size: 2em;
-  }
-`;
-
-const footerStyle = css`
-  max-width: 70em;
-  margin-left: auto;
-  margin-right: auto;
-  border-radius: 0 0 4px 4px;
-  background: #0a1bab;
-  color: #fff;
-  padding: 10px;
-  text-align: center;
-  span {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-weight: normal;
+    font-family: 'cornerstone', serif;
+    padding: 0;
     margin: 0;
-    font-weight: 600;
   }
-`;
 
-const menuStyle = css`
-  list-style: none;
-  max-width: 60%;
-  margin: 0 auto;
-  padding: 0;
-  li {
-    padding: 1em;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  h3 {
+    font-size: 24px;
   }
-  img {
-    max-width: 7em;
+  h4 {
+    font-size: 20px;
   }
-  span {
-    font-weight: bold;
-    font-size: 3em;
+
+  @font-face {
+    font-family: 'cornerstone';
+    src: url(${cornerstoneWoff2}) format('woff2'),
+      url(${cornerstoneWoff}) format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 10px 15px;
+    margin: 0;
+    outline: 0;
+    border: 0;
+    border-radius: 3px;
+    font-size: 16px;
+    font-family: 'cornerstone', serif;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .btn__ok {
+    background: #0f9675;
+    color: #fff;
+  }
+  .btn__ok:hover {
+    background: #0a7d61;
+  }
+  .btn__warning {
+    background: #ab131c;
+    color: #fff;
+  }
+  .btn__warning:hover {
+    background: #880c14;
   }
 `;
 
 const App = () => {
-  const [menu, setMenu] = useState([]);
-
-  useEffect(() => {
-    getMenu().then(menuData => {
-      setMenu(menuData);
-    });
-  }, []);
-
   return (
-    <>
-      <header className={headerStyle}>
-        <h1>The ICE Project</h1>
-        <nav>
-          <a href="/" className="active">
-            Menu
-          </a>
-        </nav>
-      </header>
-      <main className={mainStyle}>
-        <h2>Rock your taste buds with one of these!</h2>
-        <ul className={menuStyle}>
-          {menu.map(({ id, iceCream, price }) => (
-            <li key={id}>
-              <img src={iceCream.image} alt="" />
-              <h3>{iceCream.name}</h3>
-              <span>
-                {price.toLocaleString('en-US', {
-                  style: 'currency',
-                  currency: 'USD',
-                })}
-              </span>
-            </li>
-          ))}
-        </ul>
-        <IceCream />
-      </main>
-      <footer className={footerStyle}>
-        <span>© The ICE Project Inc.</span>
-      </footer>
-    </>
+    <Router>
+      <Global styles={globalStyle} />
+      <Header />
+      <Route path="/" component={Menu} exact />
+      <Route path="/ice-creams" component={IceCreams} />
+      <Footer />
+    </Router>
   );
 };
 
