@@ -18,6 +18,9 @@ body {
     Arial, sans-serif;
   display: flex;
 }
+#root {
+  width: 100%;
+}
 a {
   text-decoration: none;
   outline: 0;

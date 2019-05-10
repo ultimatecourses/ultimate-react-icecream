@@ -1,5 +1,5 @@
 {
-  "name": "ultimate-react-pizza",
+  "name": "ultimate-react-icecream",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -13,7 +13,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "format": "prettier --write src/**/*.{js,scss}"
   },
   "eslintConfig": {
     "extends": "react-app"
