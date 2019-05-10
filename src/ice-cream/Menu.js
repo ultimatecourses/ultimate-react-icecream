@@ -10,6 +10,11 @@ const menuStyle = css`
   margin: 0 auto;
   text-align: center;
   padding-bottom: 2em;
+
+  @media screen and (max-width: 600px) {
+    max-width: 80%;
+  }
+
   a {
     color: #282c34;
     &:focus {
@@ -22,6 +27,7 @@ const menuStyle = css`
       font-size: 2em;
     }
   }
+
   ul {
     margin: 0;
     padding: 0;
@@ -30,6 +36,15 @@ const menuStyle = css`
       display: flex;
       justify-content: space-between;
       align-items: center;
+
+      @media screen and (max-width: 600px) {
+        display: block;
+      }
+
+      h3 {
+        margin-left: 1em;
+        margin-right: 1em;
+      }
 
       img {
         max-width: 7em;

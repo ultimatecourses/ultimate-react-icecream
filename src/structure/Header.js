@@ -10,6 +10,10 @@ const headerStyle = css`
   h1 {
     color: #ffffff;
     font-size: 7em;
+
+    @media screen and (max-width: 600px) {
+      font-size: 4em;
+    }
   }
 
   nav {

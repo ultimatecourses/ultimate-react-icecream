@@ -25,7 +25,7 @@ const iceCreamData = [
   { id: 23, name: 'Old Faithful' },
   { id: 24, name: 'Raspberry Pi' },
   { id: 25, name: 'Powerball' },
-  { id: 26, name: 'Shaken, Stirred and Whipped' },
+  { id: 26, name: 'Shaken and Whipped' },
   { id: 27, name: 'Sundae Everyday' },
   { id: 28, name: 'Toxic Sludge' },
 ];
