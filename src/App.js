@@ -7,6 +7,7 @@ import Header from './structure/Header';
 import Footer from './structure/Footer';
 import Menu from './ice-cream/Menu';
 import IceCreams from './ice-cream/IceCreams';
+import EditIceCream from './ice-cream/EditIceCream';
 
 const globalStyle = css`
   *,
@@ -99,6 +100,16 @@ const App = () => {
       <Header />
       <Route path="/" component={Menu} exact />
       <Route path="/ice-creams" component={IceCreams} />
+      <Route
+        path="/menu-items/:iceCreamId"
+        render={({ match, location }) => {
+          const isAdd = match.params.iceCreamId === 'add';
+          const iceCreamId = isAdd
+            ? location.search.split('=')[1]
+            : match.params.iceCreamId;
+          return <EditIceCream iceCreamId={iceCreamId} isAdd={isAdd} />;
+        }}
+      />
       <Footer />
     </Router>
   );

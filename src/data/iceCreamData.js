@@ -62,6 +62,18 @@ export const getIceCreams = () => {
   });
 };
 
+export const getIceCream = id => {
+  const iceCream = {
+    ...iceCreamData.filter(iceCream => iceCream.id.toString() === id)[0],
+    image: require(`../assets/img/ice-cream/ice-cream-${id.toString()}.svg`),
+  };
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(iceCream);
+    }, 300);
+  });
+};
+
 export const getMenu = () => {
   const menu = menuData
     .map(({ iceCream, ...rest }) => ({

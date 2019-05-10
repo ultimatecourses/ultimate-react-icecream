@@ -71,7 +71,7 @@ const IceCreams = ({ history }) => {
   }, []);
 
   const onItemClickHandler = id => {
-    history.push(`/menu-items/add?id=${id.toString()}`);
+    history.push(`/menu-items/add?iceCreamId=${id.toString()}`);
   };
 
   const onLinkClickHandler = e => {
@@ -91,7 +91,7 @@ const IceCreams = ({ history }) => {
             }}
           >
             <Link
-              to={`/menu-items/add?id=${id.toString()}`}
+              to={`/menu-items/add?iceCreamId=${id.toString()}`}
               onClick={onLinkClickHandler}
             >
               <h2>{name}</h2>
