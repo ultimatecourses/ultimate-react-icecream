@@ -1,24 +1,21 @@
 import axios from 'axios';
 
-const sortArray = (arr, sortProp) =>
-  arr.sort((a, b) => {
-    if (a[sortProp] < b[sortProp]) {
-      return -1;
-    }
-    if (a[sortProp] > b[sortProp]) {
-      return 1;
-    }
-    return 0;
-  });
-
 export const getIceCreams = () => {
   return axios.get('/api/ice-creams').then(response => {
-    const iceCreams = response.data.map(iceCream => ({
-      ...iceCream,
-      image: require(`../assets/img/ice-cream/ice-cream-${iceCream.id.toString()}.svg`),
-    }));
-
-    return sortArray(iceCreams, 'name');
+    return response.data
+      .map(iceCream => ({
+        ...iceCream,
+        image: require(`../assets/img/ice-cream/ice-cream-${iceCream.id.toString()}.svg`),
+      }))
+      .sort((a, b) => {
+        if (a.name < b.name) {
+          return -1;
+        }
+        if (a.name > b.name) {
+          return 1;
+        }
+        return 0;
+      });
   });
 };
 
@@ -36,13 +33,28 @@ export const getIceCream = id => {
 
 export const getMenu = () => {
   return axios.get('/api/menu').then(response => {
-    const menuData = response.data.map(({ iceCream, ...rest }) => ({
-      ...rest,
-      iceCream: {
-        ...iceCream,
-        image: require(`../assets/img/ice-cream/ice-cream-${iceCream.id.toString()}.svg`),
-      },
-    }));
-    return sortArray(menuData, 'name');
+    return response.data
+      .map(({ iceCream, ...rest }) => ({
+        ...rest,
+        iceCream: {
+          ...iceCream,
+          image: require(`../assets/img/ice-cream/ice-cream-${iceCream.id.toString()}.svg`),
+        },
+      }))
+      .sort((a, b) => {
+        if (a.iceCream.name < b.iceCream.name) {
+          return -1;
+        }
+        if (a.iceCream.name > b.iceCream.name) {
+          return 1;
+        }
+        return 0;
+      });
   });
+};
+
+export const postMenuItem = menuItem => {
+  return axios
+    .post('/api/menu', menuItem)
+    .then(response => response.data, err => err);
 };

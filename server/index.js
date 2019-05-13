@@ -36,7 +36,7 @@ const iceCreams = [
   { id: 28, name: 'Toxic Sludge' },
 ];
 
-const menuData = [
+let menuData = [
   { id: 1, iceCream: { id: 1, name: 'Cherry Blast' }, price: 1.51 },
   { id: 2, iceCream: { id: 15, name: 'Catastrophe' }, price: 1.64 },
   { id: 3, iceCream: { id: 10, name: 'Snowman Godfather' }, price: 1.5 },
@@ -64,6 +64,40 @@ app.get('/api/ice-creams/:id', (req, res) => {
 
 app.get('/api/menu', (req, res) => {
   res.send(menuData);
+});
+
+app.post('/api/menu', (req, res) => {
+  const { price, iceCream } = req.body;
+  const newMenuItem = {
+    id: menuData.reduce((prev, cur) => (cur.id > prev ? cur.id : prev), 0) + 1,
+    iceCream: {
+      ...iceCreams.find(item => item.id === parseInt(iceCream.id, 10)),
+    },
+    price: parseFloat(price),
+  };
+  menuData.push(newMenuItem);
+  res.send(newMenuItem);
+});
+
+app.put('/api/menu/:id', (req, res) => {
+  const intId = parseInt(req.params.id, 10);
+  const { price, iceCream } = req.body;
+
+  const updatedItem = {
+    id: intId,
+    iceCream: {
+      ...iceCreams.find(item => item.id === parseInt(iceCream.id, 10)),
+    },
+    price: parseFloat(price),
+  };
+  menuData = menuData.map(menuItem => {
+    if (menuItem.id === parseInt(req.params.id, 10)) {
+      return updatedItem;
+    }
+    return menuItem;
+  });
+
+  res.send(updatedItem);
 });
 
 app.listen(port, () =>
