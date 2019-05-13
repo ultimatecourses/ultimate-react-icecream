@@ -122,10 +122,17 @@ const IceCream = ({ iceCream = {}, price = '', onSubmit }) => {
       <dl>
         <dt>Name:</dt>
         <dd>{iceCream.name}</dd>
-        <dt>Picture:</dt>
-        <dd>
-          <img src={iceCream.image} alt={`${iceCream.name} product splash`} />
-        </dd>
+        {iceCream.image && (
+          <>
+            <dt>Picture:</dt>
+            <dd>
+              <img
+                src={iceCream.image}
+                alt={`${iceCream.name} product splash`}
+              />
+            </dd>
+          </>
+        )}
       </dl>
       <form noValidate onSubmit={onSubmitHandler}>
         <label htmlFor="iceCreamPrice">
