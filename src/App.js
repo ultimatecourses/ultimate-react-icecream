@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import cornerstoneWoff from './assets/fonts/cornerstone.woff';
 import cornerstoneWoff2 from './assets/fonts/cornerstone.woff2';
 import { Global, css } from '@emotion/core';
@@ -8,6 +8,7 @@ import Footer from './structure/Footer';
 import Menu from './ice-cream/Menu';
 import IceCreams from './ice-cream/IceCreams';
 import EditIceCream from './ice-cream/EditIceCream';
+import AddIceCream from './ice-cream/AddIceCream';
 
 const globalStyle = css`
   *,
@@ -75,7 +76,12 @@ const globalStyle = css`
     font-size: 16px;
     font-family: 'cornerstone', serif;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: background-color 0.2s ease;
+
+    &:focus {
+      outline: 2px solid #282c34;
+      outline-offset: 0.3rem;
+    }
   }
   .btn__ok {
     background: #0f9675;
@@ -98,18 +104,12 @@ const App = () => {
     <Router>
       <Global styles={globalStyle} />
       <Header />
-      <Route path="/" component={Menu} exact />
-      <Route path="/ice-creams" component={IceCreams} />
-      <Route
-        path="/menu-items/:iceCreamId"
-        render={({ match, location }) => {
-          const isAdd = match.params.iceCreamId === 'add';
-          const iceCreamId = isAdd
-            ? location.search.split('=')[1]
-            : match.params.iceCreamId;
-          return <EditIceCream iceCreamId={iceCreamId} isAdd={isAdd} />;
-        }}
-      />
+      <Switch>
+        <Route path="/" component={Menu} exact />
+        <Route path="/ice-creams" component={IceCreams} />
+        <Route path="/menu-items/add" component={AddIceCream} />
+        <Route path="/menu-items/:iceCreamId" component={EditIceCream} />
+      </Switch>
       <Footer />
     </Router>
   );
