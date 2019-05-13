@@ -53,8 +53,28 @@ export const getMenu = () => {
   });
 };
 
+export const getMenuItem = id => {
+  return axios.get(`/api/menu/${id}`).then(response => {
+    const { id, iceCream, price } = response.data;
+    return {
+      id,
+      iceCream: {
+        ...iceCream,
+        image: require(`../assets/img/ice-cream/ice-cream-${iceCream.id.toString()}.svg`),
+      },
+      price,
+    };
+  });
+};
+
 export const postMenuItem = menuItem => {
   return axios
     .post('/api/menu', menuItem)
+    .then(response => response.data, err => err);
+};
+
+export const putMenuItem = menuItem => {
+  return axios
+    .put(`/api/menu/${menuItem.id.toString()}`, menuItem)
     .then(response => response.data, err => err);
 };

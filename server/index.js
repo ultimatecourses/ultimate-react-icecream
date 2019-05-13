@@ -79,6 +79,12 @@ app.post('/api/menu', (req, res) => {
   res.send(newMenuItem);
 });
 
+app.get('/api/menu/:id', (req, res) => {
+  res.send(
+    menuData.find(menuItem => menuItem.id === parseInt(req.params.id), 10)
+  );
+});
+
 app.put('/api/menu/:id', (req, res) => {
   const intId = parseInt(req.params.id, 10);
   const { price, iceCream } = req.body;

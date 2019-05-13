@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-
+import React, { useState, useEffect, useRef } from 'react';
 import { css } from 'emotion/macro';
 
 const formStyle = css`
@@ -17,7 +16,7 @@ const formStyle = css`
 
     label {
       justify-self: right;
-      align-self: center;
+      align-self: start;
     }
 
     input {
@@ -49,6 +48,17 @@ const formStyle = css`
       min-width: 10rem;
       justify-self: right;
     }
+
+    .error {
+      span {
+        color: #ab131c;
+      }
+
+      input {
+        border: 1px solid #ab131c;
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.12);
+      }
+    }
   }
 
   dl {
@@ -59,7 +69,7 @@ const formStyle = css`
 
     dt {
       justify-self: right;
-      align-self: center;
+      align-self: start;
     }
 
     dd {
@@ -75,7 +85,8 @@ const formStyle = css`
   }
 `;
 
-const IceCream = ({ iceCream, price = '', onSubmit }) => {
+const IceCream = ({ iceCream = {}, price = '', onSubmit }) => {
+  const priceInput = useRef(null);
   const [error, setError] = useState('');
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const [internalPrice, setInternalPrice] = useState('');
@@ -101,6 +112,8 @@ const IceCream = ({ iceCream, price = '', onSubmit }) => {
     setHasSubmitted(true);
     if (!error) {
       onSubmit({ iceCream: { id: iceCream.id }, price: internalPrice });
+    } else {
+      priceInput.current.focus();
     }
   };
 
@@ -118,16 +131,19 @@ const IceCream = ({ iceCream, price = '', onSubmit }) => {
         <label htmlFor="iceCreamPrice">
           Price: <span aria-hidden="true">*</span>
         </label>
-        <input
-          id="iceCreamPrice"
-          aria-required="true"
-          aria-describedby={error ? 'errorId' : null}
-          onChange={e => {
-            setInternalPrice(e.target.value);
-          }}
-          value={internalPrice}
-        />
-        {error && hasSubmitted && <span id="errorId">{error}</span>}
+        <div className={error && hasSubmitted ? 'error' : null}>
+          <input
+            id="iceCreamPrice"
+            aria-required="true"
+            aria-describedby={error ? 'errorId' : null}
+            ref={priceInput}
+            onChange={e => {
+              setInternalPrice(e.target.value);
+            }}
+            value={internalPrice}
+          />
+          {error && hasSubmitted && <span id="errorId">{error}</span>}
+        </div>
         <button className="btn btn__ok" type="submit">
           Save
         </button>

@@ -108,7 +108,7 @@ const App = () => {
         <Route path="/" component={Menu} exact />
         <Route path="/ice-creams" component={IceCreams} />
         <Route path="/menu-items/add" component={AddIceCream} />
-        <Route path="/menu-items/:iceCreamId" component={EditIceCream} />
+        <Route path="/menu-items/:menuItemId" component={EditIceCream} />
       </Switch>
       <Footer />
     </Router>
