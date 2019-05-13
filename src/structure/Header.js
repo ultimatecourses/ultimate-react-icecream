@@ -1,6 +1,6 @@
 import React from 'react';
 import { css } from 'emotion/macro';
-import { NavLink } from 'react-router-dom';
+import FocusLink from '../structure/FocusLink';
 
 const headerStyle = css`
   position: relative;
@@ -44,9 +44,9 @@ const Header = () => (
   <header className={headerStyle}>
     <h1>The ICE Project</h1>
     <nav>
-      <NavLink to="/" activeClassName="active">
+      <FocusLink to="/" activeClassName="active" exact>
         Menu
-      </NavLink>
+      </FocusLink>
     </nav>
   </header>
 );

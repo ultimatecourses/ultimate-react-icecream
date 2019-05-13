@@ -18,7 +18,7 @@ const AddIceCream = ({ location, history }) => {
 
   const onSubmitHandler = menuItem => {
     postMenuItem(menuItem).then(() => {
-      history.push('/');
+      history.push('/', { focus: true });
     });
   };
 

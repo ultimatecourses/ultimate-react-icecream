@@ -142,7 +142,8 @@ const IceCream = ({ iceCream = {}, price = '', onSubmit }) => {
           <input
             id="iceCreamPrice"
             aria-required="true"
-            aria-describedby={error ? 'errorId' : null}
+            aria-invalid={error && hasSubmitted}
+            aria-describedby={error && hasSubmitted ? 'errorId' : null}
             ref={priceInput}
             onChange={e => {
               setInternalPrice(e.target.value);

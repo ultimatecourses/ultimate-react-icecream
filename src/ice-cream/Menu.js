@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { css } from 'emotion/macro';
 import Main from '../structure/Main';
 import { getMenu } from '../data/iceCreamData';
-import { Link } from 'react-router-dom';
+import FocusLink from '../structure/FocusLink';
 
 const menuStyle = css`
   list-style: none;
@@ -74,7 +74,9 @@ const Menu = () => {
             <li key={id}>
               <img src={iceCream.image} alt="" />
               <h3>
-                <Link to={`/menu-items/${id.toString()}`}>{iceCream.name}</Link>
+                <FocusLink to={`/menu-items/${id.toString()}`}>
+                  {iceCream.name}
+                </FocusLink>
               </h3>
               <span>
                 {price.toLocaleString('en-US', {
@@ -85,9 +87,9 @@ const Menu = () => {
             </li>
           ))}
         </ul>
-        <Link to="/ice-creams" className="add-more">
+        <FocusLink to="/ice-creams" className="add-more">
           Add more frozen goodness
-        </Link>
+        </FocusLink>
       </div>
     </Main>
   );

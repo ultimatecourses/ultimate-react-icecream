@@ -76,19 +76,23 @@ const globalStyle = css`
     font-size: 16px;
     font-family: 'cornerstone', serif;
     cursor: pointer;
-    transition: background-color 0.2s ease;
 
     &:focus {
       outline: 2px solid #282c34;
       outline-offset: 0.3rem;
     }
+
+    &:hover {
+      transform: scale(1.05);
+      transition: all 0.2s ease-in-out;
+    }
   }
   .btn__ok {
-    background: #0f9675;
+    background: #0f8261;
     color: #fff;
   }
   .btn__ok:hover {
-    background: #0a7d61;
+    background: #0a523c;
   }
   .btn__warning {
     background: #ab131c;

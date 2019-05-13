@@ -14,7 +14,7 @@ const EditIceCream = ({ match, history }) => {
 
   const onSubmitHandler = updatedItem => {
     putMenuItem({ id: menuItem.id, ...updatedItem }).then(() => {
-      history.push('/');
+      history.push('/', { focus: true });
     });
   };
 

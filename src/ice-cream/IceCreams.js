@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Main from '../structure/Main';
 import { getIceCreams } from '../data/iceCreamData';
 import { css } from 'emotion/macro';
-import { Link } from 'react-router-dom';
+import FocusLink from '../structure/FocusLink';
 
 const containerStyle = css`
   display: grid;
@@ -90,12 +90,15 @@ const IceCreams = ({ history }) => {
               onItemClickHandler(id);
             }}
           >
-            <Link
-              to={`/menu-items/add?iceCreamId=${id.toString()}`}
+            <FocusLink
+              to={{
+                pathname: '/menu-items/add',
+                search: `?iceCreamId=${id.toString()}`,
+              }}
               onClick={onLinkClickHandler}
             >
               <h2>{name}</h2>
-            </Link>
+            </FocusLink>
             <div className="image-container">
               <img src={image} alt="" />
             </div>
