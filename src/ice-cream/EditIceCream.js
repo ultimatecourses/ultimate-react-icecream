@@ -7,10 +7,22 @@ const EditIceCream = ({ match, history }) => {
   const [menuItem, setMenuItem] = useState({});
 
   useEffect(() => {
-    getMenuItem(match.params.menuItemId).then(item => {
-      setMenuItem(item);
-    });
-  }, [match.params.menuItemId]);
+    let didCancel = false;
+    getMenuItem(match.params.menuItemId)
+      .then(item => {
+        if (!didCancel) {
+          setMenuItem(item);
+        }
+      })
+      .catch(err => {
+        if (err.response.status === 404 && !didCancel) {
+          history.replace('/', { focus: true });
+        }
+      });
+    return () => {
+      didCancel = true;
+    };
+  }, [match.params.menuItemId, history]);
 
   const onSubmitHandler = updatedItem => {
     putMenuItem({ id: menuItem.id, ...updatedItem }).then(() => {

@@ -100,7 +100,8 @@ const IceCream = ({ iceCream = {}, price = '', onSubmit }) => {
       setError('You must enter a price');
       return;
     }
-    if (isNaN(parseFloat(internalPrice))) {
+    const regex = new RegExp('^[0-9]+(\\.[0-9][0-9])$');
+    if (!regex.test(internalPrice.trim())) {
       setError('Please enter a valid price');
       return;
     }
@@ -141,6 +142,7 @@ const IceCream = ({ iceCream = {}, price = '', onSubmit }) => {
         <div className={error && hasSubmitted ? 'error' : null}>
           <input
             id="iceCreamPrice"
+            type="text"
             aria-required="true"
             aria-invalid={error && hasSubmitted}
             aria-describedby={error && hasSubmitted ? 'errorId' : null}

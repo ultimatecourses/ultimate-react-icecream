@@ -37,21 +37,28 @@ const iceCreams = [
 ];
 
 let menuData = [
-  { id: 1, iceCream: { id: 1, name: 'Cherry Blast' }, price: 1.51 },
-  { id: 2, iceCream: { id: 15, name: 'Catastrophe' }, price: 1.64 },
-  { id: 3, iceCream: { id: 10, name: 'Snowman Godfather' }, price: 1.5 },
-  { id: 4, iceCream: { id: 4, name: 'Roswell Crash' }, price: 1.82 },
-  { id: 5, iceCream: { id: 27, name: 'Sundae Everyday' }, price: 2.98 },
-  { id: 6, iceCream: { id: 21, name: 'Castle in the Sky' }, price: 2.19 },
-  { id: 7, iceCream: { id: 24, name: 'Raspberry Pi' }, price: 1.29 },
+  { id: 1, iceCream: { id: 1, name: 'Cherry Blast' }, price: "1.51" },
+  { id: 2, iceCream: { id: 15, name: 'Catastrophe' }, price: "1.64" },
+  { id: 3, iceCream: { id: 10, name: 'Snowman Godfather' }, price: '1.50' },
+  { id: 4, iceCream: { id: 4, name: 'Roswell Crash' }, price: '1.82' },
+  { id: 5, iceCream: { id: 27, name: 'Sundae Everyday' }, price: '2.98' },
+  { id: 6, iceCream: { id: 21, name: 'Castle in the Sky' }, price: '2.19' },
+  { id: 7, iceCream: { id: 24, name: 'Raspberry Pi' }, price: '1.29' },
 ];
 
-app.get('/api/ice-creams', (req, res) => {
-  res.send(iceCreams);
+const getAvailableStock = () =>
+  iceCreams.filter(
+    iceCream =>
+      menuData.find(menuItem => menuItem.iceCream.id === iceCream.id) ===
+      undefined
+  );
+
+app.get('/api/menu/stock-ice-creams', (req, res) => {
+  res.send(getAvailableStock());
 });
 
-app.get('/api/ice-creams/:id', (req, res) => {
-  const iceCream = iceCreams.find(
+app.get('/api/menu/stock-ice-creams/:id', (req, res) => {
+  const iceCream = getAvailableStock().find(
     iceCream => iceCream.id === parseInt(req.params.id, 10)
   );
   if (iceCream) {
@@ -73,16 +80,24 @@ app.post('/api/menu', (req, res) => {
     iceCream: {
       ...iceCreams.find(item => item.id === parseInt(iceCream.id, 10)),
     },
-    price: parseFloat(price),
+    price,
   };
   menuData.push(newMenuItem);
+
   res.send(newMenuItem);
 });
 
 app.get('/api/menu/:id', (req, res) => {
-  res.send(
-    menuData.find(menuItem => menuItem.id === parseInt(req.params.id), 10)
+  const menuItem = menuData.find(
+    item => item.id === parseInt(req.params.id),
+    10
   );
+  if (menuItem) {
+    res.send(menuItem);
+  } else {
+    res.status(404);
+    res.send('Menu item does not exist');
+  }
 });
 
 app.put('/api/menu/:id', (req, res) => {
@@ -94,7 +109,7 @@ app.put('/api/menu/:id', (req, res) => {
     iceCream: {
       ...iceCreams.find(item => item.id === parseInt(iceCream.id, 10)),
     },
-    price: parseFloat(price),
+    price,
   };
   menuData = menuData.map(menuItem => {
     if (menuItem.id === parseInt(req.params.id, 10)) {

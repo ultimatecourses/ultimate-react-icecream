@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const getIceCreams = () => {
-  return axios.get('/api/ice-creams').then(response => {
+  return axios.get('/api/menu/stock-ice-creams').then(response => {
     return response.data
       .map(iceCream => ({
         ...iceCream,
@@ -20,15 +20,17 @@ export const getIceCreams = () => {
 };
 
 export const getIceCream = id => {
-  return axios.get(`/api/ice-creams/${id.toString()}`).then(
-    response => {
+  return axios
+    .get(`/api/menu/stock-ice-creams/${id.toString()}`)
+    .then(response => {
       return {
         ...response.data,
         image: require(`../assets/img/ice-cream/ice-cream-${id.toString()}.svg`),
       };
-    },
-    err => err
-  );
+    })
+    .catch(err => {
+      throw err;
+    });
 };
 
 export const getMenu = () => {
@@ -54,27 +56,40 @@ export const getMenu = () => {
 };
 
 export const getMenuItem = id => {
-  return axios.get(`/api/menu/${id}`).then(response => {
-    const { id, iceCream, price } = response.data;
-    return {
-      id,
-      iceCream: {
-        ...iceCream,
-        image: require(`../assets/img/ice-cream/ice-cream-${iceCream.id.toString()}.svg`),
-      },
-      price,
-    };
-  });
+  return axios
+    .get(`/api/menu/${id}`)
+    .then(response => {
+      const { id, iceCream, price } = response.data;
+      return {
+        id,
+        iceCream: {
+          ...iceCream,
+          image: require(`../assets/img/ice-cream/ice-cream-${iceCream.id.toString()}.svg`),
+        },
+        price,
+      };
+    })
+    .catch(err => {
+      throw err;
+    });
 };
 
 export const postMenuItem = menuItem => {
   return axios
     .post('/api/menu', menuItem)
-    .then(response => response.data, err => err);
+    .then(response => {
+      return response.data;
+    })
+    .catch(err => {
+      throw err;
+    });
 };
 
 export const putMenuItem = menuItem => {
   return axios
     .put(`/api/menu/${menuItem.id.toString()}`, menuItem)
-    .then(response => response.data, err => err);
+    .then(response => response.data)
+    .catch(err => {
+      throw err;
+    });
 };

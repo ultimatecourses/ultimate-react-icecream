@@ -65,9 +65,15 @@ const IceCreams = ({ history }) => {
   const [iceCreams, setIceCreams] = useState([]);
 
   useEffect(() => {
+    let didCancel = false;
     getIceCreams().then(iceCreams => {
-      setIceCreams(iceCreams);
+      if (!didCancel) {
+        setIceCreams(iceCreams);
+      }
     });
+    return () => {
+      didCancel = true;
+    };
   }, []);
 
   const onItemClickHandler = id => {

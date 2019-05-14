@@ -11,15 +11,31 @@ const AddIceCream = ({ location, history }) => {
   ]);
 
   useEffect(() => {
-    getIceCream(getIceCreamId()).then(iceCreamResponse => {
-      setIceCream(iceCreamResponse);
-    });
-  }, [getIceCreamId]);
+    let didCancel = false;
+    getIceCream(getIceCreamId())
+      .then(iceCreamResponse => {
+        if (!didCancel) {
+          setIceCream(iceCreamResponse);
+        }
+      })
+      .catch(err => {
+        if (err.response.status === 404 && !didCancel) {
+          history.replace('/', { focus: true });
+        }
+      });
+    return () => {
+      didCancel = true;
+    };
+  }, [getIceCreamId, history]);
 
   const onSubmitHandler = menuItem => {
-    postMenuItem(menuItem).then(() => {
-      history.push('/', { focus: true });
-    });
+    postMenuItem(menuItem)
+      .then(() => {
+        history.push('/', { focus: true });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   return (

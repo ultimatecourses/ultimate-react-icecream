@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { css } from 'emotion/macro';
 import Main from '../structure/Main';
-import { getMenu } from '../data/iceCreamData';
 import FocusLink from '../structure/FocusLink';
+import { getMenu } from '../data/iceCreamData';
+
+import { css } from 'emotion/macro';
 
 const menuStyle = css`
   list-style: none;
@@ -61,9 +62,15 @@ const Menu = () => {
   const [menu, setMenu] = useState([]);
 
   useEffect(() => {
+    let didCancel = false;
     getMenu().then(menuData => {
-      setMenu(menuData);
+      if (!didCancel) {
+        setMenu(menuData);
+      }
     });
+    return () => {
+      didCancel = true;
+    };
   }, []);
 
   return (
@@ -74,15 +81,15 @@ const Menu = () => {
             <li key={id}>
               <img src={iceCream.image} alt="" />
               <h3>
-                <FocusLink to={`/menu-items/${id.toString()}`}>
+                <FocusLink
+                  to={`/menu-items/${id.toString()}`}
+                  aria-describedby={`price${id}`}
+                >
                   {iceCream.name}
                 </FocusLink>
               </h3>
-              <span>
-                {price.toLocaleString('en-US', {
-                  style: 'currency',
-                  currency: 'USD',
-                })}
+              <span aria-hidden="true" id={`price${id}`}>
+                $ {price}
               </span>
             </li>
           ))}

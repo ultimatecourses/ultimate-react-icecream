@@ -28,8 +28,6 @@ const Main = ({ headingText, headingLevel = 2, children, location }) => {
     }
   });
 
-  console.log(location.state);
-
   return (
     <main className={mainStyle}>
       <Helmet>
