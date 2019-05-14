@@ -20,7 +20,6 @@ const LoaderMessage = ({ loadingMsg, doneMsg, isLoading }) => {
   useEffect(() => {
     let loadingMessageDelay;
     let doneMessageDelay;
-    let doneMessageRemove;
 
     if (isLoading) {
       loadingMessageDelay = setTimeout(() => {
@@ -40,7 +39,6 @@ const LoaderMessage = ({ loadingMsg, doneMsg, isLoading }) => {
       setShowDoneMessage(false);
       clearTimeout(loadingMessageDelay);
       clearTimeout(doneMessageDelay);
-      clearTimeout(doneMessageRemove);
     };
   }, [isLoading]);
 
