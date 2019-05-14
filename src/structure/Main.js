@@ -27,7 +27,8 @@ const Main = ({ headingText, headingLevel = 2, children, location }) => {
     if (location.state && location.state.focus) {
       heading.current.focus();
     }
-  });
+    window.scrollTo(0, 0);
+  }, [location.state]);
 
   return (
     <main className={mainStyle}>
