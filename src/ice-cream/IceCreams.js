@@ -1,8 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Main from '../structure/Main';
+import FocusLink from '../structure/FocusLink';
+import LoaderMessage from '../structure/LoaderMessage';
 import { getIceCreams } from '../data/iceCreamData';
 import { css } from 'emotion/macro';
-import FocusLink from '../structure/FocusLink';
+
+const paragraphStyle = css`
+  max-width: 60%;
+  margin: 0 auto;
+  padding-bottom: 3em;
+  text-align: center;
+  font-size: 3em;
+  font-weight: bold;
+`;
 
 const containerStyle = css`
   display: grid;
@@ -62,6 +72,7 @@ const containerStyle = css`
 `;
 
 const IceCreams = ({ history }) => {
+  const [isLoading, setIsLoading] = useState(true);
   const [iceCreams, setIceCreams] = useState([]);
 
   useEffect(() => {
@@ -69,6 +80,7 @@ const IceCreams = ({ history }) => {
     getIceCreams().then(iceCreams => {
       if (!didCancel) {
         setIceCreams(iceCreams);
+        setIsLoading(false);
       }
     });
     return () => {
@@ -88,29 +100,40 @@ const IceCreams = ({ history }) => {
 
   return (
     <Main headingText="Choose your poison">
-      <ul className={containerStyle}>
-        {iceCreams.map(({ id, name, image }) => (
-          <li
-            key={id}
-            onClick={() => {
-              onItemClickHandler(id);
-            }}
-          >
-            <FocusLink
-              to={{
-                pathname: '/menu-items/add',
-                search: `?iceCreamId=${id.toString()}`,
+      <LoaderMessage
+        loadingMsg="Loading the stock list."
+        doneMsg="Loading stock list complete."
+        isLoading={isLoading}
+      />
+      {iceCreams.length > 0 ? (
+        <ul className={containerStyle}>
+          {iceCreams.map(({ id, name, image }) => (
+            <li
+              key={id}
+              onClick={() => {
+                onItemClickHandler(id);
               }}
-              onClick={onLinkClickHandler}
             >
-              <h2>{name}</h2>
-            </FocusLink>
-            <div className="image-container">
-              <img src={image} alt="" />
-            </div>
-          </li>
-        ))}
-      </ul>
+              <FocusLink
+                to={{
+                  pathname: '/menu-items/add',
+                  search: `?iceCreamId=${id.toString()}`,
+                }}
+                onClick={onLinkClickHandler}
+              >
+                <h2>{name}</h2>
+              </FocusLink>
+              <div className="image-container">
+                <img src={image} alt="" />
+              </div>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        !isLoading && (
+          <p className={paragraphStyle}>Your menu is fully stocked!</p>
+        )
+      )}
     </Main>
   );
 };

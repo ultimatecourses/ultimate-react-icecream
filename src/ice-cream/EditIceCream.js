@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Main from '../structure/Main';
+import LoaderMessage from '../structure/LoaderMessage';
 import IceCream from './IceCream';
 import { getMenuItem, putMenuItem, deleteMenuItem } from '../data/iceCreamData';
 
 const EditIceCream = ({ match, history }) => {
+  const [isLoading, setIsLoading] = useState(true);
   const [menuItem, setMenuItem] = useState({});
 
   useEffect(() => {
@@ -12,6 +14,7 @@ const EditIceCream = ({ match, history }) => {
       .then(item => {
         if (!didCancel) {
           setMenuItem(item);
+          setIsLoading(false);
         }
       })
       .catch(err => {
@@ -38,12 +41,19 @@ const EditIceCream = ({ match, history }) => {
 
   return (
     <Main headingText="Update this beauty">
-      <IceCream
-        iceCream={menuItem.iceCream}
-        price={menuItem.price}
-        onDelete={onDeleteHandler}
-        onSubmit={onSubmitHandler}
+      <LoaderMessage
+        loadingMsg="Loading ice cream."
+        doneMsg="Ice cream loaded."
+        isLoading={isLoading}
       />
+      {!isLoading && (
+        <IceCream
+          iceCream={menuItem.iceCream}
+          price={menuItem.price}
+          onDelete={onDeleteHandler}
+          onSubmit={onSubmitHandler}
+        />
+      )}
     </Main>
   );
 };

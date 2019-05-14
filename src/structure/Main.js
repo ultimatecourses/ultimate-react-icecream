@@ -9,6 +9,7 @@ const mainStyle = css`
   margin-right: auto;
   background: #f2fff8;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  min-height: 40em;
 
   .main-heading {
     padding: 2em;

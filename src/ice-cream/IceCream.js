@@ -39,7 +39,7 @@ const formStyle = css`
 
       &:focus {
         outline: 2px solid #282c34;
-        outline-offset: 0.3rem;
+        outline-offset: 0.2rem;
       }
     }
 
@@ -51,7 +51,7 @@ const formStyle = css`
       grid-template-columns: 1fr 1fr;
       grid-gap: 2em;
 
-      .btn__ok {
+      .single-button {
         grid-column: 2;
       }
     }
@@ -162,6 +162,12 @@ const IceCream = ({ iceCream = {}, price = '', onDelete, onSubmit }) => {
           {error && hasSubmitted && <span id="errorId">{error}</span>}
         </div>
         <div className="btn-container">
+          <button
+            className={`btn btn__ok${onDelete ? '' : ' single-button'}`}
+            type="submit"
+          >
+            Save
+          </button>
           {onDelete && (
             <button
               className="btn btn__warning"
@@ -171,9 +177,6 @@ const IceCream = ({ iceCream = {}, price = '', onDelete, onSubmit }) => {
               Delete
             </button>
           )}
-          <button className="btn btn__ok" type="submit">
-            Save
-          </button>
         </div>
       </form>
     </div>
