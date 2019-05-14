@@ -32,13 +32,9 @@ const AddIceCream = ({ location, history }) => {
   }, [getIceCreamId, history]);
 
   const onSubmitHandler = menuItem => {
-    postMenuItem(menuItem)
-      .then(() => {
-        history.push('/', { focus: true });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    postMenuItem(menuItem).then(() => {
+      history.push('/', { focus: true });
+    });
   };
 
   return (

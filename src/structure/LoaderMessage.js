@@ -25,7 +25,7 @@ const LoaderMessage = ({ loadingMsg, doneMsg, isLoading }) => {
     if (isLoading) {
       loadingMessageDelay = setTimeout(() => {
         setShowLoadingMessage(true);
-      }, 300);
+      }, 400);
     } else {
       if (isLoadingPreviousValue.current) {
         setShowDoneMessage(true);
