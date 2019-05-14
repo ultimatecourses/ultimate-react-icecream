@@ -37,8 +37,8 @@ const iceCreams = [
 ];
 
 let menuData = [
-  { id: 1, iceCream: { id: 1, name: 'Cherry Blast' }, price: "1.51" },
-  { id: 2, iceCream: { id: 15, name: 'Catastrophe' }, price: "1.64" },
+  { id: 1, iceCream: { id: 1, name: 'Cherry Blast' }, price: '1.51' },
+  { id: 2, iceCream: { id: 15, name: 'Catastrophe' }, price: '1.64' },
   { id: 3, iceCream: { id: 10, name: 'Snowman Godfather' }, price: '1.50' },
   { id: 4, iceCream: { id: 4, name: 'Roswell Crash' }, price: '1.82' },
   { id: 5, iceCream: { id: 27, name: 'Sundae Everyday' }, price: '2.98' },
@@ -119,6 +119,14 @@ app.put('/api/menu/:id', (req, res) => {
   });
 
   res.send(updatedItem);
+});
+
+app.delete('/api/menu/:id', (req, res) => {
+  menuData = menuData.filter(
+    menuItem => menuItem.id !== parseInt(req.params.id, 10)
+  );
+  res.status(204);
+  res.send();
 });
 
 app.listen(port, () =>

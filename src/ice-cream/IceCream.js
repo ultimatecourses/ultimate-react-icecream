@@ -43,10 +43,17 @@ const formStyle = css`
       }
     }
 
-    button {
+    .btn-container {
       grid-column: 2;
       min-width: 10rem;
       justify-self: right;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 2em;
+
+      .btn__ok {
+        grid-column: 2;
+      }
     }
 
     .error {
@@ -85,7 +92,7 @@ const formStyle = css`
   }
 `;
 
-const IceCream = ({ iceCream = {}, price = '', onSubmit }) => {
+const IceCream = ({ iceCream = {}, price = '', onDelete, onSubmit }) => {
   const priceInput = useRef(null);
   const [error, setError] = useState('');
   const [hasSubmitted, setHasSubmitted] = useState(false);
@@ -154,9 +161,20 @@ const IceCream = ({ iceCream = {}, price = '', onSubmit }) => {
           />
           {error && hasSubmitted && <span id="errorId">{error}</span>}
         </div>
-        <button className="btn btn__ok" type="submit">
-          Save
-        </button>
+        <div className="btn-container">
+          {onDelete && (
+            <button
+              className="btn btn__warning"
+              type="button"
+              onClick={onDelete}
+            >
+              Delete
+            </button>
+          )}
+          <button className="btn btn__ok" type="submit">
+            Save
+          </button>
+        </div>
       </form>
     </div>
   );

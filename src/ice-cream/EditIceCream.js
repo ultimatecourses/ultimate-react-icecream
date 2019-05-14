@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Main from '../structure/Main';
 import IceCream from './IceCream';
-import { getMenuItem, putMenuItem } from '../data/iceCreamData';
+import { getMenuItem, putMenuItem, deleteMenuItem } from '../data/iceCreamData';
 
 const EditIceCream = ({ match, history }) => {
   const [menuItem, setMenuItem] = useState({});
@@ -30,11 +30,18 @@ const EditIceCream = ({ match, history }) => {
     });
   };
 
+  const onDeleteHandler = () => {
+    deleteMenuItem(match.params.menuItemId).then(() => {
+      history.replace('/', { focus: true });
+    });
+  };
+
   return (
     <Main headingText="Update this beauty">
       <IceCream
         iceCream={menuItem.iceCream}
         price={menuItem.price}
+        onDelete={onDeleteHandler}
         onSubmit={onSubmitHandler}
       />
     </Main>

@@ -1,5 +1,10 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from 'react-router-dom';
 import cornerstoneWoff from './assets/fonts/cornerstone.woff';
 import cornerstoneWoff2 from './assets/fonts/cornerstone.woff2';
 import { Global, css } from '@emotion/core';
@@ -110,9 +115,10 @@ const App = () => {
       <Header />
       <Switch>
         <Route path="/" component={Menu} exact />
-        <Route path="/ice-creams" component={IceCreams} />
-        <Route path="/menu-items/add" component={AddIceCream} />
-        <Route path="/menu-items/:menuItemId" component={EditIceCream} />
+        <Route path="/ice-creams" component={IceCreams} exact />
+        <Route path="/menu-items/add" component={AddIceCream} exact />
+        <Route path="/menu-items/:menuItemId" component={EditIceCream} exact />
+        <Redirect to="/" />
       </Switch>
       <Footer />
     </Router>

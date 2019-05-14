@@ -56,6 +56,11 @@ const menuStyle = css`
       }
     }
   }
+
+  p {
+    font-size: 3em;
+    font-weight: bold;
+  }
 `;
 
 const Menu = () => {
@@ -76,24 +81,28 @@ const Menu = () => {
   return (
     <Main headingText="Rock your taste buds with one of these!">
       <div className={menuStyle}>
-        <ul>
-          {menu.map(({ id, iceCream, price }) => (
-            <li key={id}>
-              <img src={iceCream.image} alt="" />
-              <h3>
-                <FocusLink
-                  to={`/menu-items/${id.toString()}`}
-                  aria-describedby={`price${id}`}
-                >
-                  {iceCream.name}
-                </FocusLink>
-              </h3>
-              <span aria-hidden="true" id={`price${id}`}>
-                $ {price}
-              </span>
-            </li>
-          ))}
-        </ul>
+        {menu.length > 0 ? (
+          <ul>
+            {menu.map(({ id, iceCream, price }) => (
+              <li key={id}>
+                <img src={iceCream.image} alt="" />
+                <h3>
+                  <FocusLink
+                    to={`/menu-items/${id.toString()}`}
+                    aria-describedby={`price${id}`}
+                  >
+                    {iceCream.name}
+                  </FocusLink>
+                </h3>
+                <span aria-hidden="true" id={`price${id}`}>
+                  $ {price}
+                </span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>Your menu is empty! The sadness!!</p>
+        )}
         <FocusLink to="/ice-creams" className="add-more">
           Add more frozen goodness
         </FocusLink>
