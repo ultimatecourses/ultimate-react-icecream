@@ -16,8 +16,6 @@ import IceCreams from './ice-cream/IceCreams';
 import EditIceCream from './ice-cream/EditIceCream';
 import AddIceCream from './ice-cream/AddIceCream';
 
-console.log(kathen);
-
 const globalStyle = css`
   @font-face {
     font-family: 'geomanist';
