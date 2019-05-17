@@ -7,8 +7,6 @@ const mainStyle = css`
   max-width: 70em;
   margin-left: auto;
   margin-right: auto;
-  background: #f2fff8;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   min-height: 40em;
 
   .main-heading {
@@ -21,7 +19,7 @@ const mainStyle = css`
 
 const Main = ({ headingText, headingLevel = 2, children, location }) => {
   const heading = useRef(null);
-  const H = `h${headingLevel.toString()}`;
+  const H = `h${headingLevel}`;
 
   useLayoutEffect(() => {
     if (location.state && location.state.focus) {

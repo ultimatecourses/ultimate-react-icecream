@@ -107,7 +107,7 @@ const IceCream = ({ iceCream = {}, price = '', onDelete, onSubmit }) => {
       setError('You must enter a price');
       return;
     }
-    const regex = new RegExp('^[0-9]+(\\.[0-9][0-9])$');
+    const regex = /^[0-9]+(\.[0-9][0-9])$/;
     if (!regex.test(internalPrice.trim())) {
       setError('Please enter a valid price');
       return;

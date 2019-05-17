@@ -9,14 +9,11 @@ const paragraphStyle = css`
   max-width: 60%;
   margin: 0 auto;
   padding-bottom: 3em;
-  text-align: center;
-  font-size: 3em;
-  font-weight: bold;
 `;
 
 const containerStyle = css`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-auto-rows: 1fr;
   grid-gap: 2em;
   list-style: none;
@@ -28,13 +25,13 @@ const containerStyle = css`
   }
 
   li {
-    display: flex;
-    flex-direction: column;
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 3fr 1fr;
     align-items: center;
-    background-color: #0a1bab;
-    border-radius: 4px;
-    border: 4px solid #58d6ff;
-    padding: 1.5em;
+    background-color: #ffffff;
+    border-radius: 1em;
     cursor: pointer;
     transform: scale(1);
     transition: all 0.2s ease-in-out;
@@ -45,28 +42,60 @@ const containerStyle = css`
       transition: all 0.2s ease-in-out;
     }
 
-    a {
-      color: #ffffff;
-      margin-bottom: 1.5em;
+    &:focus-within {
+      box-shadow: -1px 1px 4px 7px rgba(0, 0, 0, 0.75);
 
-      &:focus {
-        outline: 2px solid #ffffff;
-        outline-offset: 0.5em;
+      a {
+        outline: 0;
+      }
+    }
+
+    .text-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 2fr 1fr;
+      padding-left: 1em;
+      padding-right: 1em;
+      padding-top: 1em;
+      height: 100%;
+      h3 {
+        padding: 0;
+        color: #403147;
+        font-size: 1.1em;
+
+        a {
+          color: #403147;
+          margin-bottom: 1.5em;
+
+          &::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+          }
+        }
+      }
+
+      span {
+        justify-self: right;
+        font-size: 0.8em;
       }
     }
 
     .image-container {
-      padding: 1em;
-      background-color: #ffffff;
-      max-width: 30%;
-      min-width: 30%;
-      border-radius: 5em;
-    }
-
-    h2 {
-      padding: 0;
+      background-color: #f8f8f8;
       text-align: center;
-      color: #ffffff;
+      border-top-right-radius: 1em;
+      border-top-left-radius: 1em;
+      padding-top: 2em;
+      padding-bottom: 2em;
+      height: 100%;
+
+      img {
+        max-width: 60%;
+      }
     }
   }
 `;
@@ -114,17 +143,22 @@ const IceCreams = ({ history }) => {
                 onItemClickHandler(id);
               }}
             >
-              <FocusLink
-                to={{
-                  pathname: '/menu-items/add',
-                  search: `?iceCreamId=${id.toString()}`,
-                }}
-                onClick={onLinkClickHandler}
-              >
-                <h2>{name}</h2>
-              </FocusLink>
               <div className="image-container">
                 <img src={image} alt="" />
+              </div>
+              <div className="text-container">
+                <h3>
+                  <FocusLink
+                    to={{
+                      pathname: '/menu-items/add',
+                      search: `?iceCreamId=${id.toString()}`,
+                    }}
+                    onClick={onLinkClickHandler}
+                  >
+                    {name}
+                  </FocusLink>
+                </h3>
+                <span>Select to add</span>
               </div>
             </li>
           ))}

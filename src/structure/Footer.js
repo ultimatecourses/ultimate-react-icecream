@@ -6,19 +6,20 @@ const footerStyle = css`
   margin-left: auto;
   margin-right: auto;
   border-radius: 0 0 4px 4px;
-  background: #0a1bab;
   color: #fff;
   padding: 10px;
   text-align: center;
   span {
     margin: 0;
+    font-family: 'kathen', sans-serif;
+    text-shadow: 0.05em 0.05em #000000;
     font-weight: 600;
   }
 `;
 
 const Footer = () => (
   <footer className={footerStyle}>
-    <span>© The ICE Project Inc.</span>
+    <span>© Ultimate Ice Cream</span>
   </footer>
 );
 

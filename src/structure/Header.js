@@ -9,8 +9,9 @@ const headerStyle = css`
 
   h1 {
     color: #ffffff;
-    font-size: 7em;
-
+    font-family: 'kathen', sans-serif;
+    font-size: 3em;
+    text-shadow: 0.05em 0.05em #000;
     @media screen and (max-width: 600px) {
       font-size: 4em;
     }
@@ -21,14 +22,12 @@ const headerStyle = css`
     margin-left: auto;
     margin-right: auto;
     border-radius: 4px 4px 0 0;
-    background: #0054d1;
     display: flex;
     justify-content: center;
     align-items: center;
     a {
       color: #fff;
       padding: 15px 35px;
-      font-family: 'cornerstone', serif;
       font-size: 2em;
       &.active {
         background: #0a1bab;
@@ -42,7 +41,7 @@ const headerStyle = css`
 
 const Header = () => (
   <header className={headerStyle}>
-    <h1>The ICE Project</h1>
+    <h1>Ultimate Ice Cream</h1>
     <nav>
       <FocusLink to="/" activeClassName="active" exact>
         Menu

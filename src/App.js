@@ -5,8 +5,9 @@ import {
   Switch,
   Redirect,
 } from 'react-router-dom';
-import cornerstoneWoff from './assets/fonts/cornerstone.woff';
-import cornerstoneWoff2 from './assets/fonts/cornerstone.woff2';
+import geomanistBookWoff from './assets/fonts/geomanist/geomanist-book.woff';
+import geomanistBookWoff2 from './assets/fonts/geomanist/geomanist-book.woff2';
+import kathen from './assets/fonts/kathen/kathen.otf';
 import { Global, css } from '@emotion/core';
 import Header from './structure/Header';
 import Footer from './structure/Footer';
@@ -15,7 +16,24 @@ import IceCreams from './ice-cream/IceCreams';
 import EditIceCream from './ice-cream/EditIceCream';
 import AddIceCream from './ice-cream/AddIceCream';
 
+console.log(kathen);
+
 const globalStyle = css`
+  @font-face {
+    font-family: 'geomanist';
+    src: url(${geomanistBookWoff2}) format('woff2'),
+      url(${geomanistBookWoff}) format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'kathen';
+    src: url(${kathen});
+    font-weight: normal;
+    font-style: normal;
+  }
+
   *,
   *:before,
   *:after {
@@ -23,6 +41,7 @@ const globalStyle = css`
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
   }
+
   html,
   body {
     height: 100%;
@@ -30,10 +49,8 @@ const globalStyle = css`
     margin: 0;
     padding: 0;
     color: #333;
-    background: #23292d;
-    -webkit-font-smoothing: antialiased;
-    font: 300 16px/1.4 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica,
-      Arial, sans-serif;
+    background: #ff71ba;
+    font-family: 'geomanist', sans-serif;
     display: flex;
   }
   #root {
@@ -51,7 +68,6 @@ const globalStyle = css`
   h4,
   h5 {
     font-weight: normal;
-    font-family: 'cornerstone', serif;
     padding: 0;
     margin: 0;
   }
@@ -63,14 +79,6 @@ const globalStyle = css`
     font-size: 20px;
   }
 
-  @font-face {
-    font-family: 'cornerstone';
-    src: url(${cornerstoneWoff2}) format('woff2'),
-      url(${cornerstoneWoff}) format('woff');
-    font-weight: normal;
-    font-style: normal;
-  }
-
   .visually-hidden:not(:focus):not(:active) {
     clip: rect(0 0 0 0);
     clip-path: inset(100%);
@@ -78,6 +86,7 @@ const globalStyle = css`
     overflow: hidden;
     position: absolute;
     white-space: nowrap;
+    width: 1px;
   }
 
   .btn {
