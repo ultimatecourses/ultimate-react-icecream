@@ -7,13 +7,17 @@ const cardStyle = css`
   position: relative;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 13em 1fr;
+  grid-template-rows: 65% 35%;
   align-items: center;
   background-color: #ffffff;
   border-radius: 1em;
   cursor: pointer;
   transform: scale(1);
   transition: all 0.2s ease-in-out;
+
+  @media screen and (max-width: 600px) {
+    grid-template-rows: 70% 30%;
+  }
 
   &:hover,
   &:focus-within {

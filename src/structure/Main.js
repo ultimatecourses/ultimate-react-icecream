@@ -10,9 +10,11 @@ const mainStyle = css`
   min-height: 40em;
 
   .main-heading {
-    padding: 2em;
-    text-align: center;
-    font-size: 2em;
+    font-family: 'kathen', sans-serif;
+    padding: 1rem;
+    color: #ffffff;
+    font-size: 1.8em;
+    text-shadow: 0.05em 0.05em #000;
     outline: 0;
   }
 `;

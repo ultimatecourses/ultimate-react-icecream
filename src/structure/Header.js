@@ -1,6 +1,7 @@
 import React from 'react';
-import { css } from 'emotion/macro';
 import FocusLink from '../structure/FocusLink';
+import iceCream from '../assets/img/ultimate-ice-cream.svg';
+import { css } from 'emotion/macro';
 
 const headerStyle = css`
   position: relative;
@@ -8,32 +9,59 @@ const headerStyle = css`
   padding-top: 3em;
 
   h1 {
+    display: flex;
+    justify-content: center;
     color: #ffffff;
     font-family: 'kathen', sans-serif;
-    font-size: 3em;
+    font-size: 2em;
     text-shadow: 0.05em 0.05em #000;
+
     @media screen and (max-width: 600px) {
       font-size: 4em;
+    }
+
+    img {
+      margin-right: 0.5em;
     }
   }
 
   nav {
+    padding: 0.3em;
     max-width: 70em;
     margin-left: auto;
     margin-right: auto;
-    border-radius: 4px 4px 0 0;
+    margin-top: 1em;
+    border-radius: 7em;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    background-color: #ffffff;
     a {
-      color: #fff;
-      padding: 15px 35px;
-      font-size: 2em;
+      color: #a84a7a;
+      border: 2px solid transparent;
+      border-radius: 6em;
+      padding: 0.5em;
+      font-size: 1.2em;
+      &:first-of-type {
+        margin-left: 1em;
+      }
+
       &.active {
-        background: #0a1bab;
+        //background: #0a1bab;
       }
       &:focus {
-        outline: 2px solid #ffffff;
+        outline: 2px solid transparent;
+        border: 2px solid #a84a7a;
+      }
+    }
+
+    .add-more {
+      color: #ffffff;
+      background-color: #5c4268;
+
+      &:focus:not(:active) {
+        background-color: #ffffff;
+        color: #5c4268;
       }
     }
   }
@@ -41,10 +69,16 @@ const headerStyle = css`
 
 const Header = () => (
   <header className={headerStyle}>
-    <h1>Ultimate Ice Cream</h1>
+    <h1>
+      <img src={iceCream} alt="" />
+      Ultimate Ice Cream
+    </h1>
     <nav>
       <FocusLink to="/" activeClassName="active" exact>
         Menu
+      </FocusLink>
+      <FocusLink to="/ice-creams" className="add-more">
+        Add more frozen goodness
       </FocusLink>
     </nav>
   </header>

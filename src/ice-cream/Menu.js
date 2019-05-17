@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Main from '../structure/Main';
-import FocusLink from '../structure/FocusLink';
 import LoaderMessage from '../structure/LoaderMessage';
 import IceCreamCardContainer from './IceCreamCardContainer';
 import IceCreamCard from './IceCreamCard';
@@ -52,9 +51,6 @@ const Menu = () => {
           ) : (
             <p>Your menu is empty! The sadness!!</p>
           )}
-          <FocusLink to="/ice-creams" className="add-more">
-            Add more frozen goodness
-          </FocusLink>
         </div>
       )}
     </Main>

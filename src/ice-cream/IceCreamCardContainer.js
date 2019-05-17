@@ -10,6 +10,14 @@ const containerStyle = css`
   margin: 0 1em;
   padding: 1em 0;
 
+  @media screen and (max-width: 1200px) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  @media screen and (max-width: 800px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
   @media screen and (max-width: 600px) {
     grid-template-columns: 1fr;
   }
