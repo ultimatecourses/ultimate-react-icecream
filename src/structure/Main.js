@@ -8,6 +8,8 @@ const mainStyle = css`
   margin-left: auto;
   margin-right: auto;
   min-height: 40em;
+  padding-top: 2em;
+  padding-bottom: 2em;
 
   .main-heading {
     font-family: 'kathen', sans-serif;

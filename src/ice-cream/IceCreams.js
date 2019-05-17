@@ -34,7 +34,7 @@ const IceCreams = ({ history }) => {
   };
 
   return (
-    <Main headingText="Choose your poison">
+    <Main headingText="Choose your poison and enjoy!">
       <LoaderMessage
         loadingMsg="Loading the stock list."
         doneMsg="Loading stock list complete."
