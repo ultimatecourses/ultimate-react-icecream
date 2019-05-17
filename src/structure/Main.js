@@ -10,6 +10,7 @@ const mainStyle = css`
   min-height: 40em;
   padding-top: 2em;
   padding-bottom: 2em;
+  outline: 0;
 
   .main-heading {
     font-family: 'kathen', sans-serif;
@@ -33,7 +34,7 @@ const Main = ({ headingText, headingLevel = 2, children, location }) => {
   }, [location.state]);
 
   return (
-    <main className={mainStyle}>
+    <main className={mainStyle} tabIndex="-1" id="main">
       <Helmet>
         <title>{headingText} | The ICE Project</title>
       </Helmet>

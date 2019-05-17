@@ -122,12 +122,37 @@ const globalStyle = css`
   .btn__warning:hover {
     background: #880c14;
   }
+
+  .skip-link {
+    padding: 6px;
+    position: absolute;
+    top: -40px;
+    left: 0px;
+    color: white;
+    border-right: 1px solid white;
+    border-bottom: 1px solid white;
+    border-bottom-right-radius: 8px;
+    background: #5c4268;
+    transition: top 1s ease-out;
+    z-index: 100;
+
+    &:focus {
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      outline-color: transparent;
+      transition: top 0.1s ease-in;
+    }
+  }
 `;
 
 const App = () => {
   return (
     <Router>
       <Global styles={globalStyle} />
+      <a href="#main" className="skip-link">
+        Skip to content
+      </a>
       <Header />
       <Switch>
         <Route path="/" component={Menu} exact />
