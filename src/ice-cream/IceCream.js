@@ -83,10 +83,6 @@ const formStyle = css`
         grid-template-columns: 1fr 1fr;
         grid-gap: 1em;
 
-        .single-button {
-          grid-column: 2;
-        }
-
         button {
           display: inline-block;
           padding: 0.2em 1em;
@@ -210,6 +206,7 @@ const IceCream = ({
 
   const priceInput = useRef(null);
   const descriptionTextarea = useRef(null);
+  const quantitySelect = useRef(null);
 
   const [internalData, setInternalData] = useState({
     price: '0.00',
@@ -220,6 +217,7 @@ const IceCream = ({
   const [error, setError] = useState({
     price: '',
     description: '',
+    quantity: '',
   });
   const [hasSubmitted, setHasSubmitted] = useState(false);
 
@@ -236,6 +234,7 @@ const IceCream = ({
     let errorObj = {
       price: '',
       description: '',
+      quantity: '',
     };
 
     const regex = /^[0-9]+(\.[0-9][0-9])$/;
@@ -250,12 +249,31 @@ const IceCream = ({
       errorObj.description = 'You must enter a description';
     }
 
+    if (internalData.inStock && internalData.quantity === '0') {
+      errorObj.quantity = 'An in stock items should have a quantity';
+    }
+
     setError(errorObj);
-  }, [internalData.price, internalData.description]);
+  }, [
+    internalData.price,
+    internalData.description,
+    internalData.inStock,
+    internalData.quantity,
+  ]);
 
   const setDataValue = e => {
     setInternalData({
       ...internalData,
+      inStock:
+        e.target.name === 'quantity'
+          ? e.target.value !== '0'
+          : internalData.inStock,
+      quantity:
+        e.target.name === 'inStock'
+          ? e.target.checked
+            ? internalData.quantity
+            : '0'
+          : internalData.quantity,
       [e.target.name]:
         e.target.type === 'checkbox' ? e.target.checked : e.target.value,
     });
@@ -264,7 +282,7 @@ const IceCream = ({
   const onSubmitHandler = e => {
     e.preventDefault();
     setHasSubmitted(true);
-    if (!error.price && !error.description) {
+    if (!error.price && !error.description && !error.quantity) {
       onSubmit({
         iceCream: { id: iceCream.id },
         price: parseFloat(internalData.price),
@@ -273,9 +291,13 @@ const IceCream = ({
         description: internalData.description,
       });
     } else {
-      error.description
-        ? descriptionTextarea.current.focus()
-        : priceInput.current.focus();
+      if (error.description) {
+        descriptionTextarea.current.focus();
+      } else if (error.quantity) {
+        quantitySelect.current.focus();
+      } else {
+        priceInput.current.focus();
+      }
     }
   };
 
@@ -302,14 +324,14 @@ const IceCream = ({
                 rows="5"
                 aria-invalid={error.description && hasSubmitted}
                 aria-describedby={
-                  error.description && hasSubmitted ? 'errorId' : null
+                  error.description && hasSubmitted ? 'descriptionError' : null
                 }
                 ref={descriptionTextarea}
                 onChange={setDataValue}
                 value={internalData.description}
               />
-              {error && hasSubmitted && (
-                <span id="errorId">{error.description}</span>
+              {error.description && hasSubmitted && (
+                <span id="descriptionError">{error.description}</span>
               )}
             </div>
             <label htmlFor="iceCreamInStock">In Stock:</label>
@@ -321,19 +343,29 @@ const IceCream = ({
               checked={internalData.inStock}
             />
             <label htmlFor="iceCreamQuantity">Quantity:</label>
-            <select
-              id="iceCreamQuantity"
-              name="quantity"
-              onChange={setDataValue}
-              value={internalData.quantity}
-            >
-              <option value="0">0</option>
-              <option value="10">10</option>
-              <option value="20">20</option>
-              <option value="30">30</option>
-              <option value="40">40</option>
-              <option value="50">50</option>
-            </select>
+            <div className={error.quantity && hasSubmitted ? 'error' : null}>
+              <select
+                id="iceCreamQuantity"
+                name="quantity"
+                ref={quantitySelect}
+                aria-invalid={error.quantity && hasSubmitted}
+                aria-describedby={
+                  error.quantity && hasSubmitted ? 'quantityError' : null
+                }
+                onChange={setDataValue}
+                value={internalData.quantity}
+              >
+                <option value="0">0</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="40">40</option>
+                <option value="50">50</option>
+              </select>
+              {error.quantity && hasSubmitted && (
+                <span id="quantityError">{error.quantity}</span>
+              )}
+            </div>
             <label htmlFor="iceCreamPrice">
               Price: <span aria-hidden="true">*</span>
             </label>
@@ -352,13 +384,12 @@ const IceCream = ({
                 onChange={setDataValue}
                 value={internalData.price}
               />
-              {error && hasSubmitted && <span id="errorId">{error.price}</span>}
+              {error.price && hasSubmitted && (
+                <span id="errorId">{error.price}</span>
+              )}
             </div>
             <div className="button-container">
-              <button
-                className={`ok${onDelete ? '' : ' single-button'}`}
-                type="submit"
-              >
+              <button className="ok" type="submit">
                 Save
               </button>
               {onDelete && (

@@ -13,7 +13,6 @@ const EditIceCream = ({ match, history }) => {
     getMenuItem(match.params.menuItemId)
       .then(item => {
         if (!didCancel) {
-          console.log(item);
           setMenuItem(item);
           setIsLoading(false);
         }

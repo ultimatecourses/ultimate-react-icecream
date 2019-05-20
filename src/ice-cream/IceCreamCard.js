@@ -7,7 +7,8 @@ const cardStyle = css`
   position: relative;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 65% 35%;
+  grid-auto-rows: max-content;
+  height: 100%;
   align-items: center;
   background-color: #ffffff;
   border-radius: 1em;
@@ -36,15 +37,14 @@ const cardStyle = css`
   .text-container {
     display: grid;
     grid-template-columns: 1fr;
-    grid-auto-rows: 1fr 1fr 1fr;
-    padding-left: 1em;
-    padding-right: 1em;
-    padding-top: 1em;
+    grid-auto-rows: max-content;
+    padding: 1em;
     height: 100%;
     h3 {
       padding: 0.5em;
+      margin-bottom: 0.5em;
       color: #403147;
-      font-size: 1.1em;
+      font-size: 1.5em;
 
       a {
         color: #403147;
@@ -67,12 +67,18 @@ const cardStyle = css`
     }
 
     .action {
+      position: absolute;
       justify-self: right;
       font-size: 0.8em;
+      bottom: 0.5em;
+      right: 0.8em;
     }
   }
 
   .image-container {
+    display: flex;
+    align-content: center;
+    justify-content: center;
     background-color: #f8f8f8;
     text-align: center;
     border-top-right-radius: 1em;
@@ -107,7 +113,7 @@ const IceCreamCard = ({
   };
 
   return (
-    <div
+    <section
       className={cardStyle}
       onClick={() => {
         onItemClickHandler(id);
@@ -125,7 +131,7 @@ const IceCreamCard = ({
         {children && <div className="content">{children}</div>}
         <span className="action">{callToAction}</span>
       </div>
-    </div>
+    </section>
   );
 };
 

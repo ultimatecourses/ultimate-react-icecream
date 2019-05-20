@@ -124,13 +124,13 @@ app.get('/api/menu', (req, res) => {
 });
 
 app.post('/api/menu', (req, res) => {
-  const { price, iceCream } = req.body;
+  const {  iceCream, ...rest } = req.body;
   const newMenuItem = {
     id: menuData.reduce((prev, cur) => (cur.id > prev ? cur.id : prev), 0) + 1,
     iceCream: {
       ...iceCreams.find(item => item.id === parseInt(iceCream.id, 10)),
     },
-    price,
+    ...rest,
   };
   menuData.push(newMenuItem);
 
