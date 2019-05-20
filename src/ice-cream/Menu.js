@@ -73,7 +73,7 @@ const Menu = () => {
                         <p className={`stock${inStock ? '' : ' out'}`}>
                           {inStock
                             ? `${quantity} in stock`
-                            : 'Currently our of stock!'}
+                            : 'Currently out of stock!'}
                         </p>
                         <p className="description">{description}</p>
                       </div>

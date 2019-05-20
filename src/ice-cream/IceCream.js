@@ -17,6 +17,8 @@ const formStyle = css`
       flex: 1;
       align-self: center;
       justify-self: center;
+      margin-left: 0.5em;
+      margin-right: 0.5em;
     }
   }
 
@@ -44,6 +46,7 @@ const formStyle = css`
         width: 2.2em;
         height: 2.2em;
         cursor: pointer;
+        margin-bottom: 1.9em;
       }
 
       input:not([type='checkbox']),
@@ -133,9 +136,13 @@ const formStyle = css`
         }
       }
 
+      .error-wrapper {
+        min-height: 1.3em;
+      }
       .error {
         span {
           color: #ab131c;
+          font-size: 1.3rem;
         }
 
         input {
@@ -187,26 +194,28 @@ const formStyle = css`
     .form-container {
       border-radius: 0 0 1em 1em;
       max-width: 100vw;
+
+      form .error .error-wrapper > span {
+        font-size: 0.8rem;
+      }
     }
   }
 `;
 
 const IceCream = ({
   iceCream = {},
-  data = {
-    price: 0,
-    quantity: 0,
-    inStock: true,
-    description: '',
-  },
+  price = 0,
+  quantity = 0,
+  inStock = true,
+  description = '',
   onDelete,
   onSubmit,
 }) => {
-  const { price, inStock, quantity, description } = data;
-
-  const priceInput = useRef(null);
-  const descriptionTextarea = useRef(null);
-  const quantitySelect = useRef(null);
+  let refs = {
+    price: useRef(null),
+    quantity: useRef(null),
+    description: useRef(null),
+  };
 
   const [internalData, setInternalData] = useState({
     price: '0.00',
@@ -215,9 +224,9 @@ const IceCream = ({
     description: '',
   });
   const [error, setError] = useState({
-    price: '',
     description: '',
     quantity: '',
+    price: '',
   });
   const [hasSubmitted, setHasSubmitted] = useState(false);
 
@@ -232,9 +241,9 @@ const IceCream = ({
 
   useEffect(() => {
     let errorObj = {
-      price: '',
       description: '',
       quantity: '',
+      price: '',
     };
 
     const regex = /^[0-9]+(\.[0-9][0-9])$/;
@@ -250,39 +259,39 @@ const IceCream = ({
     }
 
     if (internalData.inStock && internalData.quantity === '0') {
-      errorObj.quantity = 'An in stock items should have a quantity';
+      errorObj.quantity = 'An in stock item should have a quantity';
     }
 
     setError(errorObj);
-  }, [
-    internalData.price,
-    internalData.description,
-    internalData.inStock,
-    internalData.quantity,
-  ]);
+  }, [internalData]);
 
   const setDataValue = e => {
-    setInternalData({
+    let newInternalData = {
       ...internalData,
-      inStock:
-        e.target.name === 'quantity'
-          ? e.target.value !== '0'
-          : internalData.inStock,
-      quantity:
-        e.target.name === 'inStock'
-          ? e.target.checked
-            ? internalData.quantity
-            : '0'
-          : internalData.quantity,
       [e.target.name]:
         e.target.type === 'checkbox' ? e.target.checked : e.target.value,
-    });
+    };
+
+    if (e.target.name === 'quantity') {
+      newInternalData.inStock = e.target.value !== '0';
+    }
+
+    if (e.target.name === 'inStock' && !e.target.checked) {
+      newInternalData.quantity = '0';
+    }
+
+    setInternalData(newInternalData);
   };
 
   const onSubmitHandler = e => {
     e.preventDefault();
+
+    const errorNames = Object.keys(error).filter(name => error[name]);
     setHasSubmitted(true);
-    if (!error.price && !error.description && !error.quantity) {
+
+    if (errorNames.length > 0) {
+      refs[errorNames[0]].current.focus();
+    } else {
       onSubmit({
         iceCream: { id: iceCream.id },
         price: parseFloat(internalData.price),
@@ -290,14 +299,6 @@ const IceCream = ({
         quantity: parseInt(internalData.quantity),
         description: internalData.description,
       });
-    } else {
-      if (error.description) {
-        descriptionTextarea.current.focus();
-      } else if (error.quantity) {
-        quantitySelect.current.focus();
-      } else {
-        priceInput.current.focus();
-      }
     }
   };
 
@@ -309,12 +310,12 @@ const IceCream = ({
       <div>
         <div className="form-container">
           <dl>
-            <dt>Name:</dt>
+            <dt>Name :</dt>
             <dd>{iceCream.name}</dd>
           </dl>
           <form noValidate onSubmit={onSubmitHandler}>
             <label htmlFor="iceCreamDescription">
-              Description: <span aria-hidden="true">*</span>
+              Description<span aria-hidden="true">*</span> :
             </label>
             <div className={error.description && hasSubmitted ? 'error' : null}>
               <textarea
@@ -326,15 +327,17 @@ const IceCream = ({
                 aria-describedby={
                   error.description && hasSubmitted ? 'descriptionError' : null
                 }
-                ref={descriptionTextarea}
+                ref={refs.description}
                 onChange={setDataValue}
                 value={internalData.description}
               />
-              {error.description && hasSubmitted && (
-                <span id="descriptionError">{error.description}</span>
-              )}
+              <div className="error-wrapper">
+                {error.description && hasSubmitted && (
+                  <span id="descriptionError">{error.description}</span>
+                )}
+              </div>
             </div>
-            <label htmlFor="iceCreamInStock">In Stock:</label>
+            <label htmlFor="iceCreamInStock">In Stock :</label>
             <input
               id="iceCreamInStock"
               type="checkbox"
@@ -342,12 +345,12 @@ const IceCream = ({
               onChange={setDataValue}
               checked={internalData.inStock}
             />
-            <label htmlFor="iceCreamQuantity">Quantity:</label>
+            <label htmlFor="iceCreamQuantity">Quantity :</label>
             <div className={error.quantity && hasSubmitted ? 'error' : null}>
               <select
                 id="iceCreamQuantity"
                 name="quantity"
-                ref={quantitySelect}
+                ref={refs.quantity}
                 aria-invalid={error.quantity && hasSubmitted}
                 aria-describedby={
                   error.quantity && hasSubmitted ? 'quantityError' : null
@@ -362,12 +365,14 @@ const IceCream = ({
                 <option value="40">40</option>
                 <option value="50">50</option>
               </select>
-              {error.quantity && hasSubmitted && (
-                <span id="quantityError">{error.quantity}</span>
-              )}
+              <div className="error-wrapper">
+                {error.quantity && hasSubmitted && (
+                  <span id="quantityError">{error.quantity}</span>
+                )}
+              </div>
             </div>
             <label htmlFor="iceCreamPrice">
-              Price: <span aria-hidden="true">*</span>
+              Price<span aria-hidden="true">*</span> :
             </label>
             <div className={error.price && hasSubmitted ? 'error' : null}>
               <input
@@ -380,13 +385,15 @@ const IceCream = ({
                 aria-describedby={
                   error.price && hasSubmitted ? 'errorId' : null
                 }
-                ref={priceInput}
+                ref={refs.price}
                 onChange={setDataValue}
                 value={internalData.price}
               />
-              {error.price && hasSubmitted && (
-                <span id="errorId">{error.price}</span>
-              )}
+              <div className="error-wrapper">
+                {error.price && hasSubmitted && (
+                  <span id="errorId">{error.price}</span>
+                )}
+              </div>
             </div>
             <div className="button-container">
               <button className="ok" type="submit">

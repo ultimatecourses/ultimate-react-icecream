@@ -48,9 +48,7 @@ const EditIceCream = ({ match, history }) => {
       />
       {!isLoading && (
         <IceCream
-          iceCream={menuItem.iceCream}
-          data={menuItem}
-          price={menuItem.price}
+          {...menuItem}
           onDelete={onDeleteHandler}
           onSubmit={onSubmitHandler}
         />
