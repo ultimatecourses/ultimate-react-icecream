@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import ErrorContainer from './ErrorContainer';
 import { css } from 'emotion/macro';
 
 const formStyle = css`
@@ -56,7 +57,7 @@ const formStyle = css`
         justify-self: left;
         align-self: center;
         background-color: #fff;
-        border: 1px solid #f23794;
+        border: 1px solid #1e1e1e;
         border-radius: 0.5rem;
         color: #111;
         font-size: 1.3rem;
@@ -74,7 +75,7 @@ const formStyle = css`
         outline: 0;
         &:focus {
           outline: 2px solid transparent;
-          box-shadow: 0 0 2px 4px rgba(242, 55, 148, 1);
+          box-shadow: 0 0 2px 2px rgba(242, 55, 148, 1);
         }
       }
 
@@ -136,18 +137,21 @@ const formStyle = css`
         }
       }
 
+      .error {
+        input,
+        select,
+        textarea {
+          border: 1px solid #ab131c;
+          background-color: rgba(231, 18, 28, 0.07);
+        }
+      }
+
       .error-wrapper {
         min-height: 1.3em;
-      }
-      .error {
+
         span {
           color: #ab131c;
           font-size: 1.3rem;
-        }
-
-        input {
-          border: 1px solid #ab131c;
-          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.12);
         }
       }
     }
@@ -317,7 +321,11 @@ const IceCream = ({
             <label htmlFor="iceCreamDescription">
               Description<span aria-hidden="true">*</span> :
             </label>
-            <div className={error.description && hasSubmitted ? 'error' : null}>
+            <ErrorContainer
+              errorText={error.description}
+              errorId="iceCreamDescriptionError"
+              hasSubmitted={hasSubmitted}
+            >
               <textarea
                 id="iceCreamDescription"
                 name="description"
@@ -325,18 +333,15 @@ const IceCream = ({
                 rows="5"
                 aria-invalid={error.description && hasSubmitted}
                 aria-describedby={
-                  error.description && hasSubmitted ? 'descriptionError' : null
+                  error.description && hasSubmitted
+                    ? 'iceCreamDescriptionError'
+                    : null
                 }
                 ref={refs.description}
                 onChange={setDataValue}
                 value={internalData.description}
               />
-              <div className="error-wrapper">
-                {error.description && hasSubmitted && (
-                  <span id="descriptionError">{error.description}</span>
-                )}
-              </div>
-            </div>
+            </ErrorContainer>
             <label htmlFor="iceCreamInStock">In Stock :</label>
             <input
               id="iceCreamInStock"
@@ -346,14 +351,20 @@ const IceCream = ({
               checked={internalData.inStock}
             />
             <label htmlFor="iceCreamQuantity">Quantity :</label>
-            <div className={error.quantity && hasSubmitted ? 'error' : null}>
+            <ErrorContainer
+              errorText={error.quantity}
+              errorId="iceCreamQuantityError"
+              hasSubmitted={hasSubmitted}
+            >
               <select
                 id="iceCreamQuantity"
                 name="quantity"
                 ref={refs.quantity}
                 aria-invalid={error.quantity && hasSubmitted}
                 aria-describedby={
-                  error.quantity && hasSubmitted ? 'quantityError' : null
+                  error.quantity && hasSubmitted
+                    ? 'iceCreamQuantityError'
+                    : null
                 }
                 onChange={setDataValue}
                 value={internalData.quantity}
@@ -365,16 +376,15 @@ const IceCream = ({
                 <option value="40">40</option>
                 <option value="50">50</option>
               </select>
-              <div className="error-wrapper">
-                {error.quantity && hasSubmitted && (
-                  <span id="quantityError">{error.quantity}</span>
-                )}
-              </div>
-            </div>
+            </ErrorContainer>
             <label htmlFor="iceCreamPrice">
               Price<span aria-hidden="true">*</span> :
             </label>
-            <div className={error.price && hasSubmitted ? 'error' : null}>
+            <ErrorContainer
+              errorText={error.price}
+              errorId="iceCreamPriceError"
+              hasSubmitted={hasSubmitted}
+            >
               <input
                 id="iceCreamPrice"
                 type="number"
@@ -383,18 +393,13 @@ const IceCream = ({
                 aria-required="true"
                 aria-invalid={error.price && hasSubmitted}
                 aria-describedby={
-                  error.price && hasSubmitted ? 'errorId' : null
+                  error.price && hasSubmitted ? 'iceCreamPriceError' : null
                 }
                 ref={refs.price}
                 onChange={setDataValue}
                 value={internalData.price}
               />
-              <div className="error-wrapper">
-                {error.price && hasSubmitted && (
-                  <span id="errorId">{error.price}</span>
-                )}
-              </div>
-            </div>
+            </ErrorContainer>
             <div className="button-container">
               <button className="ok" type="submit">
                 Save
