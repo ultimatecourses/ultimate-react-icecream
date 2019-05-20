@@ -87,42 +87,6 @@ const globalStyle = css`
     width: 1px;
   }
 
-  .btn {
-    display: inline-block;
-    padding: 10px 15px;
-    margin: 0;
-    outline: 0;
-    border: 0;
-    border-radius: 3px;
-    font-size: 16px;
-    font-family: 'cornerstone', serif;
-    cursor: pointer;
-
-    &:focus {
-      outline: 2px solid #282c34;
-      outline-offset: 0.3rem;
-    }
-
-    &:hover {
-      transform: scale(1.05);
-      transition: all 0.2s ease-in-out;
-    }
-  }
-  .btn__ok {
-    background: #0f8261;
-    color: #fff;
-  }
-  .btn__ok:hover {
-    background: #0a523c;
-  }
-  .btn__warning {
-    background: #ab131c;
-    color: #fff;
-  }
-  .btn__warning:hover {
-    background: #880c14;
-  }
-
   .skip-link {
     padding: 6px;
     position: absolute;

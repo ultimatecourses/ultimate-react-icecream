@@ -26,7 +26,7 @@ const cardStyle = css`
   }
 
   &:focus-within {
-    box-shadow: -1px 1px 4px 7px rgba(0, 0, 0, 0.75);
+    box-shadow: 0 0 4px 7px rgba(0, 0, 0, 0.75);
 
     a {
       outline: 2px solid transparent;

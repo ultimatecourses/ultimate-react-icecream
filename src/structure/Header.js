@@ -16,10 +16,6 @@ const headerStyle = css`
     font-size: 2em;
     text-shadow: 0.05em 0.05em #000;
 
-    @media screen and (max-width: 600px) {
-      font-size: 4em;
-    }
-
     img {
       margin-right: 0.5em;
     }
