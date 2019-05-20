@@ -59,14 +59,14 @@ export const getMenuItem = id => {
   return axios
     .get(`/api/menu/${id}`)
     .then(response => {
-      const { id, iceCream, price } = response.data;
+      const { id, iceCream, ...rest } = response.data;
       return {
         id,
         iceCream: {
           ...iceCream,
           image: require(`../assets/img/ice-cream/ice-cream-${iceCream.id.toString()}.svg`),
         },
-        price,
+        ...rest,
       };
     })
     .catch(err => {

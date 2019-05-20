@@ -13,6 +13,7 @@ const EditIceCream = ({ match, history }) => {
     getMenuItem(match.params.menuItemId)
       .then(item => {
         if (!didCancel) {
+          console.log(item);
           setMenuItem(item);
           setIsLoading(false);
         }
@@ -49,6 +50,7 @@ const EditIceCream = ({ match, history }) => {
       {!isLoading && (
         <IceCream
           iceCream={menuItem.iceCream}
+          data={menuItem}
           price={menuItem.price}
           onDelete={onDeleteHandler}
           onSubmit={onSubmitHandler}

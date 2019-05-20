@@ -92,36 +92,85 @@ const formStyle = css`
   }
 `;
 
-const IceCream = ({ iceCream = {}, price = '', onDelete, onSubmit }) => {
+const IceCream = ({
+  iceCream = {},
+  data = {
+    price: 0,
+    quantity: 0,
+    inStock: true,
+    description: '',
+  },
+  onDelete,
+  onSubmit,
+}) => {
   const priceInput = useRef(null);
-  const [error, setError] = useState('');
+  const descriptionTextarea = useRef(null);
+  const [error, setError] = useState({
+    price: '',
+    description: '',
+  });
   const [hasSubmitted, setHasSubmitted] = useState(false);
-  const [internalPrice, setInternalPrice] = useState('');
+  const [internalData, setInternalData] = useState({
+    price: '0.00',
+    inStock: true,
+    quantity: '0',
+    description: '',
+  });
 
   useEffect(() => {
-    setInternalPrice(price);
-  }, [price]);
+    const { price, inStock, quantity, description } = data;
+    setInternalData({
+      price: price.toFixed(2),
+      inStock,
+      quantity: quantity.toString(),
+      description,
+    });
+  }, [data, data.price, data.quantity, data.inStock, data.description]);
 
   useEffect(() => {
-    if (!internalPrice) {
-      setError('You must enter a price');
-      return;
-    }
+    let errorObj = {
+      price: '',
+      description: '',
+    };
+
     const regex = /^[0-9]+(\.[0-9][0-9])$/;
-    if (!regex.test(internalPrice.trim())) {
-      setError('Please enter a valid price');
-      return;
+
+    if (!internalData.price || internalData.price === '0.00') {
+      errorObj.price = 'You must enter a price';
+    } else if (!regex.test(internalData.price.trim())) {
+      errorObj.price = 'Please enter a valid price';
     }
-    setError('');
-  }, [internalPrice]);
+
+    if (!internalData.description) {
+      errorObj.description = 'You must enter a description';
+    }
+
+    setError(errorObj);
+  }, [internalData.price, internalData.description]);
+
+  const setDataValue = e => {
+    setInternalData({
+      ...internalData,
+      [e.target.name]:
+        e.target.type === 'checkbox' ? e.target.checked : e.target.value,
+    });
+  };
 
   const onSubmitHandler = e => {
     e.preventDefault();
     setHasSubmitted(true);
-    if (!error) {
-      onSubmit({ iceCream: { id: iceCream.id }, price: internalPrice });
+    if (!error.price && !error.description) {
+      onSubmit({
+        iceCream: { id: iceCream.id },
+        price: parseFloat(internalData.price),
+        inStock: internalData.inStock,
+        quantity: parseInt(internalData.quantity),
+        description: internalData.description,
+      });
     } else {
-      priceInput.current.focus();
+      error.description
+        ? descriptionTextarea.current.focus()
+        : priceInput.current.focus();
     }
   };
 
@@ -143,23 +192,65 @@ const IceCream = ({ iceCream = {}, price = '', onDelete, onSubmit }) => {
         )}
       </dl>
       <form noValidate onSubmit={onSubmitHandler}>
+        <label htmlFor="iceCreamDescription">
+          Description: <span aria-hidden="true">*</span>
+        </label>
+        <div className={error.description && hasSubmitted ? 'error' : null}>
+          <textarea
+            id="iceCreamDescription"
+            name="description"
+            aria-required="true"
+            rows="10"
+            aria-invalid={error.description && hasSubmitted}
+            aria-describedby={
+              error.description && hasSubmitted ? 'errorId' : null
+            }
+            ref={descriptionTextarea}
+            onChange={setDataValue}
+            value={internalData.description}
+          />
+          {error && hasSubmitted && (
+            <span id="errorId">{error.description}</span>
+          )}
+        </div>
+        <label htmlFor="iceCreamInStock">In Stock:</label>
+        <input
+          type="checkbox"
+          name="inStock"
+          onChange={setDataValue}
+          checked={internalData.inStock}
+        />
+        <label htmlFor="iceCreamQuantity">Quantity:</label>
+        <select
+          id="iceCreamQuantity"
+          name="quantity"
+          onChange={setDataValue}
+          value={internalData.quantity}
+        >
+          <option value="0">0</option>
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="30">30</option>
+          <option value="40">40</option>
+          <option value="50">50</option>
+        </select>
         <label htmlFor="iceCreamPrice">
           Price: <span aria-hidden="true">*</span>
         </label>
-        <div className={error && hasSubmitted ? 'error' : null}>
+        <div className={error.price && hasSubmitted ? 'error' : null}>
           <input
             id="iceCreamPrice"
-            type="text"
+            type="number"
+            step="0.01"
+            name="price"
             aria-required="true"
-            aria-invalid={error && hasSubmitted}
-            aria-describedby={error && hasSubmitted ? 'errorId' : null}
+            aria-invalid={error.price && hasSubmitted}
+            aria-describedby={error.price && hasSubmitted ? 'errorId' : null}
             ref={priceInput}
-            onChange={e => {
-              setInternalPrice(e.target.value);
-            }}
-            value={internalPrice}
+            onChange={setDataValue}
+            value={internalData.price}
           />
-          {error && hasSubmitted && <span id="errorId">{error}</span>}
+          {error && hasSubmitted && <span id="errorId">{error.price}</span>}
         </div>
         <div className="btn-container">
           <button

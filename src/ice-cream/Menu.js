@@ -43,7 +43,7 @@ const Menu = () => {
                     image={iceCream.image}
                     callToAction="Select to edit"
                   >
-                    <span>{`$${price}`}</span>
+                    <span>{`$${price.toFixed(2)}`}</span>
                   </IceCreamCard>
                 ))}
               </IceCreamCardContainer>
