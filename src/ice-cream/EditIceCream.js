@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Main from '../structure/Main';
 import LoaderMessage from '../structure/LoaderMessage';
-import IceCream from './IceCream';
+import IceCream from './IceCreamHook';
 import { getMenuItem, putMenuItem, deleteMenuItem } from '../data/iceCreamData';
 
 const EditIceCream = ({ match, history }) => {
