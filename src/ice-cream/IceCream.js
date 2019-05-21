@@ -1,6 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ErrorContainer from './ErrorContainer';
 import useUniqueIds from '../hooks/useUniqueIds';
+import useValidation from '../hooks/useValidation';
+import {
+  validatePrice,
+  validateQuantity,
+  validateDescription,
+} from '../utils/validators';
 import { css } from 'emotion/macro';
 
 const formStyle = css`
@@ -226,11 +232,7 @@ const IceCream = ({
     priceErrorId,
   ] = useUniqueIds(7);
 
-  let refs = {
-    price: useRef(null),
-    quantity: useRef(null),
-    description: useRef(null),
-  };
+  const formRef = useRef(null);
 
   const [internalData, setInternalData] = useState({
     price: '0.00',
@@ -239,13 +241,32 @@ const IceCream = ({
     description: '',
   });
 
-  const [error, setError] = useState({
-    description: '',
-    quantity: '',
-    price: '',
-  });
-
   const [hasSubmitted, setHasSubmitted] = useState(false);
+
+  const [descriptionError, descriptionErrorProps] = useValidation(
+    internalData.description,
+    descriptionErrorId,
+    hasSubmitted,
+    validateDescription,
+    true
+  );
+
+  const [quantityError, quantityErrorProps] = useValidation(
+    internalData.quantity,
+    quantityErrorId,
+    hasSubmitted,
+    validateQuantity,
+    false,
+    internalData.inStock
+  );
+
+  const [priceError, priceErrorProps] = useValidation(
+    internalData.price,
+    priceErrorId,
+    hasSubmitted,
+    validatePrice,
+    true
+  );
 
   useEffect(() => {
     setInternalData({
@@ -255,32 +276,6 @@ const IceCream = ({
       description,
     });
   }, [price, quantity, inStock, description]);
-
-  useEffect(() => {
-    let errorObj = {
-      description: '',
-      quantity: '',
-      price: '',
-    };
-
-    const regex = /^[0-9]+(\.[0-9][0-9])$/;
-
-    if (!internalData.price || internalData.price === '0.00') {
-      errorObj.price = 'You must enter a price';
-    } else if (!regex.test(internalData.price.trim())) {
-      errorObj.price = 'Please enter a valid price';
-    }
-
-    if (!internalData.description) {
-      errorObj.description = 'You must enter a description';
-    }
-
-    if (internalData.inStock && internalData.quantity === '0') {
-      errorObj.quantity = 'An in stock item should have a quantity';
-    }
-
-    setError(errorObj);
-  }, [internalData]);
 
   const setDataValue = e => {
     let newInternalData = {
@@ -304,10 +299,15 @@ const IceCream = ({
     e.preventDefault();
     setHasSubmitted(true);
 
-    const errorNames = Object.keys(error).filter(name => error[name]);
-
-    if (errorNames.length > 0) {
-      refs[errorNames[0]].current.focus();
+    if (descriptionError || quantityError || priceError) {
+      setTimeout(() => {
+        const errorControl = formRef.current.querySelector(
+          '[aria-invalid="true"]'
+        );
+        if (errorControl) {
+          errorControl.focus();
+        }
+      });
     } else {
       onSubmit({
         iceCream: { id: iceCream.id },
@@ -330,29 +330,22 @@ const IceCream = ({
             <dt>Name :</dt>
             <dd>{iceCream.name}</dd>
           </dl>
-          <form noValidate onSubmit={onSubmitHandler}>
+          <form noValidate onSubmit={onSubmitHandler} ref={formRef}>
             <label htmlFor={descriptionId}>
               Description<span aria-hidden="true">*</span> :
             </label>
             <ErrorContainer
-              errorText={error.description}
+              errorText={descriptionError}
               errorId={descriptionErrorId}
               hasSubmitted={hasSubmitted}
             >
               <textarea
                 id={descriptionId}
                 name="description"
-                aria-required="true"
                 rows="5"
-                aria-invalid={
-                  error.description && hasSubmitted ? 'true' : 'false'
-                }
-                aria-describedby={
-                  error.description && hasSubmitted ? descriptionErrorId : null
-                }
-                ref={refs.description}
                 onChange={setDataValue}
                 value={internalData.description}
+                {...descriptionErrorProps}
               />
             </ErrorContainer>
             <label htmlFor={stockId}>In Stock :</label>
@@ -365,20 +358,16 @@ const IceCream = ({
             />
             <label htmlFor={quantityId}>Quantity :</label>
             <ErrorContainer
-              errorText={error.quantity}
+              errorText={quantityError}
               errorId={quantityErrorId}
               hasSubmitted={hasSubmitted}
             >
               <select
                 id={quantityId}
                 name="quantity"
-                ref={refs.quantity}
-                aria-invalid={error.quantity && hasSubmitted ? 'true' : 'false'}
-                aria-describedby={
-                  error.quantity && hasSubmitted ? quantityErrorId : null
-                }
                 onChange={setDataValue}
                 value={internalData.quantity}
+                {...quantityErrorProps}
               >
                 <option value="0">0</option>
                 <option value="10">10</option>
@@ -392,7 +381,7 @@ const IceCream = ({
               Price<span aria-hidden="true">*</span> :
             </label>
             <ErrorContainer
-              errorText={error.price}
+              errorText={priceError}
               errorId={priceErrorId}
               hasSubmitted={hasSubmitted}
             >
@@ -401,14 +390,9 @@ const IceCream = ({
                 type="number"
                 step="0.01"
                 name="price"
-                aria-required="true"
-                aria-invalid={error.price && hasSubmitted ? 'true' : 'false'}
-                aria-describedby={
-                  error.price && hasSubmitted ? priceErrorId : null
-                }
-                ref={refs.price}
                 onChange={setDataValue}
                 value={internalData.price}
+                {...priceErrorProps}
               />
             </ErrorContainer>
             <div className="button-container">
