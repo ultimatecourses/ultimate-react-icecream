@@ -36,7 +36,7 @@ const Main = ({ headingText, headingLevel = 2, children, location }) => {
   return (
     <main className={mainStyle} tabIndex="-1" id="main">
       <Helmet>
-        <title>{headingText} | The ICE Project</title>
+        <title>{headingText} | Ultimate Ice Cream</title>
       </Helmet>
       <H className="main-heading" ref={heading} tabIndex="-1">
         {headingText}
