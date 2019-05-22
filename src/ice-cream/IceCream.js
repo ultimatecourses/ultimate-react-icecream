@@ -103,7 +103,7 @@ const formStyle = css`
 
         &:focus {
           outline: 2px solid transparent;
-          box-shadow: 0 0 2px 2px #8b9099;
+          box-shadow: 0 0 0 2px #fff, 0 0 0 4px #8b9099;
         }
       }
 
@@ -171,7 +171,7 @@ const formStyle = css`
           background-color: rgba(216, 71, 79, 0.07);
 
           &:focus {
-            box-shadow: 0 0 2px 2px rgba(216, 71, 79, 1);
+            box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgba(216, 71, 79, 1);
           }
         }
       }
