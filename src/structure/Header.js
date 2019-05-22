@@ -22,42 +22,58 @@ const headerStyle = css`
   }
 
   nav {
-    padding: 0.3em;
-    max-width: 70em;
+    max-width: 63.75em;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 1em;
-    border-radius: 7em;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    margin-top: 3em;
+
+    padding: 0.5em;
     background-color: #ffffff;
+    border-radius: 7em;
+    border: 1px solid rgba(32, 33, 36, 0.12);
+    background-clip: padding-box;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+
+    display: flex;
+    align-items: center;
+
     a {
-      color: #a84a7a;
+      position: relative;
+      color: #5c4268;
       border: 2px solid transparent;
       border-radius: 6em;
-      padding: 0.5em;
-      font-size: 1.2em;
-      &:first-of-type {
-        margin-left: 1em;
+      padding: 0 0.75em;
+      font-size: 1em;
+      line-height: 2em;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+
+      &:nth-child(n + 2) {
+        &:before {
+          content: '';
+          position: absolute;
+          left: -2px;
+          top: 15%;
+          height: 70%;
+          width: 1px;
+          background: rgba(32, 33, 36, 0.1);
+        }
       }
 
       &.active {
-        //background: #0a1bab;
+        color: #a84a7a;
       }
-      &:focus {
-        outline: 2px solid transparent;
-        border: 2px solid #a84a7a;
-      }
-    }
-
-    .add-more {
-      color: #ffffff;
-      background-color: #5c4268;
 
       &:focus:not(:active) {
-        background-color: #ffffff;
-        color: #5c4268;
+        outline: 2px solid transparent;
+        border: 2px solid #5c4268;
+
+        &.active {
+          border: 2px solid #a84a7a;
+        }
       }
     }
   }
@@ -73,8 +89,8 @@ const Header = () => (
       <FocusLink to="/" activeClassName="active" exact>
         Menu
       </FocusLink>
-      <FocusLink to="/ice-creams" className="add-more">
-        Add more frozen goodness
+      <FocusLink to="/ice-creams" activeClassName="active">
+        Add Ice Cream
       </FocusLink>
     </nav>
   </header>

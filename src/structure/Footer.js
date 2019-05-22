@@ -2,13 +2,14 @@ import React from 'react';
 import { css } from 'emotion/macro';
 
 const footerStyle = css`
-  max-width: 70em;
+  max-width: 63.75em;
   margin-left: auto;
   margin-right: auto;
   border-radius: 0 0 4px 4px;
   color: #fff;
-  padding: 10px;
   text-align: center;
+  padding-bottom: 2em;
+
   span {
     margin: 0;
     font-family: 'kathen', sans-serif;
@@ -19,7 +20,7 @@ const footerStyle = css`
 
 const Footer = () => (
   <footer className={footerStyle}>
-    <span>© Ultimate Ice Cream</span>
+    <span>&copy; Ultimate Ice Cream</span>
   </footer>
 );
 

@@ -4,7 +4,7 @@ import Helmet from 'react-helmet';
 import { withRouter } from 'react-router-dom';
 
 const mainStyle = css`
-  max-width: 70em;
+  max-width: 63.75em;
   margin-left: auto;
   margin-right: auto;
   min-height: 40em;
@@ -14,7 +14,7 @@ const mainStyle = css`
 
   .main-heading {
     font-family: 'kathen', sans-serif;
-    padding: 1rem;
+    padding: 1rem 0 2rem;
     color: #ffffff;
     font-size: 1.8em;
     text-shadow: 0.05em 0.05em #000;

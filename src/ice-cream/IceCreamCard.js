@@ -13,7 +13,10 @@ const cardStyle = css`
   background-color: #ffffff;
   border-radius: 1em;
   cursor: pointer;
-  transform: scale(1);
+  border: 1px solid rgba(32, 33, 36, 0.12);
+  background-clip: padding-box;
+
+  transform: translate(0) scale(1, 1);
   transition: all 0.2s ease-in-out;
 
   @media screen and (max-width: 600px) {
@@ -22,12 +25,22 @@ const cardStyle = css`
 
   &:hover,
   &:focus-within {
-    transform: scale(1.04);
+    transform: scale(1.02);
     transition: all 0.2s ease-in-out;
   }
 
+  &:hover {
+    .text-container {
+      h3 {
+        a {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
   &:focus-within {
-    box-shadow: 0 0 4px 7px rgba(0, 0, 0, 0.75);
+    box-shadow: 0 0 0 3px #ff71ba, 0 0 0 6px rgba(0, 0, 0, 0.75);
 
     a {
       outline: 2px solid transparent;
@@ -38,40 +51,23 @@ const cardStyle = css`
     display: grid;
     grid-template-columns: 1fr;
     grid-auto-rows: max-content;
-    padding: 1em;
+    padding: 1.5em;
     height: 100%;
+
     h3 {
-      padding: 0.5em;
-      margin-bottom: 0.5em;
+      padding: 0 0 0.3em 0;
       color: #403147;
-      font-size: 1.5em;
+      font-size: 1.25em;
+      line-height: 1.4375em;
 
       a {
         color: #403147;
         margin-bottom: 1.5em;
-
-        &::after {
-          content: '';
-          position: absolute;
-          left: 0;
-          top: 0;
-          right: 0;
-          bottom: 0;
-        }
+        text-decoration: none;
       }
     }
 
     .content {
-      padding-left: 0.5em;
-      padding-right: 0.5em;
-    }
-
-    .action {
-      position: absolute;
-      justify-self: right;
-      font-size: 0.8em;
-      bottom: 0.5em;
-      right: 0.8em;
     }
   }
 
@@ -83,9 +79,10 @@ const cardStyle = css`
     text-align: center;
     border-top-right-radius: 1em;
     border-top-left-radius: 1em;
-    padding-top: 2em;
-    padding-bottom: 2em;
+    padding-top: 3em;
+    padding-bottom: 3em;
     height: 100%;
+    border-bottom: 1px solid rgba(32, 33, 36, 0.1);
 
     img {
       max-width: 60%;
@@ -129,7 +126,7 @@ const IceCreamCard = ({
           </FocusLink>
         </h3>
         {children && <div className="content">{children}</div>}
-        <span className="action">{callToAction}</span>
+        {/* <span className="action">{callToAction}</span> */}
       </div>
     </section>
   );

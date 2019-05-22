@@ -12,21 +12,25 @@ import { css } from 'emotion/macro';
 const formStyle = css`
   display: grid;
   grid-template-columns: 1fr 3fr;
-  font-weight: bold;
-  font-size: 1.5em;
+  font-size: 1em;
+  font-weight: 400;
+  border: 1px solid rgba(32, 33, 36, 0.12);
+  background-clip: padding-box;
+  border-radius: 1em;
 
   .image-container {
     display: flex;
     background-color: #f8f8f8;
     border-top-left-radius: 1em;
     border-bottom-left-radius: 1em;
+    border-right: 1px solid rgba(32, 33, 36, 0.1);
 
     img {
       flex: 1;
       align-self: center;
       justify-self: center;
-      margin-left: 0.5em;
-      margin-right: 0.5em;
+      margin-left: 2em;
+      margin-right: 2em;
     }
   }
 
@@ -36,25 +40,45 @@ const formStyle = css`
     border-bottom-right-radius: 1em;
     padding: 2em;
 
+    dl {
+      line-height: 2.375em;
+
+      dt {
+        color: rgba(64, 49, 71, 0.8);
+      }
+
+      dd {
+      }
+    }
+
     form {
       display: grid;
       grid-template-columns: 1fr 2fr;
-      grid-gap: 1rem;
+      grid-column-gap: 1rem;
+      grid-row-gap: 0;
 
       label {
         justify-self: right;
         align-self: start;
+        color: rgba(64, 49, 71, 0.8);
       }
 
       textarea {
         resize: vertical;
       }
 
+      .checkbox-wrapper {
+        min-height: 3em;
+      }
+
       input[type='checkbox'] {
-        width: 2.2em;
-        height: 2.2em;
         cursor: pointer;
-        margin-bottom: 1.9em;
+        outline: 0;
+
+        &:focus {
+          outline: 2px solid #8b9099;
+          outline-offset: 2px;
+        }
       }
 
       input:not([type='checkbox']),
@@ -63,26 +87,32 @@ const formStyle = css`
         width: 100%;
         justify-self: left;
         align-self: center;
-        background-color: #fff;
-        border: 1px solid #1e1e1e;
-        border-radius: 0.5rem;
-        color: #111;
-        font-size: 1.3rem;
-        font-weight: 300;
-        line-height: 1.5rem;
+        background: #fff;
+        border: 1px solid #8b9099;
+        border-radius: 6px;
+        color: rgba(32, 33, 36, 1);
+        font-size: 1rem;
+        line-height: 2.25em;
         min-width: 10rem;
-        padding-left: 0.5rem;
-        padding-right: 0.5rem;
+        padding: 0 0.75em;
         vertical-align: baseline;
+        font-family: 'geomanist', sans-serif;
       }
 
-      input,
+      select {
+        border-radius: 6px;
+        height: 36px;
+      }
+
+      input:not([type='checkbox']),
       textarea,
       select {
-        outline: 0;
+        box-shadow: none;
+        outline: 2px solid transparent;
+
         &:focus {
           outline: 2px solid transparent;
-          box-shadow: 0 0 2px 2px rgba(242, 55, 148, 1);
+          box-shadow: 0 0 2px 2px #8b9099;
         }
       }
 
@@ -96,50 +126,48 @@ const formStyle = css`
 
         button {
           display: inline-block;
-          padding: 0.2em 1em;
+          padding: 0 1em;
+          line-height: 2em;
           margin: 0;
           outline: 0;
-          border: 2px solid transparent;
+          border: 0;
           border-radius: 5em;
-          font-weight: bold;
           font-size: 1rem;
           cursor: pointer;
+          font-family: 'geomanist', sans-serif;
 
           &:focus {
             outline: 2px solid transparent;
           }
-
-          &:hover {
-            transform: scale(1.1);
-            transition: all 0.2s ease-in-out;
-          }
         }
+
         .ok {
           background-color: #0f8261;
           color: #fff;
+          box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.15);
 
-          &:focus:not(:hover) {
-            border: 2px solid #0f8261;
-            background-color: #ffffff;
-            color: #0f8261;
+          &:focus:not(:active) {
+            box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.15), 0 0 0 2px #ffffff,
+              0 0 0 4px #0f8261;
           }
 
-          &:hover {
-            background-color: #0a523c;
+          &:active {
+            box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.15);
           }
         }
+
         .warning {
           background: #ab131c;
           color: #fff;
+          box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.15);
 
-          &:focus:not(:hover) {
-            border: 2px solid #ab131c;
-            background-color: #ffffff;
-            color: #ab131c;
+          &:focus:not(:active) {
+            box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.15), 0 0 0 2px #ffffff,
+              0 0 0 4px #ab131c;
           }
 
-          &:hover {
-            background-color: #880c14;
+          &:active {
+            box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.15);
           }
         }
       }
@@ -148,17 +176,22 @@ const formStyle = css`
         input,
         select,
         textarea {
-          border: 1px solid #ab131c;
-          background-color: rgba(231, 18, 28, 0.07);
+          border: 1px solid #d8474f;
+          background-color: rgba(216, 71, 79, 0.07);
+
+          &:focus {
+            box-shadow: 0 0 2px 2px rgba(216, 71, 79, 1);
+          }
         }
       }
 
       .error-wrapper {
-        min-height: 1.3em;
+        min-height: 2em;
+        padding-top: 0.2em;
+        padding-bottom: 0.5em;
 
         span {
           color: #ab131c;
-          font-size: 1.3rem;
         }
       }
     }
@@ -349,13 +382,15 @@ const IceCream = ({
               />
             </ErrorContainer>
             <label htmlFor={stockId}>In Stock :</label>
-            <input
-              id={stockId}
-              type="checkbox"
-              name="inStock"
-              onChange={onSubmitHandler}
-              checked={internalData.inStock}
-            />
+            <div className="checkbox-wrapper">
+              <input
+                id={stockId}
+                type="checkbox"
+                name="inStock"
+                onChange={onChangeHandler}
+                checked={internalData.inStock}
+              />
+            </div>
             <label htmlFor={quantityId}>Quantity :</label>
             <ErrorContainer
               errorText={quantityError}

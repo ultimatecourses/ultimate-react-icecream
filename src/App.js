@@ -21,7 +21,7 @@ const globalStyle = css`
     font-family: 'geomanist';
     src: url(${geomanistBookWoff2}) format('woff2'),
       url(${geomanistBookWoff}) format('woff');
-    font-weight: normal;
+    font-weight: 400;
     font-style: normal;
   }
 
@@ -49,11 +49,15 @@ const globalStyle = css`
     color: #333;
     background: #ff71ba;
     font-family: 'geomanist', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     display: flex;
   }
+
   #root {
     width: 100%;
   }
+
   a {
     &:hover {
       text-decoration: none;

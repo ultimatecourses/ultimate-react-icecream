@@ -7,8 +7,8 @@ const containerStyle = css`
   grid-auto-rows: 1fr;
   grid-gap: 2em;
   list-style: none;
-  margin: 0 1em;
-  padding: 1em 0;
+  padding: 0;
+  margin: 0;
 
   @media screen and (max-width: 1000px) {
     grid-template-columns: 1fr 1fr;
