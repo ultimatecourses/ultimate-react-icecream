@@ -47,6 +47,7 @@ const headerStyle = css`
       font-size: 1em;
       line-height: 2em;
       text-decoration: none;
+      transition: box-shadow 0.2s ease-in-out;
 
       &:hover {
         text-decoration: underline;
@@ -70,10 +71,10 @@ const headerStyle = css`
 
       &:focus:not(:active) {
         outline: 2px solid transparent;
-        border: 2px solid #5c4268;
+        box-shadow: 0 0 0 2px #8b9099;
 
         &.active {
-          border: 2px solid #a84a7a;
+          box-shadow: 0 0 0 2px #a84a7a;
         }
       }
     }

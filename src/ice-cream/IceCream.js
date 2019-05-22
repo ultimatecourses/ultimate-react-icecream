@@ -88,6 +88,7 @@ const formStyle = css`
         padding: 0 0.75em;
         vertical-align: baseline;
         font-family: 'geomanist', sans-serif;
+        transition: box-shadow 0.2s ease-in-out;
       }
 
       select {
@@ -126,6 +127,7 @@ const formStyle = css`
           font-size: 1rem;
           cursor: pointer;
           font-family: 'geomanist', sans-serif;
+          transition: box-shadow 0.2s ease-in-out;
 
           &:focus {
             outline: 2px solid transparent;

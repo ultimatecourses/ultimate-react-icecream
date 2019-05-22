@@ -40,7 +40,7 @@ const cardStyle = css`
   }
 
   &:focus-within {
-    box-shadow: 0 0 0 3px #ff71ba, 0 0 0 6px rgba(0, 0, 0, 0.75);
+    box-shadow: 0 0 0 3px #ff71ba, 0 0 0 6px rgba(0, 0, 0, 0.6);
 
     a {
       outline: 2px solid transparent;
@@ -55,7 +55,7 @@ const cardStyle = css`
     height: 100%;
 
     h3 {
-      padding: 0 0 0.3em 0;
+      padding: 0;
       color: #403147;
       font-size: 1.25em;
       line-height: 1.4375em;

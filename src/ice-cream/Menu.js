@@ -10,6 +10,7 @@ const cardContentStyle = css`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  padding: 0.3em 0 0 0;
 
   p {
     margin: 0;
