@@ -12,9 +12,10 @@ const headerStyle = css`
     display: flex;
     justify-content: center;
     color: #ffffff;
-    font-family: 'kathen', sans-serif;
-    font-size: 2em;
-    text-shadow: 0.05em 0.05em #000;
+    font-weight: bold;
+    font-family: 'cornerstone', sans-serif;
+    font-size: 2.5em;
+    text-shadow: 0.05em 0.05em 0.08em #000;
 
     img {
       margin-right: 0.5em;

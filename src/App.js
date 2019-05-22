@@ -7,7 +7,8 @@ import {
 } from 'react-router-dom';
 import geomanistBookWoff from './assets/fonts/geomanist/geomanist-book.woff';
 import geomanistBookWoff2 from './assets/fonts/geomanist/geomanist-book.woff2';
-import kathen from './assets/fonts/kathen/kathen.otf';
+import cornerstoneWoff from './assets/fonts/cornerstone.woff';
+import cornerstoneWoff2 from './assets/fonts/cornerstone.woff2';
 import { Global, css } from '@emotion/core';
 import Header from './structure/Header';
 import Footer from './structure/Footer';
@@ -26,9 +27,10 @@ const globalStyle = css`
   }
 
   @font-face {
-    font-family: 'kathen';
-    src: url(${kathen});
-    font-weight: normal;
+    font-family: 'cornerstone';
+    src: url(${cornerstoneWoff2}) format('woff2'),
+      url(${cornerstoneWoff}) format('woff');
+    font-weight: 400;
     font-style: normal;
   }
 

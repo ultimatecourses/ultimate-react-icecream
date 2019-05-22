@@ -13,11 +13,11 @@ const mainStyle = css`
   outline: 0;
 
   .main-heading {
-    font-family: 'kathen', sans-serif;
+    font-family: 'cornerstone', sans-serif;
     padding: 1rem 0 2rem;
     color: #ffffff;
     font-size: 1.8em;
-    text-shadow: 0.05em 0.05em #000;
+    text-shadow: 0.05em 0.05em 0.05em #000;
     outline: 0;
   }
 `;
