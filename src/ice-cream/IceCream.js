@@ -59,16 +59,66 @@ const formStyle = css`
 
       .checkbox-wrapper {
         min-height: 3em;
+
+        // custom
+        display: flex;
       }
 
       input[type='checkbox'] {
         cursor: pointer;
         outline: 0;
         margin: 1.175em 0px;
+        z-index: 5;
 
-        &:focus {
-          outline: 2px solid #8b9099;
-          outline-offset: 2px;
+        // custom
+        opacity: 0;
+        position: absolute;
+
+        & + .checkbox-wrapper-checked {
+          display: inline-block;
+          width: auto;
+
+          padding-left: 2rem;
+          position: relative;
+
+          &:before,
+          &:after {
+            display: inline-block;
+            position: absolute;
+          }
+
+          &:before {
+            content: '';
+            border: 1px solid #8b9099;
+            border-radius: 3px;
+            display: inline-block;
+            height: 1.125em;
+            width: 1.125em;
+            left: 0;
+            top: 8px;
+          }
+
+          &:after {
+            border-bottom: 2px solid;
+            border-left: 2px solid;
+            content: none;
+            display: inline-block;
+            height: 6px;
+            left: 3px;
+            top: 12px;
+            -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+            width: 11px;
+          }
+        }
+
+        &:checked + .checkbox-wrapper-checked:after {
+          content: '';
+        }
+
+        &:focus + .checkbox-wrapper-checked:before {
+          outline: 2px solid transparent;
+          box-shadow: 0 0 0 2px #fff, 0 0 0 4px #8b9099;
         }
       }
 
@@ -385,6 +435,7 @@ const IceCream = ({
                 onChange={onChangeHandler}
                 checked={internalData.inStock}
               />
+              <div className="checkbox-wrapper-checked" />
             </div>
             <label htmlFor={quantityId}>Quantity :</label>
             <ErrorContainer
