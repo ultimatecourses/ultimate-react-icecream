@@ -277,7 +277,7 @@ const IceCream = ({
     });
   }, [price, quantity, inStock, description]);
 
-  const setDataValue = e => {
+  const onChangeHandler = e => {
     let newInternalData = {
       ...internalData,
       [e.target.name]:
@@ -343,7 +343,7 @@ const IceCream = ({
                 id={descriptionId}
                 name="description"
                 rows="5"
-                onChange={setDataValue}
+                onChange={onChangeHandler}
                 value={internalData.description}
                 {...descriptionErrorProps}
               />
@@ -353,7 +353,7 @@ const IceCream = ({
               id={stockId}
               type="checkbox"
               name="inStock"
-              onChange={setDataValue}
+              onChange={onSubmitHandler}
               checked={internalData.inStock}
             />
             <label htmlFor={quantityId}>Quantity :</label>
@@ -365,7 +365,7 @@ const IceCream = ({
               <select
                 id={quantityId}
                 name="quantity"
-                onChange={setDataValue}
+                onChange={onChangeHandler}
                 value={internalData.quantity}
                 {...quantityErrorProps}
               >
@@ -390,7 +390,7 @@ const IceCream = ({
                 type="number"
                 step="0.01"
                 name="price"
-                onChange={setDataValue}
+                onChange={onChangeHandler}
                 value={internalData.price}
                 {...priceErrorProps}
               />

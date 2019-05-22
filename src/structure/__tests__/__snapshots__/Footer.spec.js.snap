@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer should render 1`] = `
+<footer
+  class="css-xoeo08-footerStyle"
+>
+  <span>
+    © Ultimate Ice Cream
+  </span>
+</footer>
+`;

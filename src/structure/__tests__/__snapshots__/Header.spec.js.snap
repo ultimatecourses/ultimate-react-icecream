@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header should render 1`] = `
+<nav>
+  <a
+    href="/"
+  >
+    Menu
+    <span>
+      {"focus":true}
+    </span>
+  </a>
+  <a
+    href="/ice-creams"
+  >
+    Add more frozen goodness
+    <span>
+      {"focus":true}
+    </span>
+  </a>
+</nav>
+`;
