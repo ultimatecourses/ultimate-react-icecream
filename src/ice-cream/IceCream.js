@@ -103,20 +103,25 @@ const formStyle = css`
             border-left: 2px solid;
             content: none;
             display: inline-block;
-            height: 6px;
-            left: 3px;
-            top: 12px;
-            -webkit-transform: rotate(-45deg);
+            height: 5px;
+            left: 4px;
+            top: 13px;
+            width: 10px;
             transform: rotate(-45deg);
-            width: 11px;
           }
         }
 
         &:checked + .checkbox-wrapper-checked:after {
           content: '';
+          color: #fff;
         }
 
-        &:focus + .checkbox-wrapper-checked:before {
+        &:checked + .checkbox-wrapper-checked:before {
+          background: rgba(64, 49, 71, 1);
+          border-color: rgba(64, 49, 71, 1);
+        }
+
+        &:focus:not(:active) + .checkbox-wrapper-checked:before {
           outline: 2px solid transparent;
           box-shadow: 0 0 0 2px #fff, 0 0 0 4px #8b9099;
         }

@@ -17,7 +17,7 @@ const mainStyle = css`
     padding: 1rem 0 2rem;
     color: #ffffff;
     font-size: 1.8em;
-    text-shadow: 0.05em 0.05em 0.05em #000;
+    text-shadow: 0.05em 0.05em 0 #000;
     outline: 0;
   }
 `;

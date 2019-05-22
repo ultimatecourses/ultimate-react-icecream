@@ -13,7 +13,7 @@ const footerStyle = css`
   span {
     margin: 0;
     font-family: 'cornerstone', sans-serif;
-    text-shadow: 0.05em 0.05em #000000;
+    text-shadow: 0.05em 0.05em 0 #000000;
     font-weight: 600;
   }
 `;
