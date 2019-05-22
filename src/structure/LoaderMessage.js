@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useLayoutEffect, useRef } from 'react';
 import { css } from 'emotion/macro';
 
 const loaderMessageStyle = css`
@@ -14,21 +14,20 @@ const loaderMessageStyle = css`
 
 const LoaderMessage = ({ loadingMsg, doneMsg, isLoading }) => {
   const isLoadingPreviousValue = useRef(null);
+  const loadingMessageDelay = useRef(null);
+  const doneMessageDelay = useRef(null);
   const [showLoadingMessage, setShowLoadingMessage] = useState(false);
   const [showDoneMessage, setShowDoneMessage] = useState(false);
 
-  useEffect(() => {
-    let loadingMessageDelay;
-    let doneMessageDelay;
-
+  useLayoutEffect(() => {
     if (isLoading) {
-      loadingMessageDelay = setTimeout(() => {
+      loadingMessageDelay.current = setTimeout(() => {
         setShowLoadingMessage(true);
       }, 400);
     } else {
       if (isLoadingPreviousValue.current) {
         setShowDoneMessage(true);
-        doneMessageDelay = setTimeout(() => {
+        doneMessageDelay.current = setTimeout(() => {
           setShowDoneMessage(false);
         }, 300);
       }
@@ -37,8 +36,8 @@ const LoaderMessage = ({ loadingMsg, doneMsg, isLoading }) => {
     return () => {
       setShowLoadingMessage(false);
       setShowDoneMessage(false);
-      clearTimeout(loadingMessageDelay);
-      clearTimeout(doneMessageDelay);
+      clearTimeout(loadingMessageDelay.current);
+      clearTimeout(doneMessageDelay.current);
     };
   }, [isLoading]);
 
