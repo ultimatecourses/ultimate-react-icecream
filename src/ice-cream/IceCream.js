@@ -96,6 +96,7 @@ const formStyle = css`
             width: 1.125em;
             left: 0;
             top: 8px;
+            transition: 0.2s box-shadow ease-in-out;
           }
 
           &:after {
