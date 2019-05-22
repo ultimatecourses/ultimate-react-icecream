@@ -47,8 +47,9 @@ const cardContentStyle = css`
   p.description {
     width: 100%;
     margin-top: 1em;
-    line-height: 1.25em;
+    line-height: 1.375em;
     color: rgba(64, 49, 71, 0.9);
+    font-size: 0.875em;
   }
 `;
 

@@ -40,20 +40,9 @@ const formStyle = css`
     border-bottom-right-radius: 1em;
     padding: 2em;
 
-    dl {
-      line-height: 2.375em;
-
-      dt {
-        color: rgba(64, 49, 71, 0.8);
-      }
-
-      dd {
-      }
-    }
-
     form {
       display: grid;
-      grid-template-columns: 1fr 2fr;
+      grid-template-columns: 1fr 3fr;
       grid-column-gap: 1rem;
       grid-row-gap: 0;
 
@@ -61,6 +50,7 @@ const formStyle = css`
         justify-self: right;
         align-self: start;
         color: rgba(64, 49, 71, 0.8);
+        line-height: 2.375em;
       }
 
       textarea {
@@ -74,6 +64,7 @@ const formStyle = css`
       input[type='checkbox'] {
         cursor: pointer;
         outline: 0;
+        margin: 1.175em 0px;
 
         &:focus {
           outline: 2px solid #8b9099;
@@ -198,14 +189,16 @@ const formStyle = css`
 
     dl {
       display: grid;
-      grid-template-columns: 1fr 2fr;
+      grid-template-columns: 1fr 3fr;
       grid-gap: 1rem;
       margin-bottom: 1rem;
       margin-top: 0;
+      line-height: 2.375em;
 
       dt {
         justify-self: right;
         align-self: start;
+        color: rgba(64, 49, 71, 0.8);
       }
 
       dd {
@@ -375,7 +368,7 @@ const IceCream = ({
               <textarea
                 id={descriptionId}
                 name="description"
-                rows="5"
+                rows="3"
                 onChange={onChangeHandler}
                 value={internalData.description}
                 {...descriptionErrorProps}
