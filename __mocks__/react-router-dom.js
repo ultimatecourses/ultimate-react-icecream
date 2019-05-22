@@ -15,6 +15,9 @@ export const NavLink = ({ children, to }) =>
     <a href={to}>{children}</a>
   ) : (
     <a href={to.pathname}>
-      {children}{to.state && <span>{JSON.stringify(to.state)}</span>}
+      {children}
+      {to.state && <span>{JSON.stringify(to.state)}</span>}
     </a>
   );
+
+export const withRouter = component => component;

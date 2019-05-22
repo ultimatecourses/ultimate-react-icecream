@@ -53,7 +53,7 @@ const headerStyle = css`
         text-decoration: underline;
       }
 
-      &:nth-child(n + 2) {
+      &:nth-of-type(n + 2) {
         &:before {
           content: '';
           position: absolute;

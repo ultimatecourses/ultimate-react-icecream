@@ -90,15 +90,7 @@ const cardStyle = css`
   }
 `;
 
-const IceCreamCard = ({
-  id,
-  image,
-  heading,
-  callToAction,
-  to,
-  history,
-  children,
-}) => {
+export const IceCreamCard = ({ image, heading, to, history, children }) => {
   const onItemClickHandler = () => {
     history.push(to);
   };
@@ -113,7 +105,7 @@ const IceCreamCard = ({
     <section
       className={cardStyle}
       onClick={() => {
-        onItemClickHandler(id);
+        onItemClickHandler();
       }}
     >
       <div className="image-container">
@@ -126,7 +118,6 @@ const IceCreamCard = ({
           </FocusLink>
         </h3>
         {children && <div className="content">{children}</div>}
-        {/* <span className="action">{callToAction}</span> */}
       </div>
     </section>
   );

@@ -1,7 +1,6 @@
 import React from 'react';
 import { render } from 'react-testing-library';
 import Header from '../Header';
-import 'jest-dom/extend-expect';
 
 describe('Header', () => {
   it('should render', () => {
@@ -12,7 +11,9 @@ describe('Header', () => {
 
     const allAnchors = container.firstChild.querySelectorAll('nav a');
     expect(allAnchors[0]).toHaveAttribute('href', '/');
+    expect(allAnchors[0]).toHaveTextContent('Menu');
     expect(allAnchors[1]).toHaveAttribute('href', '/ice-creams');
+    expect(allAnchors[1]).toHaveTextContent('Add Ice Cream');
 
     const navContainer = container.firstChild.querySelector('nav');
     expect(navContainer).toMatchSnapshot();

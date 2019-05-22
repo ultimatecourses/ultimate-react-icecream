@@ -1274,6 +1274,11 @@
     "@types/istanbul-lib-coverage" "*"
     "@types/istanbul-lib-report" "*"
 
+"@types/jest@^23.0.2":
+  version "23.3.14"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-23.3.14.tgz#37daaf78069e7948520474c87b80092ea912520a"
+  integrity sha512-Q5hTcfdudEL2yOmluA1zaSyPbzWPmJ3XfSWeP3RyoYvS9hnje1ZyagrZOuQ6+1nQC1Gw+7gap3pLNL3xL6UBug==
+
 "@types/node@*":
   version "11.13.6"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-11.13.6.tgz#37ec75690830acb0d74ce3c6c43caab787081e85"
@@ -3017,7 +3022,7 @@ css.escape@^1.5.1:
   resolved "https://registry.yarnpkg.com/css.escape/-/css.escape-1.5.1.tgz#42e27d4fa04ae32f931a4b4d4191fa9cddee97cb"
   integrity sha1-QuJ9T6BK4y+TGktNQZH6nN3ul8s=
 
-css@^2.2.3:
+css@^2.2.1, css@^2.2.3:
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/css/-/css-2.2.4.tgz#c646755c73971f2bba6a601e2cf2fd71b1298929"
   integrity sha512-oUnjmWpy0niI3x/mPL8dVEI1l7MnG3+HHyRPHf+YFSbK+svOhXpmSOcDURUh2aOCgl2grzrOPt1nHLuCVFULLw==
@@ -5505,6 +5510,16 @@ jest-each@^24.7.1:
     jest-get-type "^24.3.0"
     jest-util "^24.7.1"
     pretty-format "^24.7.0"
+
+jest-emotion@^10.0.11:
+  version "10.0.11"
+  resolved "https://registry.yarnpkg.com/jest-emotion/-/jest-emotion-10.0.11.tgz#7d75e2675f36c4c8a30333e5b8e405f11c1a0638"
+  integrity sha512-gSlcRwDq5A6RCK+9vnQ3was3W3wTcQ1Jl+MbS6A4F9yvhT+YKHC4T1W7l+iqmGGNGiqFtJ7nXL6f0Q0En6o2ew==
+  dependencies:
+    "@babel/runtime" "^7.4.3"
+    "@types/jest" "^23.0.2"
+    chalk "^2.4.1"
+    css "^2.2.1"
 
 jest-environment-jsdom-fourteen@0.1.0:
   version "0.1.0"

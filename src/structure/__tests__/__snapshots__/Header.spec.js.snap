@@ -13,7 +13,7 @@ exports[`Header should render 1`] = `
   <a
     href="/ice-creams"
   >
-    Add more frozen goodness
+    Add Ice Cream
     <span>
       {"focus":true}
     </span>

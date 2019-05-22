@@ -10,6 +10,7 @@
     "emotion": "^10.0.9",
     "express": "^4.16.4",
     "jest-dom": "^3.2.2",
+    "jest-emotion": "^10.0.11",
     "prettier": "^1.17.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
@@ -29,6 +30,9 @@
   },
   "eslintConfig": {
     "extends": "react-app"
+  },
+  "jest": {
+    "snapshotSerializers": ["jest-emotion"]
   },
   "browserslist": {
     "production": [
