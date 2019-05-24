@@ -29,10 +29,6 @@ const IceCreams = ({ history }) => {
     };
   }, []);
 
-  const onClickHandler = id => {
-    history.push(`/menu-items/add?iceCreamId=${id.toString()}`);
-  };
-
   return (
     <Main headingText="Choose your poison and enjoy!">
       <LoaderMessage
@@ -52,8 +48,7 @@ const IceCreams = ({ history }) => {
                 pathname: '/menu-items/add',
                 search: `?iceCreamId=${id.toString()}`,
               }}
-              callToAction="Select to add"
-              onClick={onClickHandler}
+              history={history}
             />
           ))}
         </IceCreamCardContainer>

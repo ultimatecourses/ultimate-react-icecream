@@ -1,6 +1,5 @@
 import React from 'react';
 import FocusLink from '../structure/FocusLink';
-import { withRouter } from 'react-router-dom';
 import { css } from 'emotion/macro';
 
 const cardStyle = css`
@@ -123,4 +122,4 @@ export const IceCreamCard = ({ image, heading, to, history, children }) => {
   );
 };
 
-export default withRouter(IceCreamCard);
+export default IceCreamCard;

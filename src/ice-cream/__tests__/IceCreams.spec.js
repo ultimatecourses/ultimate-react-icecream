@@ -1,3 +1,5 @@
+import AddIceCream from '../AddIceCream';
+
 jest.mock('../../structure/Main');
 jest.mock('../../data/iceCreamData');
 
@@ -5,7 +7,6 @@ import React from 'react';
 import {
   render,
   waitForElement,
-  wait,
   fireEvent,
   cleanup,
 } from 'react-testing-library';
@@ -64,5 +65,33 @@ describe('AddIceCream', () => {
     expect(
       container.firstChild.querySelector('p.visually-hidden')
     ).toHaveTextContent('Loading stock list complete.');
+  });
+
+  it('should safely unmount', async () => {
+    const originalErrofn = global.console.error;
+
+    getIceCreams.mockResolvedValueOnce([
+      { id: 0, name: 'Stripey Madness', image: 'ice-cream-0.svg' },
+      { id: 1, name: 'Cherry Blast', image: 'ice-cream-1.svg' },
+      { id: 2, name: 'Cookie Tower of Power', image: 'ice-cream-2.svg' },
+    ]);
+
+    const { unmount } = render(<IceCreams />);
+    global.console.error = jest.fn();
+    await unmount();
+    expect(global.console.error).not.toHaveBeenCalled();
+    global.console.error = originalErrofn;
+  });
+
+  it('should render text if the colleciton is empty', async () => {
+    getIceCreams.mockResolvedValueOnce([]);
+
+    const { container } = render(<IceCreams />);
+
+    const placeholder = await waitForElement(() =>
+      container.firstChild.querySelector('p:not(.visually-hidden)')
+    );
+
+    expect(placeholder).toHaveTextContent('Your menu is fully stocked!');
   });
 });

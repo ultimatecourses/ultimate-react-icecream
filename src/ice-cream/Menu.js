@@ -54,7 +54,7 @@ const cardContentStyle = css`
   }
 `;
 
-const Menu = () => {
+const Menu = ({ history }) => {
   const [menu, setMenu] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -91,7 +91,7 @@ const Menu = () => {
                       to={`/menu-items/${id.toString()}`}
                       heading={iceCream.name}
                       image={iceCream.image}
-                      callToAction="Select to edit"
+                      history={history}
                     >
                       <div className={cardContentStyle}>
                         <p className="price">{`$${price.toFixed(2)}`}</p>
