@@ -11,11 +11,10 @@ const headerStyle = css`
   h1 {
     display: flex;
     justify-content: center;
-    color: #ffffff;
+    color: #313030;
     font-weight: bold;
     font-family: 'cornerstone', sans-serif;
     font-size: 2.5em;
-    text-shadow: 0.05em 0.05em 0 #000;
 
     img {
       margin-right: 0.5em;

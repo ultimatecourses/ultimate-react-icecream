@@ -6,14 +6,13 @@ const footerStyle = css`
   margin-left: auto;
   margin-right: auto;
   border-radius: 0 0 4px 4px;
-  color: #fff;
+  color: #313030;
   text-align: center;
   padding-bottom: 2em;
 
   span {
     margin: 0;
     font-family: 'cornerstone', sans-serif;
-    text-shadow: 0.05em 0.05em 0 #000000;
     font-weight: 600;
   }
 `;

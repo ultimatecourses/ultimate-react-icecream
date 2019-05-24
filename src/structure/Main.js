@@ -15,10 +15,10 @@ const mainStyle = css`
   .main-heading {
     font-family: 'cornerstone', sans-serif;
     padding: 1rem 0 2rem;
-    color: #ffffff;
+    color: #313030;
     font-size: 1.8em;
-    text-shadow: 0.05em 0.05em 0 #000;
     outline: 0;
+    text-align: center;
   }
 `;
 
