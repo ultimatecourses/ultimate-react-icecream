@@ -225,7 +225,7 @@ describe('IceCream', () => {
       image: 'ice-cream.svg',
     };
 
-    const { container, getByLabelText, getByText } = render(
+    const { getByText } = render(
       <IceCream
         onSubmit={jest.fn()}
         iceCream={mockIceCream}
