@@ -41,6 +41,11 @@ describe('EditIceCream', () => {
     const img = await waitForElement(() =>
       container.firstChild.querySelector('img')
     );
+
+    expect(container.firstChild.querySelector('h2')).toHaveTextContent(
+      'Update this beauty'
+    );
+
     expect(img).toHaveAttribute('alt', '');
     expect(img).toHaveAttribute('src', 'icecream.svg');
     expect(container.firstChild.querySelector('dl dd')).toHaveTextContent(

@@ -369,12 +369,16 @@ const IceCream = ({
     };
 
     if (e.target.name === 'quantity') {
+      console.log('instock');
       newInternalData.inStock = e.target.value !== '0';
     }
 
     if (e.target.name === 'inStock' && !e.target.checked) {
+      console.log('quntity');
       newInternalData.quantity = '0';
     }
+
+    console.log(newInternalData);
 
     setInternalData(newInternalData);
   };

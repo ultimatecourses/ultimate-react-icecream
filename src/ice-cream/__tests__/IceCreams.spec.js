@@ -1,27 +1,22 @@
-import AddIceCream from '../AddIceCream';
-
 jest.mock('../../structure/Main');
 jest.mock('../../data/iceCreamData');
 
 import React from 'react';
-import {
-  render,
-  waitForElement,
-  fireEvent,
-  cleanup,
-} from 'react-testing-library';
+import { render, waitForElement, cleanup } from 'react-testing-library';
 import IceCreams from '../IceCreams';
 import { getIceCreams } from '../../data/iceCreamData';
 
-describe('AddIceCream', () => {
+const mockData = [
+  { id: 0, name: 'Stripey Madness', image: 'ice-cream-0.svg' },
+  { id: 1, name: 'Cherry Blast', image: 'ice-cream-1.svg' },
+  { id: 2, name: 'Cookie Tower of Power', image: 'ice-cream-2.svg' },
+];
+
+describe('IceCreams', () => {
   afterEach(cleanup);
 
   it('should render and load data', async () => {
-    getIceCreams.mockResolvedValueOnce([
-      { id: 0, name: 'Stripey Madness', image: 'ice-cream-0.svg' },
-      { id: 1, name: 'Cherry Blast', image: 'ice-cream-1.svg' },
-      { id: 2, name: 'Cookie Tower of Power', image: 'ice-cream-2.svg' },
-    ]);
+    getIceCreams.mockResolvedValueOnce(mockData);
 
     jest.useFakeTimers();
     const { container } = render(<IceCreams />);
@@ -33,6 +28,10 @@ describe('AddIceCream', () => {
 
     const list = await waitForElement(() =>
       container.firstChild.querySelector('ul')
+    );
+
+    expect(container.firstChild.querySelector('h2')).toHaveTextContent(
+      'Choose your poison and enjoy!'
     );
 
     const listItems = list.querySelectorAll('li section');
@@ -70,11 +69,7 @@ describe('AddIceCream', () => {
   it('should safely unmount', async () => {
     const originalErrofn = global.console.error;
 
-    getIceCreams.mockResolvedValueOnce([
-      { id: 0, name: 'Stripey Madness', image: 'ice-cream-0.svg' },
-      { id: 1, name: 'Cherry Blast', image: 'ice-cream-1.svg' },
-      { id: 2, name: 'Cookie Tower of Power', image: 'ice-cream-2.svg' },
-    ]);
+    getIceCreams.mockResolvedValueOnce(mockData);
 
     const { unmount } = render(<IceCreams />);
     global.console.error = jest.fn();
@@ -83,7 +78,7 @@ describe('AddIceCream', () => {
     global.console.error = originalErrofn;
   });
 
-  it('should render text if the colleciton is empty', async () => {
+  it('should render text if the collection is empty', async () => {
     getIceCreams.mockResolvedValueOnce([]);
 
     const { container } = render(<IceCreams />);
