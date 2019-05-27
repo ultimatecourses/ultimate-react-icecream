@@ -298,7 +298,7 @@ const formStyle = css`
 `;
 
 const IceCream = ({
-  iceCream = {},
+  iceCream,
   price = 0,
   quantity = 0,
   inStock = true,
@@ -369,16 +369,12 @@ const IceCream = ({
     };
 
     if (e.target.name === 'quantity') {
-      console.log('instock');
       newInternalData.inStock = e.target.value !== '0';
     }
 
     if (e.target.name === 'inStock' && !e.target.checked) {
-      console.log('quntity');
       newInternalData.quantity = '0';
     }
-
-    console.log(newInternalData);
 
     setInternalData(newInternalData);
   };
@@ -392,9 +388,7 @@ const IceCream = ({
         const errorControl = formRef.current.querySelector(
           '[aria-invalid="true"]'
         );
-        if (errorControl) {
-          errorControl.focus();
-        }
+        errorControl.focus();
       });
     } else {
       onSubmit({

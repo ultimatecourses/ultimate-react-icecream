@@ -1,11 +1,11 @@
 import React from 'react';
-import { render, fireEvent, wait, cleanup } from 'react-testing-library';
+import { render, fireEvent, cleanup } from 'react-testing-library';
 import IceCream from '../IceCream';
 
 describe('IceCream', () => {
   afterEach(cleanup);
 
-  xit('should render empty', () => {
+  it('should render empty', () => {
     const mockIceCream = {
       id: 1,
       name: 'Chocolate Surprise',
@@ -31,7 +31,7 @@ describe('IceCream', () => {
     expect(queryByText('Delete')).not.toBeInTheDocument();
   });
 
-  xit('should render with incoming data', () => {
+  it('should render with incoming data', () => {
     const mockIceCream = {
       id: 1,
       name: 'Chocolate Surprise',
@@ -188,14 +188,14 @@ describe('IceCream', () => {
     expect(priceInput).not.toHaveAttribute('aria-describedby');
   });
 
-  fit('should assist the user when setting "in stock" and "quantity"', async () => {
+  it('should assist the user when setting "in stock" and "quantity"', () => {
     const mockIceCream = {
       id: 1,
       name: 'Chocolate Surprise',
       image: 'ice-cream.svg',
     };
 
-    const { getByLabelText, getByText } = render(
+    const { getByLabelText } = render(
       <IceCream
         onSubmit={jest.fn()}
         iceCream={mockIceCream}
@@ -207,22 +207,101 @@ describe('IceCream', () => {
     const inStockCheckBox = getByLabelText('In Stock :');
     const quantitySelect = getByLabelText('Quantity :');
 
-    // expect(inStockCheckBox.checked).toBe(true);
-    // expect(quantitySelect.value).toBe('0');
-    //
-    // fireEvent.change(quantitySelect, { target: { value: '20' } });
-    //
-    // expect(inStockCheckBox.checked).toBe(true);
-    // expect(quantitySelect.value).toBe('20');
-
-    // jest.useFakeTimers();
-    await wait(() => {
-      fireEvent.change(inStockCheckBox, { target: { checked: false } });
-    });
-
-    // jest.runAllTimers();
+    fireEvent.click(inStockCheckBox);
 
     expect(inStockCheckBox.checked).toBe(false);
     expect(quantitySelect.value).toBe('0');
+
+    fireEvent.change(quantitySelect, { target: { value: '20' } });
+
+    expect(inStockCheckBox.checked).toBe(true);
+    expect(quantitySelect.value).toBe('20');
+  });
+
+  it('should not focus when there is no error', () => {
+    const mockIceCream = {
+      id: 1,
+      name: 'Chocolate Surprise',
+      image: 'ice-cream.svg',
+    };
+
+    const { container, getByLabelText, getByText } = render(
+      <IceCream
+        onSubmit={jest.fn()}
+        iceCream={mockIceCream}
+        description="Demo description"
+        inStock={true}
+        quantity={20}
+        price={1.1}
+      />
+    );
+
+    const saveButton = getByText('Save');
+    saveButton.focus();
+
+    jest.useFakeTimers();
+
+    fireEvent.click(saveButton);
+
+    jest.runAllTimers();
+
+    jest.useRealTimers();
+
+    expect(document.activeElement).toEqual(saveButton);
+  });
+
+  it('should submit data', () => {
+    const mockIceCream = {
+      id: 1,
+      name: 'Chocolate Surprise',
+      image: 'ice-cream.svg',
+    };
+
+    const mockSubmitFn = jest.fn();
+    const { getByText } = render(
+      <IceCream
+        onSubmit={mockSubmitFn}
+        iceCream={mockIceCream}
+        description="Demo description"
+        inStock={true}
+        quantity={20}
+        price={1.1}
+      />
+    );
+
+    fireEvent.click(getByText('Save'));
+
+    expect(mockSubmitFn).toHaveBeenCalledWith({
+      description: 'Demo description',
+      iceCream: { id: 1 },
+      inStock: true,
+      price: 1.1,
+      quantity: 20,
+    });
+  });
+
+  it('should fire onDelete if present', () => {
+    const mockIceCream = {
+      id: 1,
+      name: 'Chocolate Surprise',
+      image: 'ice-cream.svg',
+    };
+
+    const mockDeleteFn = jest.fn();
+    const { getByText } = render(
+      <IceCream
+        onSubmit={jest.fn()}
+        onDelete={mockDeleteFn}
+        iceCream={mockIceCream}
+        description="Demo description"
+        inStock={true}
+        quantity={20}
+        price={1.1}
+      />
+    );
+
+    fireEvent.click(getByText('Delete'));
+
+    expect(mockDeleteFn).toHaveBeenCalled();
   });
 });
