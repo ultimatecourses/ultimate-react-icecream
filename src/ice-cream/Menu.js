@@ -87,10 +87,9 @@ const Menu = ({ history }) => {
                   ({ id, iceCream, price, description, inStock, quantity }) => (
                     <IceCreamCard
                       key={id}
-                      id={id}
+                      iceCreamId={id}
                       to={`/menu-items/${id.toString()}`}
                       heading={iceCream.name}
-                      image={iceCream.image}
                       history={history}
                     >
                       <div className={cardContentStyle}>

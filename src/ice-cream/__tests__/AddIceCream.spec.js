@@ -1,5 +1,6 @@
 jest.mock('../../structure/Main');
 jest.mock('../../structure/LoaderMessage');
+jest.mock('../IceCreamImage');
 jest.mock('../../data/iceCreamData');
 
 import React from 'react';
@@ -20,7 +21,6 @@ describe('AddIceCream', () => {
     getIceCream.mockResolvedValueOnce({
       id: 3,
       name: 'Inverted Stoplight',
-      image: 'icecream.svg',
     });
 
     const mockLocation = { search: '?iceCreamId=5' };
@@ -38,7 +38,7 @@ describe('AddIceCream', () => {
       'Loading ice cream.-Ice cream loaded.'
     );
 
-    expect(getByAltText('')).toHaveAttribute('src', 'icecream.svg');
+    expect(getByAltText('')).toHaveAttribute('src', 'ice-cream-3.svg');
 
     expect(container.firstChild.querySelector('dl dd')).toHaveTextContent(
       'Inverted Stoplight'
@@ -51,7 +51,6 @@ describe('AddIceCream', () => {
     getIceCream.mockResolvedValueOnce({
       id: 3,
       name: 'Inverted Stoplight',
-      image: 'icecream.svg',
     });
 
     const mockLocation = { search: '?iceCreamId=5' };
@@ -88,7 +87,6 @@ describe('AddIceCream', () => {
     getIceCream.mockResolvedValueOnce({
       id: 3,
       name: 'Inverted Stoplight',
-      image: 'icecream.svg',
     });
 
     const mockLocation = { search: '?iceCreamId=5' };

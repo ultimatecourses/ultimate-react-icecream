@@ -38,11 +38,10 @@ const IceCreams = ({ history }) => {
       />
       {iceCreams.length > 0 ? (
         <IceCreamCardContainer>
-          {iceCreams.map(({ id, name, image }) => (
+          {iceCreams.map(({ id, name }) => (
             <IceCreamCard
               key={id}
-              id={id}
-              image={image}
+              iceCreamId={id}
               heading={name}
               to={{
                 pathname: '/menu-items/add',

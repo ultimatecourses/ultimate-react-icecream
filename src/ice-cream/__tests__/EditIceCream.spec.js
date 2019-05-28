@@ -1,5 +1,6 @@
 jest.mock('../../structure/Main');
 jest.mock('../../structure/LoaderMessage');
+jest.mock('../IceCreamImage');
 jest.mock('../../data/iceCreamData');
 
 import React from 'react';
@@ -23,7 +24,7 @@ describe('EditIceCream', () => {
   it('should render and load data', async () => {
     getMenuItem.mockResolvedValueOnce({
       id: 3,
-      iceCream: { id: 10, name: 'Snowman Godfather', image: 'icecream.svg' },
+      iceCream: { id: 10, name: 'Snowman Godfather' },
       inStock: true,
       quantity: 30,
       price: 1.5,
@@ -46,7 +47,7 @@ describe('EditIceCream', () => {
       'Loading ice cream.-Ice cream loaded.'
     );
 
-    expect(getByAltText('')).toHaveAttribute('src', 'icecream.svg');
+    expect(getByAltText('')).toHaveAttribute('src', 'ice-cream-10.svg');
 
     expect(container.firstChild.querySelector('dl dd')).toHaveTextContent(
       'Snowman Godfather'
@@ -58,7 +59,7 @@ describe('EditIceCream', () => {
 
     getMenuItem.mockResolvedValueOnce({
       id: 3,
-      iceCream: { id: 10, name: 'Snowman Godfather', image: 'icecream.svg' },
+      iceCream: { id: 10, name: 'Snowman Godfather' },
       inStock: true,
       quantity: 30,
       price: 1.5,
@@ -103,7 +104,7 @@ describe('EditIceCream', () => {
   it('should save edited values on submit', async () => {
     getMenuItem.mockResolvedValueOnce({
       id: 3,
-      iceCream: { id: 10, name: 'Snowman Godfather', image: 'icecream.svg' },
+      iceCream: { id: 10, name: 'Snowman Godfather' },
       inStock: true,
       quantity: 30,
       price: 1.5,
@@ -145,7 +146,7 @@ describe('EditIceCream', () => {
   it('should delete a menu item', async () => {
     getMenuItem.mockResolvedValueOnce({
       id: 3,
-      iceCream: { id: 10, name: 'Snowman Godfather', image: 'icecream.svg' },
+      iceCream: { id: 10, name: 'Snowman Godfather' },
       inStock: true,
       quantity: 30,
       price: 1.5,

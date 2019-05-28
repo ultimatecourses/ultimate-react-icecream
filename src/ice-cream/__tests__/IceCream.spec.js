@@ -1,3 +1,5 @@
+jest.mock('../IceCreamImage');
+
 import React from 'react';
 import { render, fireEvent, cleanup } from 'react-testing-library';
 import IceCream from '../IceCream';
@@ -9,13 +11,12 @@ describe('IceCream', () => {
     const mockIceCream = {
       id: 1,
       name: 'Chocolate Surprise',
-      image: 'ice-cream.svg',
     };
     const { container, getByLabelText, queryByText, getByAltText } = render(
       <IceCream onSubmit={jest.fn()} iceCream={mockIceCream} />
     );
 
-    expect(getByAltText('')).toHaveAttribute('src', 'ice-cream.svg');
+    expect(getByAltText('')).toHaveAttribute('src', 'ice-cream-1.svg');
 
     expect(container.querySelector('dl dt')).toHaveTextContent('Name :');
     expect(container.querySelector('dl dd')).toHaveTextContent(
@@ -35,7 +36,6 @@ describe('IceCream', () => {
     const mockIceCream = {
       id: 1,
       name: 'Chocolate Surprise',
-      image: 'ice-cream.svg',
     };
     const { container, getByLabelText, getByAltText } = render(
       <IceCream
@@ -48,7 +48,7 @@ describe('IceCream', () => {
       />
     );
 
-    expect(getByAltText('')).toHaveAttribute('src', 'ice-cream.svg');
+    expect(getByAltText('')).toHaveAttribute('src', 'ice-cream-1.svg');
 
     expect(container.querySelector('dl dt')).toHaveTextContent('Name :');
     expect(container.querySelector('dl dd')).toHaveTextContent(
@@ -65,7 +65,6 @@ describe('IceCream', () => {
     const mockIceCream = {
       id: 1,
       name: 'Chocolate Surprise',
-      image: 'ice-cream.svg',
     };
 
     const { container, getByLabelText, getByText } = render(
@@ -101,7 +100,6 @@ describe('IceCream', () => {
     const mockIceCream = {
       id: 1,
       name: 'Chocolate Surprise',
-      image: 'ice-cream.svg',
     };
 
     const { container, getByLabelText, getByText } = render(
@@ -141,7 +139,6 @@ describe('IceCream', () => {
     const mockIceCream = {
       id: 1,
       name: 'Chocolate Surprise',
-      image: 'ice-cream.svg',
     };
 
     const { container, getByLabelText, getByText } = render(
@@ -192,7 +189,6 @@ describe('IceCream', () => {
     const mockIceCream = {
       id: 1,
       name: 'Chocolate Surprise',
-      image: 'ice-cream.svg',
     };
 
     const { getByLabelText } = render(
@@ -222,7 +218,6 @@ describe('IceCream', () => {
     const mockIceCream = {
       id: 1,
       name: 'Chocolate Surprise',
-      image: 'ice-cream.svg',
     };
 
     const { getByText } = render(
@@ -254,7 +249,6 @@ describe('IceCream', () => {
     const mockIceCream = {
       id: 1,
       name: 'Chocolate Surprise',
-      image: 'ice-cream.svg',
     };
 
     const mockSubmitFn = jest.fn();
@@ -284,7 +278,6 @@ describe('IceCream', () => {
     const mockIceCream = {
       id: 1,
       name: 'Chocolate Surprise',
-      image: 'ice-cream.svg',
     };
 
     const mockDeleteFn = jest.fn();

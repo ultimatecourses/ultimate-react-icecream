@@ -1,5 +1,6 @@
 jest.mock('../../structure/Main');
 jest.mock('../../structure/LoaderMessage');
+jest.mock('../IceCreamImage');
 jest.mock('../../data/iceCreamData');
 
 import React from 'react';
@@ -8,9 +9,9 @@ import IceCreams from '../IceCreams';
 import { getIceCreams } from '../../data/iceCreamData';
 
 const mockData = [
-  { id: 0, name: 'Stripey Madness', image: 'ice-cream-0.svg' },
-  { id: 1, name: 'Cherry Blast', image: 'ice-cream-1.svg' },
-  { id: 2, name: 'Cookie Tower of Power', image: 'ice-cream-2.svg' },
+  { id: 0, name: 'Stripey Madness' },
+  { id: 1, name: 'Cherry Blast' },
+  { id: 2, name: 'Cookie Tower of Power' },
 ];
 
 describe('IceCreams', () => {

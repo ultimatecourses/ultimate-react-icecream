@@ -1,5 +1,6 @@
 jest.mock('../../structure/Main');
 jest.mock('../../structure/LoaderMessage');
+jest.mock('../IceCreamImage');
 jest.mock('../../data/iceCreamData');
 
 import React from 'react';
@@ -10,7 +11,7 @@ import { getMenu } from '../../data/iceCreamData';
 const mockData = [
   {
     id: 1,
-    iceCream: { id: 1, name: 'Cherry Blast', image: 'ice-cream-0.svg' },
+    iceCream: { id: 1, name: 'Cherry Blast' },
     inStock: true,
     quantity: 20,
     price: 1.51,
@@ -19,7 +20,7 @@ const mockData = [
   },
   {
     id: 2,
-    iceCream: { id: 15, name: 'Catastrophe', image: 'ice-cream-1.svg' },
+    iceCream: { id: 15, name: 'Catastrophe' },
     inStock: false,
     quantity: 0,
     price: 1.64,
@@ -27,7 +28,7 @@ const mockData = [
   },
   {
     id: 3,
-    iceCream: { id: 10, name: 'Snowman Godfather', image: 'ice-cream-2.svg' },
+    iceCream: { id: 10, name: 'Snowman Godfather' },
     inStock: true,
     quantity: 30,
     price: 1.5,
@@ -61,7 +62,7 @@ describe('Menu', () => {
     expect(listItems.length).toBe(3);
     expect(listItems[0].querySelector('img')).toHaveAttribute(
       'src',
-      'ice-cream-0.svg'
+      'ice-cream-1.svg'
     );
     expect(listItems[0].querySelector('div.content')).toHaveTextContent(
       '$1.5120 in stockBlast your taste buds into fruity space with this vanilla and cherry bomb'
@@ -71,7 +72,7 @@ describe('Menu', () => {
     expect(firstAnchor).toHaveTextContent('Cherry Blast');
     expect(listItems[1].querySelector('img')).toHaveAttribute(
       'src',
-      'ice-cream-1.svg'
+      'ice-cream-2.svg'
     );
     expect(listItems[1].querySelector('div.content')).toHaveTextContent(
       '$1.64Currently out of stock!A feline strawberry cranium, what could possibly go wrong?'
@@ -81,7 +82,7 @@ describe('Menu', () => {
     expect(secondAnchor).toHaveTextContent('Catastrophe');
     expect(listItems[2].querySelector('img')).toHaveAttribute(
       'src',
-      'ice-cream-2.svg'
+      'ice-cream-3.svg'
     );
     expect(listItems[2].querySelector('div.content')).toHaveTextContent(
       "$1.5030 in stockYou'll lose your head over this inverted whisky-vanilla cone"

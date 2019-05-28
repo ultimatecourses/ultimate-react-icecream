@@ -1,5 +1,6 @@
 import React from 'react';
 import FocusLink from '../structure/FocusLink';
+import IceCreamImage from './IceCreamImage';
 import { css } from 'emotion/macro';
 
 const cardStyle = css`
@@ -89,7 +90,13 @@ const cardStyle = css`
   }
 `;
 
-export const IceCreamCard = ({ image, heading, to, history, children }) => {
+export const IceCreamCard = ({
+  iceCreamId,
+  heading,
+  to,
+  history,
+  children,
+}) => {
   const onItemClickHandler = () => {
     history.push(to);
   };
@@ -108,7 +115,7 @@ export const IceCreamCard = ({ image, heading, to, history, children }) => {
       }}
     >
       <div className="image-container">
-        <img src={image} alt="" />
+        <IceCreamImage iceCreamId={iceCreamId} />
       </div>
       <div className="text-container">
         <h3>

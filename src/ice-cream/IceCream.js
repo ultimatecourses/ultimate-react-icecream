@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ErrorContainer from './ErrorContainer';
+import IceCreamImage from './IceCreamImage';
 import useUniqueIds from '../hooks/useUniqueIds';
 import useValidation from '../hooks/useValidation';
 import {
@@ -404,7 +405,7 @@ const IceCream = ({
   return (
     <div className={formStyle}>
       <div className="image-container">
-        <img src={iceCream.image} alt="" />
+        <IceCreamImage iceCreamId={iceCream.id} />
       </div>
       <div>
         <div className="form-container">

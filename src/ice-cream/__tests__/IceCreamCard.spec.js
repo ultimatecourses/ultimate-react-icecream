@@ -1,4 +1,5 @@
 jest.mock('../../structure/FocusLink');
+jest.mock('../IceCreamImage');
 
 import React from 'react';
 import { render, cleanup, fireEvent } from 'react-testing-library';
@@ -10,7 +11,7 @@ describe('IceCreamCard', () => {
   it('should render without content', () => {
     const { container } = render(
       <IceCreamCard
-        image="/demo/image.svg"
+        iceCreamId={5}
         heading="Test card heading"
         history={{}}
         to="/demo/path"
@@ -18,7 +19,7 @@ describe('IceCreamCard', () => {
     );
     const img = container.firstChild.querySelector('section img');
     expect(img).toHaveAttribute('alt', '');
-    expect(img).toHaveAttribute('src', '/demo/image.svg');
+    expect(img).toHaveAttribute('src', 'ice-cream-5.svg');
 
     const anchor = container.firstChild.querySelector('section h3 > a');
     expect(anchor).toHaveAttribute('href', '/demo/path');
@@ -28,7 +29,7 @@ describe('IceCreamCard', () => {
   it('should render with content', () => {
     const { container } = render(
       <IceCreamCard
-        image="/demo/image.svg"
+        iceCreamId={5}
         heading="Test card heading"
         history={{}}
         to="/demo/path"
@@ -48,7 +49,7 @@ describe('IceCreamCard', () => {
 
     const { getByText } = render(
       <IceCreamCard
-        image="/demo/image.svg"
+        iceCreamId={5}
         heading="Test card heading"
         history={mockHistory}
         to="/demo/path"
@@ -68,7 +69,7 @@ describe('IceCreamCard', () => {
 
     const { getByText } = render(
       <IceCreamCard
-        image="/demo/image.svg"
+        iceCreamId={5}
         heading="Test card heading"
         history={mockHistory}
         to="/demo/path"
