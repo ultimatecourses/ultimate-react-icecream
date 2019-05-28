@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 const IceCreamImage = ({ iceCreamId }) => {
-  const [src, setSrc] = useState('');
-
-  useEffect(() => {
-    setSrc(
-      require(`../assets/img/ice-cream/ice-cream-${iceCreamId.toString()}.svg`)
-    );
-  }, [iceCreamId]);
-
-  return <img src={src} alt="" />;
+  return (
+    iceCreamId !== null &&
+    iceCreamId !== undefined && (
+      <img
+        src={`${
+          process.env.PUBLIC_URL
+        }/ice-cream-images/ice-cream-${iceCreamId.toString()}.svg`}
+        alt=""
+      />
+    )
+  );
 };
 
 export default IceCreamImage;

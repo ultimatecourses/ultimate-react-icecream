@@ -72,7 +72,7 @@ describe('Menu', () => {
     expect(firstAnchor).toHaveTextContent('Cherry Blast');
     expect(listItems[1].querySelector('img')).toHaveAttribute(
       'src',
-      'ice-cream-2.svg'
+      'ice-cream-15.svg'
     );
     expect(listItems[1].querySelector('div.content')).toHaveTextContent(
       '$1.64Currently out of stock!A feline strawberry cranium, what could possibly go wrong?'
@@ -82,7 +82,7 @@ describe('Menu', () => {
     expect(secondAnchor).toHaveTextContent('Catastrophe');
     expect(listItems[2].querySelector('img')).toHaveAttribute(
       'src',
-      'ice-cream-3.svg'
+      'ice-cream-10.svg'
     );
     expect(listItems[2].querySelector('div.content')).toHaveTextContent(
       "$1.5030 in stockYou'll lose your head over this inverted whisky-vanilla cone"
