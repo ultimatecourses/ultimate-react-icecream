@@ -13,7 +13,7 @@ describe('IceCreamCard', () => {
       <IceCreamCard
         iceCreamId={5}
         heading="Test card heading"
-        history={{}}
+        history={{ push: jest.fn() }}
         to="/demo/path"
       />
     );
@@ -31,7 +31,7 @@ describe('IceCreamCard', () => {
       <IceCreamCard
         iceCreamId={5}
         heading="Test card heading"
-        history={{}}
+        history={{ push: jest.fn() }}
         to="/demo/path"
       >
         <p>I am some text content</p>

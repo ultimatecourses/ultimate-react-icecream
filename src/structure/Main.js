@@ -2,6 +2,7 @@ import React, { useRef, useLayoutEffect } from 'react';
 import { css } from 'emotion/macro';
 import Helmet from 'react-helmet';
 import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const mainStyle = css`
   max-width: 63.75em;
@@ -45,4 +46,16 @@ const Main = ({ headingText, headingLevel = 2, children, location }) => {
     </main>
   );
 };
+
+Main.propTypes = {
+  headingText: PropTypes.string.isRequired,
+  headingLevel: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  children: PropTypes.node.isRequired,
+  location: PropTypes.shape({
+    state: PropTypes.shape({
+      focus: PropTypes.bool,
+    }),
+  }).isRequired,
+};
+
 export default withRouter(Main);

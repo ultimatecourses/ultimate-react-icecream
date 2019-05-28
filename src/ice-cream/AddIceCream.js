@@ -3,6 +3,7 @@ import Main from '../structure/Main';
 import LoaderMessage from '../structure/LoaderMessage';
 import IceCream from './IceCream';
 import { getIceCream, postMenuItem } from '../data/iceCreamData';
+import PropTypes from 'prop-types';
 
 const AddIceCream = ({ location, history }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -49,6 +50,16 @@ const AddIceCream = ({ location, history }) => {
       )}
     </Main>
   );
+};
+
+AddIceCream.propTypes = {
+  location: PropTypes.shape({
+    search: PropTypes.string.isRequired,
+  }),
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+    replace: PropTypes.func.isRequired,
+  }),
 };
 
 export default AddIceCream;

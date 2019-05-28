@@ -1,5 +1,6 @@
 import React, { useState, useLayoutEffect, useRef } from 'react';
 import { css } from 'emotion/macro';
+import PropTypes from 'prop-types';
 
 const loaderMessageStyle = css`
   .loading {
@@ -51,6 +52,12 @@ const LoaderMessage = ({ loadingMsg, doneMsg, isLoading }) => {
       {showDoneMessage && <p className="visually-hidden">{doneMsg}</p>}
     </div>
   );
+};
+
+LoaderMessage.propTypes = {
+  loadingMsg: PropTypes.string.isRequired,
+  doneMsg: PropTypes.string.isRequired,
+  isLoading: PropTypes.bool,
 };
 
 export default LoaderMessage;

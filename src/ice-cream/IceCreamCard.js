@@ -2,6 +2,7 @@ import React from 'react';
 import FocusLink from '../structure/FocusLink';
 import IceCreamImage from './IceCreamImage';
 import { css } from 'emotion/macro';
+import PropTypes from 'prop-types';
 
 const cardStyle = css`
   position: relative;
@@ -127,6 +128,21 @@ export const IceCreamCard = ({
       </div>
     </section>
   );
+};
+
+IceCreamCard.propTypes = {
+  iceCreamId: PropTypes.number.isRequired,
+  heading: PropTypes.string.isRequired,
+  to: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.shape({
+      pathname: PropTypes.string.isRequired,
+    }),
+  ]).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }),
+  children: PropTypes.node,
 };
 
 export default IceCreamCard;

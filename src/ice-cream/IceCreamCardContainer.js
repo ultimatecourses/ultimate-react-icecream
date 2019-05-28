@@ -1,5 +1,6 @@
 import React from 'react';
 import { css } from 'emotion/macro';
+import PropTypes from 'prop-types';
 
 const containerStyle = css`
   display: grid;
@@ -26,5 +27,9 @@ const IceCreamCardContainer = ({ children }) => (
     ))}
   </ul>
 );
+
+IceCreamCardContainer.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export default IceCreamCardContainer;

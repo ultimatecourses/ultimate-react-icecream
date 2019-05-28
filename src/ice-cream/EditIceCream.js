@@ -3,6 +3,7 @@ import Main from '../structure/Main';
 import LoaderMessage from '../structure/LoaderMessage';
 import IceCream from './IceCream';
 import { getMenuItem, putMenuItem, deleteMenuItem } from '../data/iceCreamData';
+import PropTypes from 'prop-types';
 
 const EditIceCream = ({ match, history }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -55,6 +56,16 @@ const EditIceCream = ({ match, history }) => {
       )}
     </Main>
   );
+};
+
+EditIceCream.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.object.isRequired,
+  }),
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+    replace: PropTypes.func.isRequired,
+  }),
 };
 
 export default EditIceCream;

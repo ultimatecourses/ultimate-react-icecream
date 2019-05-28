@@ -82,7 +82,7 @@ describe('EditIceCream', () => {
 
     const mockMatch = { params: { menuItemId: 3 } };
 
-    const mockHistory = { replace: jest.fn() };
+    const mockHistory = { replace: jest.fn(), push: jest.fn() };
     render(<EditIceCream match={mockMatch} history={mockHistory} />);
     await wait(() => {
       expect(mockHistory.replace).toHaveBeenCalledWith('/', { focus: true });
@@ -94,7 +94,7 @@ describe('EditIceCream', () => {
 
     const mockMatch = { params: { menuItemId: 3 } };
 
-    const mockHistory = { replace: jest.fn() };
+    const mockHistory = { push: jest.fn(), replace: jest.fn() };
     render(<EditIceCream match={mockMatch} history={mockHistory} />);
     await wait(() => {
       expect(mockHistory.replace).not.toHaveBeenCalled();
@@ -112,7 +112,7 @@ describe('EditIceCream', () => {
     });
 
     const mockMatch = { params: { menuItemId: 3 } };
-    const mockHistory = { push: jest.fn() };
+    const mockHistory = { push: jest.fn(), replace: jest.fn() };
     const { getByLabelText, getByText } = render(
       <EditIceCream match={mockMatch} history={mockHistory} />
     );
@@ -154,7 +154,7 @@ describe('EditIceCream', () => {
     });
 
     const mockMatch = { params: { menuItemId: 3 } };
-    const mockHistory = { replace: jest.fn() };
+    const mockHistory = { push: jest.fn(), replace: jest.fn() };
     const { getByText } = render(
       <EditIceCream match={mockMatch} history={mockHistory} />
     );

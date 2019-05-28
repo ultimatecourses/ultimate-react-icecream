@@ -24,8 +24,9 @@ describe('AddIceCream', () => {
     });
 
     const mockLocation = { search: '?iceCreamId=5' };
+    const mockHistory = { push: jest.fn(), replace: jest.fn() };
     const { container, getByTestId, getByAltText } = render(
-      <AddIceCream location={mockLocation} />
+      <AddIceCream location={mockLocation} history={mockHistory} />
     );
 
     const heading = await waitForElement(() =>
@@ -54,7 +55,10 @@ describe('AddIceCream', () => {
     });
 
     const mockLocation = { search: '?iceCreamId=5' };
-    const { unmount } = render(<AddIceCream location={mockLocation} />);
+    const mockHistory = { push: jest.fn(), replace: jest.fn() };
+    const { unmount } = render(
+      <AddIceCream location={mockLocation} history={mockHistory} />
+    );
     global.console.error = jest.fn();
     await unmount();
     expect(global.console.error).not.toHaveBeenCalled();
@@ -65,7 +69,7 @@ describe('AddIceCream', () => {
     getIceCream.mockRejectedValueOnce({ response: { status: 404 } });
 
     const mockLocation = { search: '?iceCreamId=5' };
-    const mockHistory = { replace: jest.fn() };
+    const mockHistory = { replace: jest.fn(), push: jest.fn() };
     render(<AddIceCream location={mockLocation} history={mockHistory} />);
     await wait(() => {
       expect(mockHistory.replace).toHaveBeenCalledWith('/', { focus: true });
@@ -76,7 +80,7 @@ describe('AddIceCream', () => {
     getIceCream.mockRejectedValueOnce({ response: { status: 409 } });
 
     const mockLocation = { search: '?iceCreamId=5' };
-    const mockHistory = { replace: jest.fn() };
+    const mockHistory = { push: jest.fn(), replace: jest.fn() };
     render(<AddIceCream location={mockLocation} history={mockHistory} />);
     await wait(() => {
       expect(mockHistory.replace).not.toHaveBeenCalled();
@@ -90,7 +94,7 @@ describe('AddIceCream', () => {
     });
 
     const mockLocation = { search: '?iceCreamId=5' };
-    const mockHistory = { push: jest.fn() };
+    const mockHistory = { push: jest.fn(), replace: jest.fn() };
     const { getByLabelText, getByText } = render(
       <AddIceCream location={mockLocation} history={mockHistory} />
     );

@@ -5,6 +5,7 @@ import IceCreamCard from './IceCreamCard';
 import IceCreamCardContainer from './IceCreamCardContainer';
 import { getIceCreams } from '../data/iceCreamData';
 import { css } from 'emotion/macro';
+import PropTypes from 'prop-types';
 
 const paragraphStyle = css`
   max-width: 60%;
@@ -58,6 +59,12 @@ const IceCreams = ({ history }) => {
       )}
     </Main>
   );
+};
+
+IceCreams.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }),
 };
 
 export default IceCreams;

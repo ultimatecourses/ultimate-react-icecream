@@ -5,6 +5,7 @@ import IceCreamCardContainer from './IceCreamCardContainer';
 import IceCreamCard from './IceCreamCard';
 import { getMenu } from '../data/iceCreamData';
 import { css } from 'emotion/macro';
+import PropTypes from 'prop-types';
 
 const cardContentStyle = css`
   display: flex;
@@ -113,6 +114,12 @@ const Menu = ({ history }) => {
       )}
     </Main>
   );
+};
+
+Menu.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }),
 };
 
 export default Menu;

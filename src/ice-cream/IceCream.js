@@ -9,6 +9,7 @@ import {
   validateDescription,
 } from '../utils/validators';
 import { css } from 'emotion/macro';
+import PropTypes from 'prop-types';
 
 const formStyle = css`
   display: grid;
@@ -496,6 +497,19 @@ const IceCream = ({
       </div>
     </div>
   );
+};
+
+IceCream.propTypes = {
+  iceCream: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+  }),
+  price: PropTypes.number,
+  quantity: PropTypes.number,
+  inStock: PropTypes.bool,
+  description: PropTypes.string,
+  onDelete: PropTypes.func,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default IceCream;

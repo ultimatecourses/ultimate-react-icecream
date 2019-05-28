@@ -23,3 +23,13 @@ export const NavLink = ({ children, to }) =>
   );
 
 export const withRouter = component => component;
+
+export const Switch =({children}) => <div data-testid="switch">{children}</div>;
+
+export const Route = ({path, component}) => {
+  return <><span>{component.name}</span><span>{path}</span></>
+}
+
+export const Redirect = ({to}) => <span>Redirect to {to}</span>;
+
+export const BrowserRouter = ({children}) => <div data-testid="router">{children}</div>

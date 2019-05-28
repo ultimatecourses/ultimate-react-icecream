@@ -17,7 +17,7 @@
     "react-dom": "^16.8.6",
     "react-helmet": "^5.2.1",
     "react-router-dom": "^5.0.0",
-    "react-scripts": "3.0.0",
+    "react-scripts": "3.0.1",
     "react-testing-library": "^7.0.1",
     "uniqid": "^5.0.3"
   },
@@ -33,6 +33,10 @@
     "extends": "react-app"
   },
   "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}",
+      "!src/index.js"
+    ],
     "snapshotSerializers": [
       "jest-emotion"
     ]

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const ErrorContainer = ({ children, errorText, hasSubmitted, errorId }) => (
   <div className={errorText && hasSubmitted ? 'error' : null}>
@@ -8,5 +9,12 @@ const ErrorContainer = ({ children, errorText, hasSubmitted, errorId }) => (
     </div>
   </div>
 );
+
+ErrorContainer.propTypes = {
+  children: PropTypes.node.isRequired,
+  errorText: PropTypes.string,
+  hasSubmitted: PropTypes.bool.isRequired,
+  errorId: PropTypes.string.isRequired,
+};
 
 export default ErrorContainer;

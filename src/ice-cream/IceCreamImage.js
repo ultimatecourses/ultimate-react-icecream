@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const IceCreamImage = ({ iceCreamId }) => {
   return (
@@ -12,6 +13,10 @@ const IceCreamImage = ({ iceCreamId }) => {
       />
     )
   );
+};
+
+IceCreamImage.propTypes = {
+  iceCreamId: PropTypes.number.isRequired,
 };
 
 export default IceCreamImage;
