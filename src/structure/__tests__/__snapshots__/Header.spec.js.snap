@@ -9,6 +9,11 @@ exports[`Header should render 1`] = `
     <span>
       {"focus":true}
     </span>
+    <span
+      data-testid="linkType"
+    >
+      NavLink
+    </span>
   </a>
   <a
     href="/ice-creams"
@@ -16,6 +21,11 @@ exports[`Header should render 1`] = `
     Add Ice Cream
     <span>
       {"focus":true}
+    </span>
+    <span
+      data-testid="linkType"
+    >
+      NavLink
     </span>
   </a>
 </nav>

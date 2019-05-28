@@ -7,6 +7,7 @@ export const Link = ({ children, to }) =>
     <a href={`${to.pathname}${to.search ? to.search : ''}`}>
       {children}
       {to.state && <span>{JSON.stringify(to.state)}</span>}
+      <span data-testid="linkType">Link</span>
     </a>
   );
 
@@ -17,6 +18,7 @@ export const NavLink = ({ children, to }) =>
     <a href={`${to.pathname}${to.search ? to.search : ''}`}>
       {children}
       {to.state && <span>{JSON.stringify(to.state)}</span>}
+      <span data-testid="linkType">NavLink</span>
     </a>
   );
 

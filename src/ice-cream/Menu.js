@@ -75,7 +75,7 @@ const Menu = ({ history }) => {
     <Main headingText="Rock your taste buds with one of these!">
       <LoaderMessage
         loadingMsg="Loading menu."
-        doneMsg="Loading menu complete"
+        doneMsg="Loading menu complete."
         isLoading={isLoading}
       />
       {!isLoading && (

@@ -1,4 +1,5 @@
 jest.mock('../../structure/Main');
+jest.mock('../../structure/LoaderMessage');
 jest.mock('../../data/iceCreamData');
 
 import React from 'react';
@@ -40,21 +41,21 @@ describe('Menu', () => {
   it('should render and load data', async () => {
     getMenu.mockResolvedValueOnce(mockData);
 
-    jest.useFakeTimers();
-    const { container } = render(<Menu />);
-    jest.runTimersToTime(400);
-    expect(container.firstChild.querySelector('p.loading')).toHaveTextContent(
-      'Loading menu.'
-    );
-    jest.useRealTimers();
+    const { container, getByTestId } = render(<Menu />);
 
-    const list = await waitForElement(() =>
-      container.firstChild.querySelector('ul')
+    const heading = await waitForElement(() =>
+      container.firstChild.querySelector('h2')
     );
 
-    expect(container.firstChild.querySelector('h2')).toHaveTextContent(
+    expect(heading).toHaveTextContent(
       'Rock your taste buds with one of these!'
     );
+
+    expect(getByTestId('loaderMessage')).toHaveTextContent(
+      'Loading menu.-Loading menu complete.'
+    );
+
+    const list = container.firstChild.querySelector('ul');
 
     const listItems = list.querySelectorAll('li section');
     expect(listItems.length).toBe(3);
@@ -88,10 +89,6 @@ describe('Menu', () => {
     const thirdAnchor = listItems[2].querySelector('h3 a');
     expect(thirdAnchor).toHaveAttribute('href', '/menu-items/3');
     expect(thirdAnchor).toHaveTextContent('Snowman Godfather');
-
-    expect(
-      container.firstChild.querySelector('p.visually-hidden')
-    ).toHaveTextContent('Loading menu complete');
   });
 
   it('should safely unmount', async () => {

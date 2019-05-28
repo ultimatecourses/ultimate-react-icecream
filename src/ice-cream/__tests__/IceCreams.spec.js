@@ -1,4 +1,5 @@
 jest.mock('../../structure/Main');
+jest.mock('../../structure/LoaderMessage');
 jest.mock('../../data/iceCreamData');
 
 import React from 'react';
@@ -18,21 +19,19 @@ describe('IceCreams', () => {
   it('should render and load data', async () => {
     getIceCreams.mockResolvedValueOnce(mockData);
 
-    jest.useFakeTimers();
-    const { container } = render(<IceCreams />);
-    jest.runTimersToTime(400);
-    expect(container.firstChild.querySelector('p.loading')).toHaveTextContent(
-      'Loading the stock list.'
-    );
-    jest.useRealTimers();
+    const { container, getByTestId } = render(<IceCreams />);
 
-    const list = await waitForElement(() =>
-      container.firstChild.querySelector('ul')
+    const heading = await waitForElement(() =>
+      container.firstChild.querySelector('h2')
     );
 
-    expect(container.firstChild.querySelector('h2')).toHaveTextContent(
-      'Choose your poison and enjoy!'
+    expect(heading).toHaveTextContent('Choose your poison and enjoy!');
+
+    expect(getByTestId('loaderMessage')).toHaveTextContent(
+      'Loading the stock list.-Loading stock list complete.'
     );
+
+    const list = container.firstChild.querySelector('ul');
 
     const listItems = list.querySelectorAll('li section');
     expect(listItems.length).toBe(3);
@@ -60,10 +59,6 @@ describe('IceCreams', () => {
     const thirdAnchor = listItems[2].querySelector('h3 a');
     expect(thirdAnchor).toHaveAttribute('href', '/menu-items/add?iceCreamId=2');
     expect(thirdAnchor).toHaveTextContent('Cookie Tower of Power');
-
-    expect(
-      container.firstChild.querySelector('p.visually-hidden')
-    ).toHaveTextContent('Loading stock list complete.');
   });
 
   it('should safely unmount', async () => {

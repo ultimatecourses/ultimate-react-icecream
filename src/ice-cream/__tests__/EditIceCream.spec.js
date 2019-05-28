@@ -1,4 +1,5 @@
 jest.mock('../../structure/Main');
+jest.mock('../../structure/LoaderMessage');
 jest.mock('../../data/iceCreamData');
 
 import React from 'react';
@@ -31,31 +32,25 @@ describe('EditIceCream', () => {
 
     const mockMatch = { params: { menuItemId: 3 } };
 
-    jest.useFakeTimers();
-    const { container } = render(<EditIceCream match={mockMatch} />);
-    jest.runTimersToTime(400);
-    expect(container.firstChild.querySelector('p.loading')).toHaveTextContent(
-      'Loading ice cream'
-    );
-    jest.useRealTimers();
-    const img = await waitForElement(() =>
-      container.firstChild.querySelector('img')
+    const { container, getByTestId, getByAltText } = render(
+      <EditIceCream match={mockMatch} />
     );
 
-    expect(container.firstChild.querySelector('h2')).toHaveTextContent(
-      'Update this beauty'
+    const heading = await waitForElement(() =>
+      container.firstChild.querySelector('h2')
     );
 
-    expect(img).toHaveAttribute('alt', '');
-    expect(img).toHaveAttribute('src', 'icecream.svg');
+    expect(heading).toHaveTextContent('Update this beauty');
+
+    expect(getByTestId('loaderMessage')).toHaveTextContent(
+      'Loading ice cream.-Ice cream loaded.'
+    );
+
+    expect(getByAltText('')).toHaveAttribute('src', 'icecream.svg');
+
     expect(container.firstChild.querySelector('dl dd')).toHaveTextContent(
       'Snowman Godfather'
     );
-
-    expect(container.firstChild.querySelector('p.loading')).toBeNull();
-    expect(
-      container.firstChild.querySelector('p.visually-hidden')
-    ).toHaveTextContent('Ice cream loaded');
   });
 
   it('should safely unmount', async () => {
