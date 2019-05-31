@@ -1,7 +1,7 @@
 jest.mock('../IceCreamImage');
 
 import React from 'react';
-import { render, fireEvent, cleanup } from 'react-testing-library';
+import { render, fireEvent, cleanup } from '@testing-library/react';
 import IceCream from '../IceCream';
 
 describe('IceCream', () => {

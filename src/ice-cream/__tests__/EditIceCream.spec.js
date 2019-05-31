@@ -10,7 +10,7 @@ import {
   wait,
   fireEvent,
   cleanup,
-} from 'react-testing-library';
+} from '@testing-library/react';
 import EditIceCream from '../EditIceCream';
 import {
   getMenuItem,

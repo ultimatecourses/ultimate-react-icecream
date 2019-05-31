@@ -2,7 +2,7 @@ jest.mock('../../structure/FocusLink');
 jest.mock('../IceCreamImage');
 
 import React from 'react';
-import { render, cleanup, fireEvent } from 'react-testing-library';
+import { render, cleanup, fireEvent } from '@testing-library/react';
 import { IceCreamCard } from '../IceCreamCard';
 
 describe('IceCreamCard', () => {

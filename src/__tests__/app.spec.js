@@ -2,7 +2,7 @@ jest.mock('../structure/Header', () => () => <span>Header</span>);
 jest.mock('../structure/Footer', () => () => <span>Footer</span>);
 
 import React from 'react';
-import { render, cleanup } from 'react-testing-library';
+import { render, cleanup } from '@testing-library/react';
 import App from '../App';
 
 describe('App', () => {

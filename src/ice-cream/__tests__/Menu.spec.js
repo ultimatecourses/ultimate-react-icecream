@@ -4,7 +4,7 @@ jest.mock('../IceCreamImage');
 jest.mock('../../data/iceCreamData');
 
 import React from 'react';
-import { render, waitForElement, cleanup } from 'react-testing-library';
+import { render, waitForElement, cleanup } from '@testing-library/react';
 import Menu from '../Menu';
 import { getMenu } from '../../data/iceCreamData';
 

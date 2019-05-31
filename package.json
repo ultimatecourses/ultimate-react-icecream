@@ -9,8 +9,6 @@
     "body-parser": "^1.19.0",
     "emotion": "^10.0.9",
     "express": "^4.16.4",
-    "jest-dom": "^3.2.2",
-    "jest-emotion": "^10.0.11",
     "prettier": "^1.17.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
@@ -18,8 +16,12 @@
     "react-helmet": "^5.2.1",
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.1",
-    "react-testing-library": "^7.0.1",
     "uniqid": "^5.0.3"
+  },
+  "devDependencies": {
+    "jest-dom": "^3.2.2",
+    "jest-emotion": "^10.0.11",
+    "@testing-library/react": "^8.0.1"
   },
   "scripts": {
     "start": "react-scripts start",

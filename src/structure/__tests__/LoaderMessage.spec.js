@@ -1,7 +1,7 @@
 jest.useFakeTimers();
 
 import React from 'react';
-import { render, cleanup } from 'react-testing-library';
+import { render, cleanup } from '@testing-library/react';
 import LoaderMessage from '../LoaderMessage';
 
 describe('LoaderMessage', () => {
