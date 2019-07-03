@@ -18,15 +18,15 @@ const IceCreams = ({ history }) => {
   const [iceCreams, setIceCreams] = useState([]);
 
   useEffect(() => {
-    let didCancel = false;
+    let isMounted = true;
     getIceCreams().then(iceCreams => {
-      if (!didCancel) {
+      if (isMounted) {
         setIceCreams(iceCreams);
         setIsLoading(false);
       }
     });
     return () => {
-      didCancel = true;
+      isMounted = false;
     };
   }, []);
 

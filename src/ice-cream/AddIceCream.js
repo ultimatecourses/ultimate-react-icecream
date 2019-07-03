@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Main from '../structure/Main';
 import LoaderMessage from '../structure/LoaderMessage';
 import IceCream from './IceCream';
@@ -9,28 +9,24 @@ const AddIceCream = ({ location, history }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [iceCream, setIceCream] = useState({});
 
-  const getIceCreamId = useCallback(() => location.search.split('=')[1], [
-    location.search,
-  ]);
-
   useEffect(() => {
-    let didCancel = false;
-    getIceCream(getIceCreamId())
+    let isMounted = true;
+    getIceCream(location.search.split('=')[1])
       .then(iceCreamResponse => {
-        if (!didCancel) {
+        if (isMounted) {
           setIceCream(iceCreamResponse);
           setIsLoading(false);
         }
       })
       .catch(err => {
-        if (err.response.status === 404 && !didCancel) {
+        if (err.response.status === 404 && isMounted) {
           history.replace('/', { focus: true });
         }
       });
     return () => {
-      didCancel = true;
+      isMounted = false;
     };
-  }, [getIceCreamId, history]);
+  }, [history, location.search]);
 
   const onSubmitHandler = menuItem => {
     postMenuItem(menuItem).then(() => {

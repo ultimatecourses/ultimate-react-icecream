@@ -60,15 +60,15 @@ const Menu = ({ history }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    let didCancel = false;
+    let isMounted = true;
     getMenu().then(menuData => {
-      if (!didCancel) {
+      if (isMounted) {
         setMenu(menuData);
         setIsLoading(false);
       }
     });
     return () => {
-      didCancel = true;
+      isMounted = false;
     };
   }, []);
 

@@ -10,21 +10,21 @@ const EditIceCream = ({ match, history }) => {
   const [menuItem, setMenuItem] = useState({});
 
   useEffect(() => {
-    let didCancel = false;
+    let isMounted = true;
     getMenuItem(match.params.menuItemId)
       .then(item => {
-        if (!didCancel) {
+        if (isMounted) {
           setMenuItem(item);
           setIsLoading(false);
         }
       })
       .catch(err => {
-        if (err.response.status === 404 && !didCancel) {
+        if (err.response.status === 404 && isMounted) {
           history.replace('/', { focus: true });
         }
       });
     return () => {
-      didCancel = true;
+      isMounted = false;
     };
   }, [match.params.menuItemId, history]);
 
