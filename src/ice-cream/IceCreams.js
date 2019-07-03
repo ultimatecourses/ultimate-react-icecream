@@ -4,14 +4,7 @@ import LoaderMessage from '../structure/LoaderMessage';
 import IceCreamCard from './IceCreamCard';
 import IceCreamCardContainer from './IceCreamCardContainer';
 import { getIceCreams } from '../data/iceCreamData';
-import { css } from 'emotion/macro';
 import PropTypes from 'prop-types';
-
-const paragraphStyle = css`
-  max-width: 60%;
-  margin: 0 auto;
-  padding-bottom: 3em;
-`;
 
 const IceCreams = ({ history }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -54,7 +47,7 @@ const IceCreams = ({ history }) => {
         </IceCreamCardContainer>
       ) : (
         !isLoading && (
-          <p className={paragraphStyle}>Your menu is fully stocked!</p>
+          <p className="fully-stocked">Your menu is fully stocked!</p>
         )
       )}
     </Main>

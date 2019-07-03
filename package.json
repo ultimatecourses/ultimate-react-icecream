@@ -4,11 +4,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@emotion/core": "^10.0.10",
     "axios": "^0.18.0",
     "body-parser": "^1.19.0",
-    "emotion": "^10.0.9",
     "express": "^4.16.4",
+    "node-sass": "^4.12.0",
     "prettier": "^1.17.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
@@ -19,9 +18,8 @@
     "uniqid": "^5.0.3"
   },
   "devDependencies": {
-    "jest-dom": "^3.2.2",
-    "jest-emotion": "^10.0.11",
-    "@testing-library/react": "^8.0.1"
+    "@testing-library/react": "^8.0.1",
+    "jest-dom": "^3.2.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -38,9 +36,6 @@
     "collectCoverageFrom": [
       "src/**/*.{js,jsx}",
       "!src/index.js"
-    ],
-    "snapshotSerializers": [
-      "jest-emotion"
     ]
   },
   "browserslist": {

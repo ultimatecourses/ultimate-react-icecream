@@ -1,25 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Footer should render 1`] = `
-.emotion-0 {
-  max-width: 63.75em;
-  margin-left: auto;
-  margin-right: auto;
-  border-radius: 0 0 4px 4px;
-  color: #313030;
-  text-align: center;
-  padding-bottom: 2em;
-}
-
-.emotion-0 span {
-  margin: 0;
-  font-family: 'cornerstone',sans-serif;
-  font-weight: 600;
-}
-
-<footer
-  class="emotion-0"
->
+<footer>
   <span>
     © Ultimate Ice Cream
   </span>

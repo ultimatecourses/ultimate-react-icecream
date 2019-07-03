@@ -1,17 +1,5 @@
 import React, { useState, useLayoutEffect, useRef } from 'react';
-import { css } from 'emotion/macro';
 import PropTypes from 'prop-types';
-
-const loaderMessageStyle = css`
-  .loading {
-    font-size: 3em;
-    font-weight: bold;
-    width: 100%;
-    text-align: center;
-    margin: 0;
-    padding-bottom: 3em;
-  }
-`;
 
 const LoaderMessage = ({ loadingMsg, doneMsg, isLoading }) => {
   const isLoadingPreviousValue = useRef(null);
@@ -43,11 +31,7 @@ const LoaderMessage = ({ loadingMsg, doneMsg, isLoading }) => {
   }, [isLoading]);
 
   return (
-    <div
-      aria-live="assertive"
-      aria-atomic="true"
-      className={loaderMessageStyle}
-    >
+    <div aria-live="assertive" aria-atomic="true">
       {showLoadingMessage && <p className="loading">{loadingMsg}</p>}
       {showDoneMessage && <p className="visually-hidden">{doneMsg}</p>}
     </div>
