@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Footer should render 1`] = `
-<footer>
-  <span>
-    © Ultimate Ice Cream
-  </span>
-</footer>
-`;
