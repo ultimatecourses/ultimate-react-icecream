@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Main from '../structure/Main';
 import LoaderMessage from '../structure/LoaderMessage';
-import IceCreamCardContainer from './IceCreamCardContainer';
-import IceCreamCard from './IceCreamCard';
 import { getMenu } from '../data/iceCreamData';
 import PropTypes from 'prop-types';
+import IceCreamImage from './IceCreamImage';
+import FocusLink from '../structure/FocusLink';
 
 const Menu = ({ history }) => {
   const [menu, setMenu] = useState([]);
@@ -23,6 +23,16 @@ const Menu = ({ history }) => {
     };
   }, []);
 
+  const onItemClickHandler = to => {
+    history.push(to);
+  };
+
+  const onLinkClickHandler = e => {
+    //This is done to avoid the click handler of the <li>
+    //firing and placing two browse entries in browser history
+    e.stopPropagation();
+  };
+
   return (
     <Main headingText="Rock your taste buds with one of these!">
       <LoaderMessage
@@ -33,31 +43,43 @@ const Menu = ({ history }) => {
       {!isLoading && (
         <div>
           {menu.length > 0 && !isLoading ? (
-            <>
-              <IceCreamCardContainer>
-                {menu.map(
-                  ({ id, iceCream, price, description, inStock, quantity }) => (
-                    <IceCreamCard
-                      key={id}
-                      iceCreamId={iceCream.id}
-                      to={`/menu-items/${id.toString()}`}
-                      heading={iceCream.name}
-                      history={history}
+            <ul className="container">
+              {menu.map(
+                ({ id, iceCream, price, description, inStock, quantity }) => (
+                  <li key={id.toString()}>
+                    <section
+                      className="card"
+                      onClick={() => {
+                        onItemClickHandler(`/menu-items/${id.toString()}`);
+                      }}
                     >
-                      <div className="card-content">
-                        <p className="price">{`$${price.toFixed(2)}`}</p>
-                        <p className={`stock${inStock ? '' : ' out'}`}>
-                          {inStock
-                            ? `${quantity} in stock`
-                            : 'Currently out of stock!'}
-                        </p>
-                        <p className="description">{description}</p>
+                      <div className="image-container">
+                        <IceCreamImage iceCreamId={iceCream.id} />
                       </div>
-                    </IceCreamCard>
-                  )
-                )}
-              </IceCreamCardContainer>
-            </>
+                      <div className="text-container">
+                        <h3>
+                          <FocusLink
+                            to={`/menu-items/${id.toString()}`}
+                            onClick={onLinkClickHandler}
+                          >
+                            {iceCream.name}
+                          </FocusLink>
+                        </h3>
+                        <div className="content card-content">
+                          <p className="price">{`$${price.toFixed(2)}`}</p>
+                          <p className={`stock${inStock ? '' : ' out'}`}>
+                            {inStock
+                              ? `${quantity} in stock`
+                              : 'Currently out of stock!'}
+                          </p>
+                          <p className="description">{description}</p>
+                        </div>
+                      </div>
+                    </section>
+                  </li>
+                )
+              )}
+            </ul>
           ) : (
             <p>Your menu is empty! The sadness!!</p>
           )}
