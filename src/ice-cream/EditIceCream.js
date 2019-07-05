@@ -4,14 +4,7 @@ import LoaderMessage from '../structure/LoaderMessage';
 import { getMenuItem, putMenuItem } from '../data/iceCreamData';
 import PropTypes from 'prop-types';
 import IceCreamImage from './IceCreamImage';
-import ErrorContainer from './ErrorContainer';
 import useUniqueIds from '../hooks/useUniqueIds';
-import useValidation from '../hooks/useValidation';
-import {
-  validateDescription,
-  validatePrice,
-  validateQuantity,
-} from '../utils/validators';
 
 const EditIceCream = ({ match, history }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -22,44 +15,9 @@ const EditIceCream = ({ match, history }) => {
     description: '',
     iceCream: {},
   });
-  const [
-    descriptionId,
-    descriptionErrorId,
-    stockId,
-    quantityId,
-    quantityErrorId,
-    priceId,
-    priceErrorId,
-  ] = useUniqueIds(7);
+  const [descriptionId, stockId, quantityId, priceId] = useUniqueIds(4);
 
   const formRef = useRef(null);
-
-  const [hasSubmitted, setHasSubmitted] = useState(false);
-
-  const [descriptionError, descriptionErrorProps] = useValidation(
-    menuItem.description,
-    descriptionErrorId,
-    hasSubmitted,
-    validateDescription,
-    true
-  );
-
-  const [quantityError, quantityErrorProps] = useValidation(
-    menuItem.quantity,
-    quantityErrorId,
-    hasSubmitted,
-    validateQuantity,
-    false,
-    menuItem.inStock
-  );
-
-  const [priceError, priceErrorProps] = useValidation(
-    menuItem.price,
-    priceErrorId,
-    hasSubmitted,
-    validatePrice,
-    true
-  );
 
   useEffect(() => {
     let isMounted = true;
@@ -107,30 +65,20 @@ const EditIceCream = ({ match, history }) => {
 
   const onSubmitHandler = e => {
     e.preventDefault();
-    setHasSubmitted(true);
 
-    if (descriptionError || quantityError || priceError) {
-      setTimeout(() => {
-        const errorControl = formRef.current.querySelector(
-          '[aria-invalid="true"]'
-        );
-        errorControl.focus();
-      });
-    } else {
-      const { id, price, inStock, quantity, description, iceCream } = menuItem;
-      const submitItem = {
-        id,
-        iceCream: { id: iceCream.id },
-        price: parseFloat(price),
-        inStock,
-        quantity: parseInt(quantity),
-        description,
-      };
+    const { id, price, inStock, quantity, description, iceCream } = menuItem;
+    const submitItem = {
+      id,
+      iceCream: { id: iceCream.id },
+      price: parseFloat(price),
+      inStock,
+      quantity: parseInt(quantity),
+      description,
+    };
 
-      putMenuItem(submitItem).then(() => {
-        history.push('/', { focus: true });
-      });
-    }
+    putMenuItem(submitItem).then(() => {
+      history.push('/', { focus: true });
+    });
   };
 
   return (
@@ -155,20 +103,13 @@ const EditIceCream = ({ match, history }) => {
                 <label htmlFor={descriptionId}>
                   Description<span aria-hidden="true">*</span> :
                 </label>
-                <ErrorContainer
-                  errorText={descriptionError}
-                  errorId={descriptionErrorId}
-                  hasSubmitted={hasSubmitted}
-                >
-                  <textarea
-                    id={descriptionId}
-                    name="description"
-                    rows="3"
-                    onChange={onChangeHandler}
-                    value={menuItem.description}
-                    {...descriptionErrorProps}
-                  />
-                </ErrorContainer>
+                <textarea
+                  id={descriptionId}
+                  name="description"
+                  rows="3"
+                  onChange={onChangeHandler}
+                  value={menuItem.description}
+                />
                 <label htmlFor={stockId}>In Stock :</label>
                 <div className="checkbox-wrapper">
                   <input
@@ -181,44 +122,30 @@ const EditIceCream = ({ match, history }) => {
                   <div className="checkbox-wrapper-checked" />
                 </div>
                 <label htmlFor={quantityId}>Quantity :</label>
-                <ErrorContainer
-                  errorText={quantityError}
-                  errorId={quantityErrorId}
-                  hasSubmitted={hasSubmitted}
+                <select
+                  id={quantityId}
+                  name="quantity"
+                  onChange={onChangeHandler}
+                  value={menuItem.quantity}
                 >
-                  <select
-                    id={quantityId}
-                    name="quantity"
-                    onChange={onChangeHandler}
-                    value={menuItem.quantity}
-                    {...quantityErrorProps}
-                  >
-                    <option value="0">0</option>
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="30">30</option>
-                    <option value="40">40</option>
-                    <option value="50">50</option>
-                  </select>
-                </ErrorContainer>
+                  <option value="0">0</option>
+                  <option value="10">10</option>
+                  <option value="20">20</option>
+                  <option value="30">30</option>
+                  <option value="40">40</option>
+                  <option value="50">50</option>
+                </select>
                 <label htmlFor={priceId}>
                   Price<span aria-hidden="true">*</span> :
                 </label>
-                <ErrorContainer
-                  errorText={priceError}
-                  errorId={priceErrorId}
-                  hasSubmitted={hasSubmitted}
-                >
-                  <input
-                    id={priceId}
-                    type="number"
-                    step="0.01"
-                    name="price"
-                    onChange={onChangeHandler}
-                    value={menuItem.price}
-                    {...priceErrorProps}
-                  />
-                </ErrorContainer>
+                <input
+                  id={priceId}
+                  type="number"
+                  step="0.01"
+                  name="price"
+                  onChange={onChangeHandler}
+                  value={menuItem.price}
+                />
                 <div className="button-container">
                   <button className="ok" type="submit">
                     Save
