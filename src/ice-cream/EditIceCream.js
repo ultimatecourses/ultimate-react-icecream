@@ -5,6 +5,7 @@ import { getMenuItem, putMenuItem } from '../data/iceCreamData';
 import PropTypes from 'prop-types';
 import IceCreamImage from './IceCreamImage';
 import useUniqueIds from '../hooks/useUniqueIds';
+import '../styles/forms-spacer.scss';
 
 const EditIceCream = ({ match, history }) => {
   const [isLoading, setIsLoading] = useState(true);
