@@ -417,6 +417,10 @@ main {
           display: flex;
         }
 
+        input, select, textarea {
+          margin-bottom: 1.5em;
+        }
+
         input[type='checkbox'] {
           cursor: pointer;
           outline: 0;
