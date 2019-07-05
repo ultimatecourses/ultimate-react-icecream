@@ -23,7 +23,7 @@ const Menu = () => {
   }, []);
 
   return (
-    <main tabIndex="-1" id="main">
+    <main>
       <Helmet>
         <title>
           Rock your taste buds with one of these! | Ultimate Ice Cream
