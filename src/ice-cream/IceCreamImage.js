@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 
 const IceCreamImage = ({ iceCreamId }) => {
   return (
-    iceCreamId !== null &&
-    iceCreamId !== undefined && (
+    iceCreamId != null && (
       <img
         src={`${
           process.env.PUBLIC_URL
