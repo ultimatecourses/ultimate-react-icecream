@@ -1,4 +1,4 @@
-import React, { useRef, useLayoutEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import Helmet from 'react-helmet';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -7,7 +7,7 @@ const Main = ({ headingText, headingLevel = 2, children, location }) => {
   const heading = useRef(null);
   const H = `h${headingLevel}`;
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (location.state && location.state.focus) {
       heading.current.focus();
     }
