@@ -84,6 +84,11 @@ const EditIceCream = ({ match, history }) => {
 
   return (
     <Main headingText="Update this beauty">
+      <LoaderMessage
+        loadingMsg="Loading ice cream."
+        doneMsg="Ice cream loaded."
+        isLoading={isLoading}
+      />
       {!isLoading && (
         <div className="form-frame">
           <div className="image-container">
@@ -152,11 +157,6 @@ const EditIceCream = ({ match, history }) => {
           </div>
         </div>
       )}
-      <LoaderMessage
-        loadingMsg="Loading ice cream."
-        doneMsg="Ice cream loaded."
-        isLoading={isLoading}
-      />
     </Main>
   );
 };

@@ -35,6 +35,11 @@ const Menu = ({ history }) => {
 
   return (
     <Main headingText="Rock your taste buds with one of these!">
+      <LoaderMessage
+        loadingMsg="Loading menu."
+        doneMsg="Loading menu complete."
+        isLoading={isLoading}
+      />
       {!isLoading && (
         <div>
           {menu.length > 0 && !isLoading ? (
@@ -80,11 +85,6 @@ const Menu = ({ history }) => {
           )}
         </div>
       )}
-      <LoaderMessage
-        loadingMsg="Loading menu."
-        doneMsg="Loading menu complete."
-        isLoading={isLoading}
-      />
     </Main>
   );
 };
