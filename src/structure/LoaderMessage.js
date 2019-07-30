@@ -1,22 +1,23 @@
-import React, { useState, useLayoutEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 const LoaderMessage = ({ loadingMsg, doneMsg, isLoading }) => {
   const isLoadingPreviousValue = useRef(null);
-  const loadingMessageDelay = useRef(null);
-  const doneMessageDelay = useRef(null);
   const [showLoadingMessage, setShowLoadingMessage] = useState(false);
   const [showDoneMessage, setShowDoneMessage] = useState(false);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
+    let loadingMessageDelay;
+    let doneMessageDelay;
+
     if (isLoading) {
-      loadingMessageDelay.current = setTimeout(() => {
+      loadingMessageDelay = setTimeout(() => {
         setShowLoadingMessage(true);
       }, 400);
     } else {
       if (isLoadingPreviousValue.current) {
         setShowDoneMessage(true);
-        doneMessageDelay.current = setTimeout(() => {
+        doneMessageDelay = setTimeout(() => {
           setShowDoneMessage(false);
         }, 300);
       }
@@ -25,8 +26,8 @@ const LoaderMessage = ({ loadingMsg, doneMsg, isLoading }) => {
     return () => {
       setShowLoadingMessage(false);
       setShowDoneMessage(false);
-      clearTimeout(loadingMessageDelay.current);
-      clearTimeout(doneMessageDelay.current);
+      clearTimeout(loadingMessageDelay);
+      clearTimeout(doneMessageDelay);
     };
   }, [isLoading]);
 
