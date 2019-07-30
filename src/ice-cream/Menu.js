@@ -30,11 +30,6 @@ const Menu = () => {
         </title>
       </Helmet>
       <h2 className="main-heading">Rock your taste buds with one of these!</h2>
-      <LoaderMessage
-        loadingMsg="Loading menu."
-        doneMsg="Loading menu complete."
-        isLoading={isLoading}
-      />
       {!isLoading && (
         <div>
           {menu.length > 0 && !isLoading ? (
@@ -68,6 +63,11 @@ const Menu = () => {
           )}
         </div>
       )}
+      <LoaderMessage
+        loadingMsg="Loading menu."
+        doneMsg="Loading menu complete."
+        isLoading={isLoading}
+      />
     </main>
   );
 };
