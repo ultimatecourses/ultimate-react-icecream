@@ -30,38 +30,32 @@ const Menu = ({ history }) => {
         doneMsg="Loading menu complete."
         isLoading={isLoading}
       />
-      {!isLoading && (
-        <div>
-          {menu.length > 0 && !isLoading ? (
-            <>
-              <IceCreamCardContainer>
-                {menu.map(
-                  ({ id, iceCream, price, description, inStock, quantity }) => (
-                    <IceCreamCard
-                      key={id}
-                      iceCreamId={iceCream.id}
-                      to={`/menu-items/${id.toString()}`}
-                      heading={iceCream.name}
-                      history={history}
-                    >
-                      <div className="card-content">
-                        <p className="price">{`$${price.toFixed(2)}`}</p>
-                        <p className={`stock${inStock ? '' : ' out'}`}>
-                          {inStock
-                            ? `${quantity} in stock`
-                            : 'Currently out of stock!'}
-                        </p>
-                        <p className="description">{description}</p>
-                      </div>
-                    </IceCreamCard>
-                  )
-                )}
-              </IceCreamCardContainer>
-            </>
-          ) : (
-            <p>Your menu is empty! The sadness!!</p>
+      {menu.length > 0 ? (
+        <IceCreamCardContainer>
+          {menu.map(
+            ({ id, iceCream, price, description, inStock, quantity }) => (
+              <IceCreamCard
+                key={id}
+                iceCreamId={iceCream.id}
+                to={`/menu-items/${id.toString()}`}
+                heading={iceCream.name}
+                history={history}
+              >
+                <div className="card-content">
+                  <p className="price">{`$${price.toFixed(2)}`}</p>
+                  <p className={`stock${inStock ? '' : ' out'}`}>
+                    {inStock
+                      ? `${quantity} in stock`
+                      : 'Currently out of stock!'}
+                  </p>
+                  <p className="description">{description}</p>
+                </div>
+              </IceCreamCard>
+            )
           )}
-        </div>
+        </IceCreamCardContainer>
+      ) : (
+        !isLoading && <p>Your menu is empty! The sadness!!</p>
       )}
     </Main>
   );
