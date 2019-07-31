@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import LoaderMessage from '../structure/LoaderMessage';
 import { getMenu } from '../data/iceCreamData';
-import PropTypes from 'prop-types';
 import IceCreamImage from './IceCreamImage';
 import Helmet from 'react-helmet';
 
@@ -66,12 +65,6 @@ const Menu = () => {
       )}
     </main>
   );
-};
-
-Menu.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }),
 };
 
 export default Menu;
