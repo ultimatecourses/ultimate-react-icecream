@@ -14,6 +14,7 @@ import {
 } from '../utils/validators';
 
 const EditIceCream = ({ match, history }) => {
+  const isMounted = useRef(true);
   const [isLoading, setIsLoading] = useState(true);
   const [menuItem, setMenuItem] = useState({
     price: '0.00',
@@ -62,10 +63,15 @@ const EditIceCream = ({ match, history }) => {
   );
 
   useEffect(() => {
-    let isMounted = true;
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
+  useEffect(() => {
     getMenuItem(match.params.menuItemId)
       .then(({ id, price, inStock, quantity, description, iceCream }) => {
-        if (isMounted) {
+        if (isMounted.current) {
           setMenuItem({
             id,
             price: price.toFixed(2),
@@ -78,13 +84,10 @@ const EditIceCream = ({ match, history }) => {
         }
       })
       .catch(err => {
-        if (err.response.status === 404 && isMounted) {
+        if (err.response.status === 404 && isMounted.current) {
           history.replace('/', { focus: true });
         }
       });
-    return () => {
-      isMounted = false;
-    };
   }, [match.params.menuItemId, history]);
 
   const onChangeHandler = e => {
