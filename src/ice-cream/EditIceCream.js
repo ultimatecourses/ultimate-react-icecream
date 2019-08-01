@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Main from '../structure/Main';
 import LoaderMessage from '../structure/LoaderMessage';
 import IceCream from './IceCream';
@@ -6,26 +6,29 @@ import { getMenuItem, putMenuItem, deleteMenuItem } from '../data/iceCreamData';
 import PropTypes from 'prop-types';
 
 const EditIceCream = ({ match, history }) => {
+  const isMounted = useRef(true);
   const [isLoading, setIsLoading] = useState(true);
   const [menuItem, setMenuItem] = useState({});
 
   useEffect(() => {
-    let isMounted = true;
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
+  useEffect(() => {
     getMenuItem(match.params.menuItemId)
       .then(item => {
-        if (isMounted) {
+        if (isMounted.current) {
           setMenuItem(item);
           setIsLoading(false);
         }
       })
       .catch(err => {
-        if (err.response.status === 404 && isMounted) {
+        if (err.response.status === 404 && isMounted.current) {
           history.replace('/', { focus: true });
         }
       });
-    return () => {
-      isMounted = false;
-    };
   }, [match.params.menuItemId, history]);
 
   const onSubmitHandler = updatedItem => {
