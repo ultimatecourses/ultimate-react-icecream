@@ -7,16 +7,17 @@ import PropTypes from 'prop-types';
 
 const AddIceCream = ({ location, history }) => {
   const isMounted = useRef(true);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [iceCream, setIceCream] = useState({});
 
-  useEffect(()=>{
-    return ()=>{
+  useEffect(() => {
+    return () => {
       isMounted.current = false;
-    }
-  },[])
+    };
+  }, []);
 
   useEffect(() => {
+    setIsLoading(true);
     getIceCream(location.search.split('=')[1])
       .then(iceCreamResponse => {
         if (isMounted.current) {

@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 const EditIceCream = ({ match, history }) => {
   const isMounted = useRef(true);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [menuItem, setMenuItem] = useState({});
 
   useEffect(() => {
@@ -17,6 +17,7 @@ const EditIceCream = ({ match, history }) => {
   }, []);
 
   useEffect(() => {
+    setIsLoading(true);
     getMenuItem(match.params.menuItemId)
       .then(item => {
         if (isMounted.current) {
