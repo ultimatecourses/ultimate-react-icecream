@@ -18,8 +18,6 @@ const EditIceCream = ({ match, history }) => {
   });
   const [descriptionId, stockId, quantityId, priceId] = useUniqueIds(4);
 
-  const formRef = useRef(null);
-
   useEffect(() => {
     let isMounted = true;
     getMenuItem(match.params.menuItemId)
@@ -100,7 +98,7 @@ const EditIceCream = ({ match, history }) => {
                 <dt>Name :</dt>
                 <dd>{menuItem.iceCream.name}</dd>
               </dl>
-              <form noValidate onSubmit={onSubmitHandler} ref={formRef}>
+              <form noValidate onSubmit={onSubmitHandler}>
                 <label htmlFor={descriptionId}>
                   Description<span aria-hidden="true">*</span> :
                 </label>
