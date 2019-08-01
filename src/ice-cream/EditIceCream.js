@@ -9,7 +9,7 @@ import '../styles/forms-spacer.scss';
 
 const EditIceCream = ({ match, history }) => {
   const isMounted = useRef(true);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [menuItem, setMenuItem] = useState({
     price: '0.00',
     inStock: true,
@@ -26,6 +26,7 @@ const EditIceCream = ({ match, history }) => {
   }, []);
 
   useEffect(() => {
+    setIsLoading(true);
     getMenuItem(match.params.menuItemId)
       .then(({ id, price, inStock, quantity, description, iceCream }) => {
         if (isMounted.current) {
