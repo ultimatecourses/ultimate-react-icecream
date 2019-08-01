@@ -8,6 +8,7 @@ import useUniqueIds from '../hooks/useUniqueIds';
 import '../styles/forms-spacer.scss';
 
 const EditIceCream = ({ match, history }) => {
+  const isMounted = useRef(true);
   const [isLoading, setIsLoading] = useState(true);
   const [menuItem, setMenuItem] = useState({
     price: '0.00',
@@ -19,10 +20,15 @@ const EditIceCream = ({ match, history }) => {
   const [descriptionId, stockId, quantityId, priceId] = useUniqueIds(4);
 
   useEffect(() => {
-    let isMounted = true;
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
+  useEffect(() => {
     getMenuItem(match.params.menuItemId)
       .then(({ id, price, inStock, quantity, description, iceCream }) => {
-        if (isMounted) {
+        if (isMounted.current) {
           setMenuItem({
             id,
             price: price.toFixed(2),
@@ -39,9 +45,6 @@ const EditIceCream = ({ match, history }) => {
           history.replace('/', { focus: true });
         }
       });
-    return () => {
-      isMounted = false;
-    };
   }, [match.params.menuItemId, history]);
 
   const onChangeHandler = e => {
@@ -92,66 +95,64 @@ const EditIceCream = ({ match, history }) => {
           <div className="image-container">
             <IceCreamImage iceCreamId={menuItem.iceCream.id} />
           </div>
-          <div>
-            <div className="form-container">
-              <dl>
-                <dt>Name :</dt>
-                <dd>{menuItem.iceCream.name}</dd>
-              </dl>
-              <form noValidate onSubmit={onSubmitHandler}>
-                <label htmlFor={descriptionId}>
-                  Description<span aria-hidden="true">*</span> :
-                </label>
-                <textarea
-                  id={descriptionId}
-                  name="description"
-                  rows="3"
-                  onChange={onChangeHandler}
-                  value={menuItem.description}
-                />
-                <label htmlFor={stockId}>In Stock :</label>
-                <div className="checkbox-wrapper">
-                  <input
-                    id={stockId}
-                    type="checkbox"
-                    name="inStock"
-                    onChange={onChangeHandler}
-                    checked={menuItem.inStock}
-                  />
-                  <div className="checkbox-wrapper-checked" />
-                </div>
-                <label htmlFor={quantityId}>Quantity :</label>
-                <select
-                  id={quantityId}
-                  name="quantity"
-                  onChange={onChangeHandler}
-                  value={menuItem.quantity}
-                >
-                  <option value="0">0</option>
-                  <option value="10">10</option>
-                  <option value="20">20</option>
-                  <option value="30">30</option>
-                  <option value="40">40</option>
-                  <option value="50">50</option>
-                </select>
-                <label htmlFor={priceId}>
-                  Price<span aria-hidden="true">*</span> :
-                </label>
+          <div className="form-container">
+            <dl>
+              <dt>Name :</dt>
+              <dd>{menuItem.iceCream.name}</dd>
+            </dl>
+            <form noValidate onSubmit={onSubmitHandler}>
+              <label htmlFor={descriptionId}>
+                Description<span aria-hidden="true">*</span> :
+              </label>
+              <textarea
+                id={descriptionId}
+                name="description"
+                rows="3"
+                onChange={onChangeHandler}
+                value={menuItem.description}
+              />
+              <label htmlFor={stockId}>In Stock :</label>
+              <div className="checkbox-wrapper">
                 <input
-                  id={priceId}
-                  type="number"
-                  step="0.01"
-                  name="price"
+                  id={stockId}
+                  type="checkbox"
+                  name="inStock"
                   onChange={onChangeHandler}
-                  value={menuItem.price}
+                  checked={menuItem.inStock}
                 />
-                <div className="button-container">
-                  <button className="ok" type="submit">
-                    Save
-                  </button>
-                </div>
-              </form>
-            </div>
+                <div className="checkbox-wrapper-checked" />
+              </div>
+              <label htmlFor={quantityId}>Quantity :</label>
+              <select
+                id={quantityId}
+                name="quantity"
+                onChange={onChangeHandler}
+                value={menuItem.quantity}
+              >
+                <option value="0">0</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="40">40</option>
+                <option value="50">50</option>
+              </select>
+              <label htmlFor={priceId}>
+                Price<span aria-hidden="true">*</span> :
+              </label>
+              <input
+                id={priceId}
+                type="number"
+                step="0.01"
+                name="price"
+                onChange={onChangeHandler}
+                value={menuItem.price}
+              />
+              <div className="button-container">
+                <button className="ok" type="submit">
+                  Save
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}
