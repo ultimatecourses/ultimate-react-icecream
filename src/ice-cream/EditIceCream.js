@@ -41,7 +41,7 @@ const EditIceCream = ({ match, history }) => {
         }
       })
       .catch(err => {
-        if (err.response.status === 404 && isMounted) {
+        if (err.response.status === 404 && isMounted.current) {
           history.replace('/', { focus: true });
         }
       });
