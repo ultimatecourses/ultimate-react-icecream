@@ -101,9 +101,9 @@ const EditIceCream = ({ match, history }) => {
               <dt>Name :</dt>
               <dd>{menuItem.iceCream.name}</dd>
             </dl>
-            <form noValidate onSubmit={onSubmitHandler}>
+            <form onSubmit={onSubmitHandler}>
               <label htmlFor={descriptionId}>
-                Description<span aria-hidden="true">*</span> :
+                Description :
               </label>
               <textarea
                 id={descriptionId}
@@ -138,7 +138,7 @@ const EditIceCream = ({ match, history }) => {
                 <option value="50">50</option>
               </select>
               <label htmlFor={priceId}>
-                Price<span aria-hidden="true">*</span> :
+                Price :
               </label>
               <input
                 id={priceId}
