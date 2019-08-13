@@ -28,7 +28,7 @@ const Menu = ({ history }) => {
   };
 
   const onLinkClickHandler = e => {
-    //This is done to avoid the click handler of the <li>
+    //This is done to avoid the click handler of the <section>
     //firing and placing two browse entries in browser history
     e.stopPropagation();
   };
