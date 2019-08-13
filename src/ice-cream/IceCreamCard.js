@@ -3,15 +3,9 @@ import FocusLink from '../structure/FocusLink';
 import IceCreamImage from './IceCreamImage';
 import PropTypes from 'prop-types';
 
-const IceCreamCard = ({
-  iceCreamId,
-  heading,
-  to,
-  history,
-  children,
-}) => {
+const IceCreamCard = ({ iceCreamId, heading, to, history, children }) => {
   const onItemClickHandler = () => {
-    history.push(to, {focus: true});
+    history.push(to, { focus: true });
   };
 
   const onLinkClickHandler = e => {
@@ -49,7 +43,7 @@ IceCreamCard.propTypes = {
     PropTypes.string,
     PropTypes.shape({
       pathname: PropTypes.string.isRequired,
-      focus: PropTypes.bool
+      focus: PropTypes.bool,
     }),
   ]).isRequired,
   history: PropTypes.shape({
