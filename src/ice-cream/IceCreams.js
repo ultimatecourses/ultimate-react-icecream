@@ -34,7 +34,7 @@ const IceCreams = ({ history }) => {
         <IceCreamCardContainer>
           {iceCreams.map(({ id, name }) => (
             <IceCreamCard
-              key={id}
+              key={id.toString}
               iceCreamId={id}
               heading={name}
               to="/"
