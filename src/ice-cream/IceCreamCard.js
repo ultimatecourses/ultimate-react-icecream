@@ -3,19 +3,13 @@ import FocusLink from '../structure/FocusLink';
 import IceCreamImage from './IceCreamImage';
 import PropTypes from 'prop-types';
 
-export const IceCreamCard = ({
-  iceCreamId,
-  heading,
-  to,
-  history,
-  children,
-}) => {
+const IceCreamCard = ({ iceCreamId, heading, to, history, children }) => {
   const onItemClickHandler = () => {
-    history.push(to);
+    history.push(to, { focus: true });
   };
 
   const onLinkClickHandler = e => {
-    //This is done to avoid the click handler of the <li>
+    //This is done to avoid the click handler of the <section>
     //firing and placing two browse entries in browser history
     e.stopPropagation();
   };
@@ -36,7 +30,7 @@ export const IceCreamCard = ({
             {heading}
           </FocusLink>
         </h3>
-        {children && <div className="content">{children}</div>}
+        {children}
       </div>
     </section>
   );
@@ -49,6 +43,7 @@ IceCreamCard.propTypes = {
     PropTypes.string,
     PropTypes.shape({
       pathname: PropTypes.string.isRequired,
+      focus: PropTypes.bool,
     }),
   ]).isRequired,
   history: PropTypes.shape({
