@@ -11,7 +11,7 @@ import {
 import PropTypes from 'prop-types';
 
 const IceCream = ({
-  iceCream,
+  iceCream = {},
   price = 0,
   quantity = 0,
   inStock = true,
@@ -119,92 +119,90 @@ const IceCream = ({
       <div className="image-container">
         <IceCreamImage iceCreamId={iceCream.id} />
       </div>
-      <div>
-        <div className="form-container">
-          <dl>
-            <dt>Name :</dt>
-            <dd>{iceCream.name}</dd>
-          </dl>
-          <form noValidate onSubmit={onSubmitHandler} ref={formRef}>
-            <label htmlFor={descriptionId}>
-              Description<span aria-hidden="true">*</span> :
-            </label>
-            <ErrorContainer
-              errorText={descriptionError}
-              errorId={descriptionErrorId}
-              hasSubmitted={hasSubmitted}
+      <div className="form-container">
+        <dl>
+          <dt>Name :</dt>
+          <dd>{iceCream.name}</dd>
+        </dl>
+        <form noValidate onSubmit={onSubmitHandler} ref={formRef}>
+          <label htmlFor={descriptionId}>
+            Description<span aria-hidden="true">*</span> :
+          </label>
+          <ErrorContainer
+            errorText={descriptionError}
+            errorId={descriptionErrorId}
+            hasSubmitted={hasSubmitted}
+          >
+            <textarea
+              id={descriptionId}
+              name="description"
+              rows="3"
+              onChange={onChangeHandler}
+              value={internalData.description}
+              {...descriptionErrorProps}
+            />
+          </ErrorContainer>
+          <label htmlFor={stockId}>In Stock :</label>
+          <div className="checkbox-wrapper">
+            <input
+              id={stockId}
+              type="checkbox"
+              name="inStock"
+              onChange={onChangeHandler}
+              checked={internalData.inStock}
+            />
+            <div className="checkbox-wrapper-checked" />
+          </div>
+          <label htmlFor={quantityId}>Quantity :</label>
+          <ErrorContainer
+            errorText={quantityError}
+            errorId={quantityErrorId}
+            hasSubmitted={hasSubmitted}
+          >
+            <select
+              id={quantityId}
+              name="quantity"
+              onChange={onChangeHandler}
+              value={internalData.quantity}
+              {...quantityErrorProps}
             >
-              <textarea
-                id={descriptionId}
-                name="description"
-                rows="3"
-                onChange={onChangeHandler}
-                value={internalData.description}
-                {...descriptionErrorProps}
-              />
-            </ErrorContainer>
-            <label htmlFor={stockId}>In Stock :</label>
-            <div className="checkbox-wrapper">
-              <input
-                id={stockId}
-                type="checkbox"
-                name="inStock"
-                onChange={onChangeHandler}
-                checked={internalData.inStock}
-              />
-              <div className="checkbox-wrapper-checked" />
-            </div>
-            <label htmlFor={quantityId}>Quantity :</label>
-            <ErrorContainer
-              errorText={quantityError}
-              errorId={quantityErrorId}
-              hasSubmitted={hasSubmitted}
-            >
-              <select
-                id={quantityId}
-                name="quantity"
-                onChange={onChangeHandler}
-                value={internalData.quantity}
-                {...quantityErrorProps}
-              >
-                <option value="0">0</option>
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="30">30</option>
-                <option value="40">40</option>
-                <option value="50">50</option>
-              </select>
-            </ErrorContainer>
-            <label htmlFor={priceId}>
-              Price<span aria-hidden="true">*</span> :
-            </label>
-            <ErrorContainer
-              errorText={priceError}
-              errorId={priceErrorId}
-              hasSubmitted={hasSubmitted}
-            >
-              <input
-                id={priceId}
-                type="number"
-                step="0.01"
-                name="price"
-                onChange={onChangeHandler}
-                value={internalData.price}
-                {...priceErrorProps}
-              />
-            </ErrorContainer>
-            <div className="button-container">
-              <button className="ok" type="submit">
-                Save
+              <option value="0">0</option>
+              <option value="10">10</option>
+              <option value="20">20</option>
+              <option value="30">30</option>
+              <option value="40">40</option>
+              <option value="50">50</option>
+            </select>
+          </ErrorContainer>
+          <label htmlFor={priceId}>
+            Price<span aria-hidden="true">*</span> :
+          </label>
+          <ErrorContainer
+            errorText={priceError}
+            errorId={priceErrorId}
+            hasSubmitted={hasSubmitted}
+          >
+            <input
+              id={priceId}
+              type="number"
+              step="0.01"
+              name="price"
+              onChange={onChangeHandler}
+              value={internalData.price}
+              {...priceErrorProps}
+            />
+          </ErrorContainer>
+          <div className="button-container">
+            <button className="ok" type="submit">
+              Save
+            </button>
+            {onDelete && (
+              <button className="warning" type="button" onClick={onDelete}>
+                Delete
               </button>
-              {onDelete && (
-                <button className="warning" type="button" onClick={onDelete}>
-                  Delete
-                </button>
-              )}
-            </div>
-          </form>
-        </div>
+            )}
+          </div>
+        </form>
       </div>
     </div>
   );
@@ -212,8 +210,8 @@ const IceCream = ({
 
 IceCream.propTypes = {
   iceCream: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
+    id: PropTypes.number,
+    name: PropTypes.string,
   }),
   price: PropTypes.number,
   quantity: PropTypes.number,

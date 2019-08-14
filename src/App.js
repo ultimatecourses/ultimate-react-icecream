@@ -22,9 +22,9 @@ const App = () => {
       <Header />
       <Switch>
         <Route path="/" component={Menu} exact />
-        <Route path="/ice-creams" component={IceCreams} exact />
+        <Route path="/ice-creams" component={IceCreams} />
         <Route path="/menu-items/add" component={AddIceCream} exact />
-        <Route path="/menu-items/:menuItemId" component={EditIceCream} exact />
+        <Route path="/menu-items/:menuItemId" component={EditIceCream} />
         <Redirect to="/" />
       </Switch>
       <Footer />

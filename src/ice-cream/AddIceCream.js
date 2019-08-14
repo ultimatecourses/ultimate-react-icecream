@@ -19,9 +19,9 @@ const AddIceCream = ({ location, history }) => {
   useEffect(() => {
     setIsLoading(true);
     getIceCream(location.search.split('=')[1])
-      .then(iceCreamResponse => {
+      .then(item => {
         if (isMounted.current) {
-          setIceCream(iceCreamResponse);
+          setIceCream(item);
           setIsLoading(false);
         }
       })
